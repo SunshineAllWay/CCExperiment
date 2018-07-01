@@ -1,0 +1,35 @@
+Development Schedule
+
+[Restart] [21, May, 2018] Preparation for Project NGramModel.
+[Keep Moving 1] [22, May, 2018] Run the project with no error. Define and fix some classes.
+[Keep Moving 2] [22, May, 2018] Support the type parameter. Implement the function trainBasicNGramModel in the class BasicNGram, and it needs to be tested critically.
+[Keep Moving 3] [23, May, 2018] Improve the code in class Tokensequence(splitSequence etc.)
+[Keep Moving 4] [23, May, 2018] Simple test on the class BasicNGram, run with no errors.
+[Keep Moving 5] [24, May, 2018] Redefine hashCode() in class Tokensequence and optimize the structure of the project.
+[Keep Moving 6] [24, May, 2018] Find the corpus, and commit.
+[Keep Moving 7] [25, May, 2018] Try a new implementation of hashCode() in class Tokensequence.
+[Keep Moving 8] [25, May, 2018] Define interface AppRunNGram and CacheNGram which is the subclass of BasicNGram.
+[Keep Moving 9] [28, May, 2018] Define class Tokenstream to pack input token. Function importStreamFromFile in Tokenstream has not been well defined.
+[Keep Moving 10] [28, May, 2018] Succussful run and correct output. Structure of code need to be polished. Class and functions relevant to Type var K need to be redesigned.
+[Keep Moving 11] [29, May, 2018] Merge dataset2 into dataset1.
+[Keep Moving 12] [29, May, 2018] Add configuration file, and begin to implement multiple training files importer.
+[Keep Moving 13] [30, May, 2018] Accomplish the implemtation of multiple training files importer.
+[Keep Moving 14] [30, May, 2018] Some architecture optimization.
+[Keep Moving 15] [31, May, 2018] Add the Tokentransformer class and it need to be implemented totally. This can optimize the structure of code.
+[Keep Moving 16] [31, May, 2018] Define method convertCharStreamToTokenStream in Tokenstream.
+[Keep Moving 17] [1, June, 2018] Remove the Charstream.java and BasicNCharGram.java.Add some annotations.
+[Keep Moving 18] [1, June, 2018] Fix the error of N in BasicNGram Model. Add some annotations.
+[Keep Moving 19] [2, June, 2018] Fix the bug which cause output error in the inference.
+[Keep Moving 20] [4, June, 2018] Add time record and optimize the hashcode of several classes relevant to token.
+[Keep Moving 21] [5, June, 2018] Add refining module into the project. Implement laplacesmoothing.
+[Keep Moving 22] [5, June, 2018] Add other smoothing methods in the refineunit package. Create the module of evaluation.
+[Keep Moving 23] [6, June, 2018] Fix a bug in Tokensequence.java
+[Keep Moving 24] [6, June, 2018] Redesign NgramRunEngine and BasicNGram
+[Keep Moving 25] [7, June, 2018] Redesign the CorpusImporter module. Add some annotations.
+[Keep Moving 26] [11, June, 2018] Delete the class TokenTramsformer
+[Keep Moving 27] [12, June, 2018] Add seqProbModel in BasicNGram class. Bug: output 0.0
+[Keep Moving 28] [14, June,2018] Refine seqProModel and test successfully. Need to implement the probabilityCalculation in NLngramRunEngine using smoothing
+[Keep Moving 29] [14, June, 2018] List the subtasks in devmemo.txt
+[Keep Moving 30] [21, June, 2018] Download corpus PENN TREEBANK SAMPLE.
+[Keep Moving 31] [23, June, 2018] Change AbsolutePath to RelativePath
+[Keep Moving 32] [24, June, 2018] Implementation of BasicNGram and its evaluation DONE. Need debug.

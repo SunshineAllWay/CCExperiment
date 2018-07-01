@@ -1,0 +1,19 @@
+2018 07 01 开发日志
+待做项
+1、代码风格优化
+   与new ArrayList<K>(）中删除K类似的优化
+   类中方法的外注释、成员变量注释，保证能用IDE的文档生成器生成结果正确
+   删除不需要的代码（没有调用的代码、可以精简的部分）
+2、github及时更新
+3、在corpus3上测试结果正确（概率计算、token预测、Perplexity、Likelihood计算）
+4、提高BasicNGram模型的训练效率
+5、实现部分Smoothing操作
+6、多轮交叉验证，参考16年 naturalness 论文 Figure 1
+
+可能存在bug的模块：
+1、Smoothing操作
+2、BasicNGram中模型训练、条件概率计算部分
+
+亟需解决的问题：
+1、1-gram模型训练
+2、用1-gram对语料库建模时，Perplexity的计算
