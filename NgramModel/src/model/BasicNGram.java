@@ -1,16 +1,14 @@
 package model;
 
 import java.util.*;
-
-import iounit.CorpusImporter;
 import refineunit.LidstoneSmoothing;
 import refineunit.SmoothingType;
 import tokenunit.Token;
 import tokenunit.Tokensequence;
-import tokenunit.Tokencount;
 
-import static java.lang.Integer.min;
-import static refineunit.SmoothingType.Lidstone;
+import static java.lang.Math.min;
+import static refineunit.SmoothingType.*;
+
 
 /**
  * @author HHeart
@@ -21,7 +19,7 @@ public class BasicNGram<K> {
 	public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
 	public int modelType;      //0: natural language model;   1: programming language model
 	private int seqNum;        //number of sequence
-	private HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> seqCntModel;  //kernel model in n-gram
+	private HashMap<Tokensequence<K>, HashMap<K, Integer>> seqCntModel;  //kernel model in n-gram
 
 	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
@@ -40,11 +38,11 @@ public class BasicNGram<K> {
 		int len = wholeTokenList.size();
 
 		for (int i = 0; i < len; i++) {
-			ArrayList<K> nseq = new ArrayList<K>();
+			ArrayList<K> nseq = new ArrayList<>();
 			for (int j = 0; j < min(n, len - i); j++) {
 				nseq.add(wholeTokenList.get(i + j));
 			}
-			seqList.add(new Tokensequence<K>(nseq));
+			seqList.add(new Tokensequence<>(nseq));
 		}
 		return seqList;
 	}
@@ -58,32 +56,27 @@ public class BasicNGram<K> {
 		int len = tokenseqList.size();
 
 		for (int i = 0; i < len; i++) {
-			Tokensequence<K> tmptokenseq = tokenseqList.get(i);
-			Tokensequence<K> tmptokeninitseq = new Tokensequence<K>(tmptokenseq.getInitSequence().get());
-			Token<K> lastToken = new Token<K>(tmptokenseq.getLastToken().get());
-			boolean flag = true;
+			Tokensequence<K> tmpTokenSeq = tokenseqList.get(i);
+			Tokensequence<K> tmpTokenInitSeq = new Tokensequence<>(tmpTokenSeq.getInitSequence().get());
+			Token<K> lastToken = new Token<>(tmpTokenSeq.getLastToken().get());
+            HashMap<K, Integer> tokenCntMap;
 
-			if (seqCntModel.containsKey(tmptokeninitseq)) {
-				Iterator<Tokencount<K>> it = seqCntModel.get(tmptokeninitseq).iterator();
-				while (it.hasNext()) {
-					Tokencount<K> tc = it.next();
-					if (tc.mTokenElem.equals(lastToken.mTokenELem)) {
-						tc.addCount();
-						flag = false;
-						break;
-					}
-				}
-				if (flag) {
-					Tokencount<K> tc = new Tokencount<K>(lastToken.mTokenELem, 1);
-					seqCntModel.get(tmptokeninitseq).add(tc);
-				}
-			} else {
-				HashSet<Tokencount<K>> s = new HashSet<>();
-				Tokencount<K> tc = new Tokencount<K>(lastToken.mTokenELem, 1);
-				s.add(tc);
-				seqCntModel.put(tmptokeninitseq, s);
-				seqNum++;
-			}
+			if (seqCntModel.containsKey(tmpTokenInitSeq)) {
+                tokenCntMap = seqCntModel.get(tmpTokenInitSeq);
+                if (tokenCntMap.containsKey(lastToken.mTokenELem)) {
+                    int cnt = tokenCntMap.get(lastToken.mTokenELem);
+                    cnt++;
+                    //Try
+                    tokenCntMap.put(lastToken.mTokenELem, cnt);
+                } else {
+                    tokenCntMap.put(lastToken.mTokenELem, 1);
+                }
+            }else {
+                tokenCntMap = new HashMap<>();
+                tokenCntMap.put(lastToken.mTokenELem, 1);
+                seqCntModel.put(tmpTokenInitSeq, tokenCntMap);
+                seqNum++;
+            }
 		}
 	}
 
@@ -121,45 +114,40 @@ public class BasicNGram<K> {
 	 * get the map from token sequence to the set of tokencount
 	 * @return seqCntModel
 	 */
-	public HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> getBasicNGramCntModel() {
+	public HashMap<Tokensequence<K>, HashMap<K, Integer>> getBasicNGramCntModel() {
 		//get the model
 		return this.seqCntModel;
 	}
 
-	public Optional<HashSet<Tokencount<K>>> getBasicNGramCandidates(Tokensequence<K> nseq) {
-		//return set of candidates corresponding to nseq, which has the form of {Tokencount} 
-		
-		HashSet<Tokencount<K>> result = seqCntModel.get(nseq);
-		
-		if (result == null) {
-			return Optional.empty();
-		} else {
-			return Optional.of(result);
-		}
+    //return candidates corresponding to token sequence
+	public Optional<HashMap<K, Integer>> getBasicNGramCandidates(Tokensequence<K> tokenseq) {
+		if (seqCntModel.containsKey(tokenseq)) {
+		    return Optional.of(seqCntModel.get(tokenseq));
+        } else {
+            return Optional.empty();
+        }
 	}
 
-	//without smoothing
 	public double getRelativeProbability(Tokensequence<K> nseq, Token<K> t) {
-		Optional<HashSet<Tokencount<K>>> tokenCntSetOrNull = getBasicNGramCandidates(nseq);
-		if (!tokenCntSetOrNull.isPresent()) {
+		Optional<HashMap<K, Integer>> elemCollection = getBasicNGramCandidates(nseq);
+		if (!elemCollection.isPresent()) {
 			return (1.0 / seqNum);
 		}
 
-		HashSet<Tokencount<K>> tokencntset = tokenCntSetOrNull.get();
-		Iterator<Tokencount<K>> it = tokencntset.iterator();
+		HashMap<K, Integer> elemCntMap = elemCollection.get();
+		Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
 		int totalCnt = 0;
 		int captureCnt = 0;
 
 		while(it.hasNext()) {
-			Tokencount<K> tokencnt = it.next();
-			totalCnt += tokencnt.mCount;
-			if (tokencnt.mTokenElem.equals(t.mTokenELem)) {
-				captureCnt += tokencnt.mCount;
+			Map.Entry<K, Integer> entry = it.next();
+			totalCnt += entry.getValue();
+			if (entry.getKey().equals(t.mTokenELem)) {
+				captureCnt += entry.getValue();
 			}
 		}
 
 		double relativeProb = smoothing(captureCnt, totalCnt, Lidstone);
-
 		return relativeProb;
 	}
 

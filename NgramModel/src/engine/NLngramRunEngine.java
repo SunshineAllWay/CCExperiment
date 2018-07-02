@@ -1,14 +1,10 @@
 package engine;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
 import iounit.CorpusImporter;
 import model.BasicNGram;
 import tokenunit.Token;
 import tokenunit.Tokensequence;
-import tokenunit.Tokencount;
 
 import static java.lang.StrictMath.*;
 
@@ -39,15 +35,15 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		maxN = n;
 		gramArray = (BasicNGram<K>[]) new BasicNGram [n];
 		testRatio = ratio;
-		likelihood = new ArrayList<Double>();
-        perplexity = new ArrayList<Double>();
+		likelihood = new ArrayList<>();
+        perplexity = new ArrayList<>();
 
-		CorpusImporter<K> corpusImporter = new CorpusImporter<K>(type);
+		CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
 		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(testRatio);
 		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
 
 		for (int i = 0; i < n; i++) {
-			this.gramArray[i] = new BasicNGram<K>(i + 1, type);
+			this.gramArray[i] = new BasicNGram<>(i + 1, type);
 		}
 	}
 
@@ -58,15 +54,15 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		maxN = 3;
 		gramArray = (BasicNGram<K>[]) new BasicNGram [3];
 		testRatio = ratio;
-        likelihood = new ArrayList<Double>();
-        perplexity = new ArrayList<Double>();
+        likelihood = new ArrayList<>();
+        perplexity = new ArrayList<>();
 
-		CorpusImporter<K> corpusImporter = new CorpusImporter<K>(type);
+		CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
 		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(ratio);
 		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
 
 		for (int i = 0; i < 3; i++) {
-			this.gramArray[i] = new BasicNGram<K>(i + 1, type);
+			this.gramArray[i] = new BasicNGram<>(i + 1, type);
 		}
 	}
 
@@ -132,23 +128,21 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 *   p(a1) * p(a1 a2) * p(a2 a3) * p(a3 a4) * p(a4 a5) * ... * p(a_(n-2) a_(n-1))
 	 */
 	public double calculateProbability(Tokensequence<K> nseq) {
-        int n = maxN;
 		int seqlength = nseq.length();
 		double logprob = 0.0;
 
 		ArrayList<K> nseqContent = nseq.getSequence();
-		int i = 0;
+		int i;
 		int maxGramLength = min(maxN, seqlength);
 
         //TODO: probability of 1-gram
 		for (i = 0; i < maxGramLength; i++) {
-			Tokensequence<K> subTokenSeq = new Tokensequence<K>((K[])nseqContent.subList(0, i).toArray());
-			logprob += log(gramArray[i].getRelativeProbability(subTokenSeq, new Token<K>(nseqContent.get(i))));
-
+			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
+			logprob += log(gramArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
 		}
 		for (i = maxN; i < seqlength; i++) {
-			Tokensequence<K> subTokenSeq = new Tokensequence<K>((K[])nseqContent.subList(i - maxN, i).toArray());
-			logprob += log(gramArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token<K>(nseqContent.get(i))));
+			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(i - maxN, i).toArray());
+			logprob += log(gramArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
 		}
 
 		double prob = exp(logprob);
@@ -165,27 +159,29 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		int seqlength = nseq.length();
 
 		//POLISH
-		Optional<HashSet<Tokencount<K>>> opcandidates = gramArray[1].getBasicNGramCandidates(nseq.subTokenSequence(seqlength - 1, seqlength));
+		Optional<HashMap<K, Integer>> candiadates = gramArray[1].getBasicNGramCandidates(nseq.subTokenSequence(seqlength - 1, seqlength));
 
-		if (!opcandidates.isPresent()) {
+		if (!candiadates.isPresent()) {
 			return Optional.empty();
 		}
 
-		HashSet<Tokencount<K>> candidates = opcandidates.get();
-		Iterator<Tokencount<K>> it = candidates.iterator();
+		HashMap<K, Integer> elemCntMap = candiadates.get();
+        Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
 		double maxProb = 0.0;
 		K retElem = null;
 
 		//Need to polish, select the Tokencount with the maximal count in the set.
 		while(it.hasNext()) {
-			Tokencount<K> tmptc = it.next();
-			double prob = calculateProbability(nseq.append(new Token(tmptc.mTokenElem)));
+            Map.Entry<K, Integer> entry = it.next();
+			double prob = calculateProbability(nseq.append(new Token<>(entry.getKey())));
 			if (prob > maxProb) {
 				maxProb = prob;
-				retElem = tmptc.mTokenElem;
+				retElem = entry.getKey();
 			}
 		}
 
+		System.out.print("maxProb: ");
+		System.out.println(maxProb);
 		if (retElem == null) {
 			return Optional.empty();
 		} else {
@@ -209,12 +205,12 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		for (int i = 1; i < len; i++) {
 			int toIndex = i;
 			int fromIndex = max(0, i - n + 1);
-			ArrayList<K> seq = new ArrayList<K>();
+			ArrayList<K> seq = new ArrayList<>();
 			for (int k = fromIndex; k < toIndex; k++) {
 				seq.add(testingTokenList.get(fromIndex));
 			}
 
-			Tokensequence<K> tokenseq = new Tokensequence<K>(seq);
+			Tokensequence<K> tokenseq = new Tokensequence<>(seq);
 			Token<K> t = new Token<K>(testingTokenList.get(toIndex));
 			likelihood += log(gramArray[toIndex - fromIndex].getRelativeProbability(tokenseq, t));
 		}

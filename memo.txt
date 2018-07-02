@@ -32,4 +32,5 @@ Development Schedule
 [Keep Moving 29] [14, June, 2018] List the subtasks in devmemo.txt
 [Keep Moving 30] [21, June, 2018] Download corpus PENN TREEBANK SAMPLE.
 [Keep Moving 31] [23, June, 2018] Change AbsolutePath to RelativePath
-[Keep Moving 32] [24, June, 2018] Implementation of BasicNGram and its evaluation DONE. Need debug.
+[Keep Moving 32] [1, July, 2018] Implementation of BasicNGram and its evaluation DONE. Need debug.
+[Keep Moving 33] [2, July, 2018] Redegin kernel model seqCntModel in BasicNGram.

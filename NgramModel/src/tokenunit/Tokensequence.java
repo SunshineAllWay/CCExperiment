@@ -16,18 +16,11 @@ public class Tokensequence<K> {
 	private Optional<ArrayList<K>> initsequence;
 	private Optional<K> lastoken;
 	
-	//constructors
-	//The second constructor needs extra check before using
-	public Tokensequence(int n) {
-		this.n = n;
-		sequence = new ArrayList<K>();
-	}
-	
 	//If strArray.length is not equal to N in NGram model, it needs to report the failure
 	public Tokensequence(K[] tokenArray) {
 		int len = tokenArray.length;
 		this.n = len;
-		this.sequence = new ArrayList<K>();  //need to guarantee the pre-post order
+		this.sequence = new ArrayList<>();  //need to guarantee the pre-post order
 	
 		for (int i = 0; i < len; i++) {
 			this.sequence.add(tokenArray[i]);
@@ -49,7 +42,7 @@ public class Tokensequence<K> {
 			initsequence = Optional.of(tmpsequence);
 			lastoken = Optional.of(lastElem);
 		} else {
-			initsequence = Optional.of(new ArrayList<K>());
+			initsequence = Optional.of(new ArrayList<>());
 			lastoken = Optional.empty();
 		}
 	}
@@ -57,7 +50,7 @@ public class Tokensequence<K> {
 	public Tokensequence<K> append(Token ptoken) {
 		ArrayList<K> ls = sequence;
 		ls.add((K)ptoken.mTokenELem);
-		return new Tokensequence<K>(ls);
+		return (new Tokensequence<>(ls));
 	}
 	
 	public int length() {
@@ -79,7 +72,7 @@ public class Tokensequence<K> {
 	public Tokensequence<K> subTokenSequence(int indexFrom, int indexTo) {
 		List<K> tmpsequence = ((ArrayList<K>) sequence.clone()).subList(indexFrom, indexTo);
 		K[] tmparr = (K[])tmpsequence.toArray();
-		return new Tokensequence<>(tmparr);
+		return (new Tokensequence<>(tmparr));
 	}
 
 	//POLISH

@@ -14,10 +14,10 @@ import tokenunit.Tokensequence;
  */
 
 interface NgramRunEngine<K> {
-	public Optional<K> completePostToken(Tokensequence<K> nseq);
-	public double calculateProbability(Tokensequence<K> nseq);
-	public double calculateLikelihood(int n);
-	public double calculatePerplexity(int n);
-	public void evaluateModel();
-	public void run();
+	Optional<K> completePostToken(Tokensequence<K> nseq);
+	double calculateProbability(Tokensequence<K> nseq);
+	double calculateLikelihood(int n);
+	double calculatePerplexity(int n);
+	void evaluateModel();
+	void run();
 }

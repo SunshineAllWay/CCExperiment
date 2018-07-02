@@ -44,7 +44,7 @@ public class CorpusImporter<K> {
 	
 	//import Dictionary of Token Sequence from single file
 	public ArrayList<K> importCorpusFromSingleFile(File pfile) {
-		Tokenstream<K> corpustream = new Tokenstream<K>(pfile);
+		Tokenstream<K> corpustream = new Tokenstream<>(pfile);
 		return corpustream.getWholeStream();
 	}
 
@@ -55,7 +55,7 @@ public class CorpusImporter<K> {
 	public ArrayList<K> importTrainingCorpusFromBase(double ratio) {
 		//collect names of files in trainingDataSrcDir and store in trainingDataList
 		int fileNum = (int)(trainingDataFileList.size() * ratio);
-		ArrayList<K> tokenList = new ArrayList<K>();
+		ArrayList<K> tokenList = new ArrayList<>();
 		for (int i = 0; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
 		}
@@ -70,7 +70,7 @@ public class CorpusImporter<K> {
 		//collect names of files in trainingDataSrcDir and store in trainingDataList
 		int fileNum = trainingDataFileList.size();
 		int startIndex = (int)(fileNum * ratio);
-		ArrayList<K> tokenList = new ArrayList<K>();
+		ArrayList<K> tokenList = new ArrayList<>();
 		for (int i = startIndex; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
 		}
