@@ -18,8 +18,8 @@ public class Test {
     	runtest.run();
     	
     	ArrayList<Character> query = new ArrayList<Character>();
-    	query.add('µÂ');
-    	query.add('¹ú');
+    	query.add('å¾·');
+    	query.add('å›½');
     	
     	Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
     	double prob = runtest.calculateProbability(new Tokensequence<Character>(query));

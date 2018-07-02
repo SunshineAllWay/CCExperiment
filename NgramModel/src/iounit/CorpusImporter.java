@@ -20,7 +20,7 @@ public class CorpusImporter<K> {
 	public int datatype; //0: natural language data; 1: programming language data
 	
 	public CorpusImporter(int type) {
-		String dataInputPath = "NgramModel\\config\\corpuspath.properties";
+		String dataInputPath = "config\\corpuspath.properties";
 		datatype = type;
 
 		Properties properties = new Properties();  
