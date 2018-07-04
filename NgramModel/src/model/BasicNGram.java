@@ -37,9 +37,9 @@ public class BasicNGram<K> {
 		ArrayList<Tokensequence<K>> seqList = new ArrayList<>();
 		int len = wholeTokenList.size();
 
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < len - n + 1; i++) {
 			ArrayList<K> nseq = new ArrayList<>();
-			for (int j = 0; j < min(n, len - i); j++) {
+			for (int j = 0; j < n; j++) {
 				nseq.add(wholeTokenList.get(i + j));
 			}
 			seqList.add(new Tokensequence<>(nseq));
@@ -57,23 +57,22 @@ public class BasicNGram<K> {
 
 		for (int i = 0; i < len; i++) {
 			Tokensequence<K> tmpTokenSeq = tokenseqList.get(i);
-			Tokensequence<K> tmpTokenInitSeq = new Tokensequence<>(tmpTokenSeq.getInitSequence().get());
-			Token<K> lastToken = new Token<>(tmpTokenSeq.getLastToken().get());
+			Tokensequence<K> tmpTokenInitSeq = new Tokensequence<>(tmpTokenSeq.getInitSequence());
+			K lastTokenElem = tmpTokenSeq.getLastToken();
             HashMap<K, Integer> tokenCntMap;
 
 			if (seqCntModel.containsKey(tmpTokenInitSeq)) {
                 tokenCntMap = seqCntModel.get(tmpTokenInitSeq);
-                if (tokenCntMap.containsKey(lastToken.mTokenELem)) {
-                    int cnt = tokenCntMap.get(lastToken.mTokenELem);
+                if (tokenCntMap.containsKey(lastTokenElem)) {
+                    int cnt = tokenCntMap.get(lastTokenElem);
                     cnt++;
-                    //Try
-                    tokenCntMap.put(lastToken.mTokenELem, cnt);
+                    tokenCntMap.put(lastTokenElem, cnt);
                 } else {
-                    tokenCntMap.put(lastToken.mTokenELem, 1);
+                    tokenCntMap.put(lastTokenElem, 1);
                 }
-            }else {
+            } else {
                 tokenCntMap = new HashMap<>();
-                tokenCntMap.put(lastToken.mTokenELem, 1);
+                tokenCntMap.put(lastTokenElem, 1);
                 seqCntModel.put(tmpTokenInitSeq, tokenCntMap);
                 seqNum++;
             }
@@ -110,15 +109,6 @@ public class BasicNGram<K> {
 		System.out.println("Time cost: " + String.valueOf(trainTime2) + " ms");
 	}
 
-	/**
-	 * get the map from token sequence to the set of tokencount
-	 * @return seqCntModel
-	 */
-	public HashMap<Tokensequence<K>, HashMap<K, Integer>> getBasicNGramCntModel() {
-		//get the model
-		return this.seqCntModel;
-	}
-
     //return candidates corresponding to token sequence
 	public Optional<HashMap<K, Integer>> getBasicNGramCandidates(Tokensequence<K> tokenseq) {
 		if (seqCntModel.containsKey(tokenseq)) {
@@ -147,7 +137,7 @@ public class BasicNGram<K> {
 			}
 		}
 
-		double relativeProb = smoothing(captureCnt, totalCnt, Lidstone);
+		double relativeProb = smoothing(captureCnt, totalCnt, NONE);
 		return relativeProb;
 	}
 
@@ -160,5 +150,18 @@ public class BasicNGram<K> {
 			default:
 				return (1.0 * count1) / count2;
 		}
+	}
+
+	/**
+	 * get the map from token sequence to the set of tokencount
+	 * @return seqCntModel
+	 */
+	public HashMap<Tokensequence<K>, HashMap<K, Integer>> getBasicNGramCntModel() {
+		//get the model
+		return this.seqCntModel;
+	}
+
+	public int getSeqNum() {
+		return this.seqNum;
 	}
 }

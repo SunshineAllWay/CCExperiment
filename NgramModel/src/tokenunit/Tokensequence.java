@@ -13,8 +13,8 @@ public class Tokensequence<K> {
 	public int n;  //length of token sequence
 	public ArrayList<K> sequence;
 	
-	private Optional<ArrayList<K>> initsequence;
-	private Optional<K> lastoken;
+	private ArrayList<K> initSequence;
+	private K lastToken;
 	
 	//If strArray.length is not equal to N in NGram model, it needs to report the failure
 	public Tokensequence(K[] tokenArray) {
@@ -36,14 +36,14 @@ public class Tokensequence<K> {
 	}
 
 	public void splitTokenSeq() {
-		if (n > 0) {
+		if (n > 1) {
 			ArrayList<K> tmpsequence = (ArrayList<K>) sequence.clone();
 			K lastElem = tmpsequence.remove(n - 1);
-			initsequence = Optional.of(tmpsequence);
-			lastoken = Optional.of(lastElem);
+			initSequence = tmpsequence;
+			lastToken = lastElem;
 		} else {
-			initsequence = Optional.of(new ArrayList<>());
-			lastoken = Optional.empty();
+			initSequence = sequence;
+			lastToken = null;
 		}
 	}
 
@@ -61,12 +61,12 @@ public class Tokensequence<K> {
 		return this.sequence;
 	}
 
-	public Optional<ArrayList<K>> getInitSequence() {
-		return this.initsequence;
+	public ArrayList<K> getInitSequence() {
+		return this.initSequence;
 	}
 
-	public Optional<K> getLastToken() {
-		return this.lastoken;
+	public K getLastToken() {
+		return this.lastToken;
 	}
 
 	public Tokensequence<K> subTokenSequence(int indexFrom, int indexTo) {
@@ -108,8 +108,8 @@ public class Tokensequence<K> {
 	}
 	
 	public String toString() {
-		Integer ninteger = new Integer(n);
-		String str = ninteger.toString();
+		Integer nInt = new Integer(n);
+		String str = nInt.toString();
 		int len = sequence.size();
 		
 		for (int i = 0; i < len; i++) {

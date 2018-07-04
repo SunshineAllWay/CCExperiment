@@ -75,10 +75,10 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		for (int i = 0; i < gramArray.length; i++) {
 			System.out.println("---------------------------------");
 			System.out.print(Integer.toString(i + 1) + "-gram");
-			System.out.println(" single preaction beginning");
+			System.out.println(" single pre-action beginning");
 			gramArray[i].preAction(trainingTokenList);
 			System.out.print(Integer.toString(i + 1) + "-gram");
-			System.out.println(" single preaction finished");
+			System.out.println(" single pre-action finished");
 			System.out.println("---------------------------------");
 			System.out.println();
 		}
@@ -135,13 +135,13 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		int i;
 		int maxGramLength = min(maxN, seqlength);
 
-        //TODO: probability of 1-gram
-		for (i = 0; i < maxGramLength; i++) {
+        //TODO: probability of 1-gram, assme all tokens in the sequence appear in the training list
+		for (i = 1; i < maxGramLength; i++) {
 			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
 			logprob += log(gramArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
 		}
 		for (i = maxN; i < seqlength; i++) {
-			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(i - maxN, i).toArray());
+			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(i - maxN + 1, i).toArray());
 			logprob += log(gramArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
 		}
 
@@ -195,19 +195,29 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 * @return the likelihood of n-gram in the testing corpus
 	 */
 	public double calculateLikelihood(int n) {
-	    if (n == 1) {
-            return 1.0;
-        }
+        double likelihood = 0.0;
+        int len = testingTokenList.size();
 
-		double likelihood = 0.0;
-		int len = testingTokenList.size();
+        //Assume tokens in testing list all appeared in the training list, and it can't stand in many situations
+	    if (n == 1) {
+			int seqNum = gramArray[0].getSeqNum();
+			for (int i = 0; i < len; i++) {
+			    ArrayList<K> tokenseq = new ArrayList<>();
+			    tokenseq.add(testingTokenList.get(i));
+			    HashMap<K, Integer> map = gramArray[0].getBasicNGramCntModel().get(new Tokensequence<>(tokenseq));
+			    int count = map.get(null);
+			    double prob =  count * 1.0 / seqNum;
+                likelihood += log(prob);
+            }
+            return likelihood;
+        }
 
 		for (int i = 1; i < len; i++) {
 			int toIndex = i;
 			int fromIndex = max(0, i - n + 1);
 			ArrayList<K> seq = new ArrayList<>();
 			for (int k = fromIndex; k < toIndex; k++) {
-				seq.add(testingTokenList.get(fromIndex));
+				seq.add(testingTokenList.get(k));
 			}
 
 			Tokensequence<K> tokenseq = new Tokensequence<>(seq);
