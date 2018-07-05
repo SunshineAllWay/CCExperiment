@@ -84,7 +84,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		}
 		System.out.println("N-gram engine for natural language is prepared");
 
-		evaluateModel();
+		//evaluateModel();
 	}
 
     /**
@@ -135,7 +135,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		int i;
 		int maxGramLength = min(maxN, seqlength);
 
-        //TODO: probability of 1-gram, assme all tokens in the sequence appear in the training list
+        //TODO: probability of 1-gram, assume all tokens in the sequence appear in the training list
 		for (i = 1; i < maxGramLength; i++) {
 			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
 			logprob += log(gramArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
@@ -146,26 +146,28 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		}
 
 		double prob = exp(logprob);
+
 		return prob;
 	}
 
 	/**
 	 * Infer and recommend the post token for current token sequence
-	 * @param nseq: token sequence
+	 * @param seq: token sequence
 	 * @return the most likely post token of nseq(can be null)
 	 */
-	public Optional<K> completePostToken(Tokensequence<K> nseq) {
+	public Optional<K> completePostToken(Tokensequence<K> seq) {
 		//get the candidates from 2-gram model
-		int seqlength = nseq.length();
+		Tokensequence<K> nseq = new Tokensequence<>((ArrayList<K>)seq.getSequence().clone());
 
 		//POLISH
-		Optional<HashMap<K, Integer>> candiadates = gramArray[1].getBasicNGramCandidates(nseq.subTokenSequence(seqlength - 1, seqlength));
+        Tokensequence<K> lastSeq = nseq.subTokenSequence(nseq.length() - 1, nseq.length());
+        HashMap<K, Integer> elemCntMap = gramArray[1].getBasicNGramCntModel().get(lastSeq);
 
-		if (!candiadates.isPresent()) {
+		if (elemCntMap == null) {
 			return Optional.empty();
 		}
 
-		HashMap<K, Integer> elemCntMap = candiadates.get();
+		//HashMap<K, Integer> elemCntMap = candiadates.get();
         Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
 		double maxProb = 0.0;
 		K retElem = null;
@@ -180,8 +182,6 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			}
 		}
 
-		System.out.print("maxProb: ");
-		System.out.println(maxProb);
 		if (retElem == null) {
 			return Optional.empty();
 		} else {
@@ -205,7 +205,12 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			    ArrayList<K> tokenseq = new ArrayList<>();
 			    tokenseq.add(testingTokenList.get(i));
 			    HashMap<K, Integer> map = gramArray[0].getBasicNGramCntModel().get(new Tokensequence<>(tokenseq));
-			    int count = map.get(null);
+			    int count;
+			    if (map == null) {
+			    	count = 1;
+				} else {
+					count = map.get(null);
+				}
 			    double prob =  count * 1.0 / seqNum;
                 likelihood += log(prob);
             }
@@ -222,7 +227,8 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 
 			Tokensequence<K> tokenseq = new Tokensequence<>(seq);
 			Token<K> t = new Token<K>(testingTokenList.get(toIndex));
-			likelihood += log(gramArray[toIndex - fromIndex].getRelativeProbability(tokenseq, t));
+			double prob = gramArray[toIndex - fromIndex].getRelativeProbability(tokenseq, t);
+			likelihood += log(prob);
 		}
 		return likelihood;
 	}
@@ -247,4 +253,23 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
         double perplexity = exp(-likelihood * log(2) / testingTokenList.size());
         return perplexity;
     }
+
+    /**
+     * get post token information using backoff
+     * @param tokenseq: prefix token sequence
+     * @param i: model parameter plus 1, assume i is equal to the length of prefix token sequence
+     * @return post token candidates and counts
+     */
+	public HashMap<K, Integer> getPostTokenInfo(Tokensequence<K> tokenseq, int i) {
+		if (i >= 0) {
+			HashMap<K, Integer> map = gramArray[i].getBasicNGramCntModel().get(tokenseq);
+			if (map != null) {
+				return map;
+			} else {
+			    Tokensequence<K> tailTokenSeq = tokenseq.subTokenSequence(1, tokenseq.length());
+				return getPostTokenInfo(tailTokenSeq, i - 1);
+			}
+		}
+		return null;
+	}
 }

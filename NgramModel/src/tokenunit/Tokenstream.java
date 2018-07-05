@@ -41,7 +41,7 @@ public class Tokenstream<K> {
 		ArrayList<Character> strStream = new ArrayList<Character>();
 
 		try {
-			reader = new InputStreamReader(new FileInputStream(tokenSourceFile));
+			reader = new InputStreamReader(new FileInputStream(tokenSourceFile), "UTF-8");
 			int tempchar;
 			while ((tempchar = reader.read()) != -1) {
 				if (((char) tempchar) != '\r') {

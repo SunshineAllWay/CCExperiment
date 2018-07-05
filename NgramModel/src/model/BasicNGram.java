@@ -20,12 +20,14 @@ public class BasicNGram<K> {
 	public int modelType;      //0: natural language model;   1: programming language model
 	private int seqNum;        //number of sequence
 	private HashMap<Tokensequence<K>, HashMap<K, Integer>> seqCntModel;  //kernel model in n-gram
+    public HashSet<K> dic;   //dictionary of token elements
 
 	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
 		this.modelType = type;
 		this.seqNum = 0;
 		this.seqCntModel = new HashMap<>();
+		this.dic = new HashSet<>();
 	}
 
 	/**
@@ -41,6 +43,7 @@ public class BasicNGram<K> {
 			ArrayList<K> nseq = new ArrayList<>();
 			for (int j = 0; j < n; j++) {
 				nseq.add(wholeTokenList.get(i + j));
+				dic.add(wholeTokenList.get(i + j));
 			}
 			seqList.add(new Tokensequence<>(nseq));
 		}
@@ -119,6 +122,7 @@ public class BasicNGram<K> {
 	}
 
 	public double getRelativeProbability(Tokensequence<K> nseq, Token<K> t) {
+	    //TODO: Need to polish
 		Optional<HashMap<K, Integer>> elemCollection = getBasicNGramCandidates(nseq);
 		if (!elemCollection.isPresent()) {
 			return (1.0 / seqNum);
@@ -137,14 +141,14 @@ public class BasicNGram<K> {
 			}
 		}
 
-		double relativeProb = smoothing(captureCnt, totalCnt, NONE);
+		double relativeProb = smoothing(totalCnt, captureCnt, Lidstone);
 		return relativeProb;
 	}
 
 	public double smoothing(int count1, int count2, SmoothingType type) {
 		switch (type) {
 			case Lidstone:
-				LidstoneSmoothing sm = new LidstoneSmoothing(0.5, seqNum);
+				LidstoneSmoothing sm = new LidstoneSmoothing(0.5, dic.size());
 				return sm.probAfterSmoothing(count1, count2);
 
 			default:
