@@ -125,7 +125,7 @@ public class BasicNGram<K> {
 	    //TODO: Need to polish
 		Optional<HashMap<K, Integer>> elemCollection = getBasicNGramCandidates(nseq);
 		if (!elemCollection.isPresent()) {
-			return (1.0 / seqNum);
+			return (1.0 / dic.size());
 		}
 
 		HashMap<K, Integer> elemCntMap = elemCollection.get();
@@ -148,6 +148,7 @@ public class BasicNGram<K> {
 	public double smoothing(int count1, int count2, SmoothingType type) {
 		switch (type) {
 			case Lidstone:
+				//TODO: Error prone
 				LidstoneSmoothing sm = new LidstoneSmoothing(0.5, dic.size());
 				return sm.probAfterSmoothing(count1, count2);
 

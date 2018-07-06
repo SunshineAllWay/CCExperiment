@@ -39,8 +39,10 @@ public class Test {
 		/*********************************** Test case 2 **************************************/
         //德国味
 		query = new ArrayList<>();
-        query.add('德');
-        query.add('国');
+        query.add('床');
+        query.add('小');
+        query.add('得');
+        query.add('可');
 
         queryseq = new Tokensequence<>(query);
         System.out.println(query);
@@ -97,7 +99,7 @@ public class Test {
     public static void main(String[] args) {
     	NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(3, 0, 0.8);
     	runtest.run();
-		//testRun(runtest);
+		testRun(runtest);
 		evaluateRun(runtest);
     }
 }

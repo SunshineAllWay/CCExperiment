@@ -36,3 +36,4 @@ Development Schedule
 [Keep Moving 33] [2, July, 2018] Redegin kernel model seqCntModel in BasicNGram.
 [Keep Moving 34] [4, July, 2018] Get right perplexity.
 [Keep Moving 35] [5, July, 2018] Configure Chinese Corpus. Accomplish Chinese character inference. The Cacluation of likelihood and perplexity still need debug.
+[Keep Moving 36] [6, July, 2018] Update the developmenet memo.
