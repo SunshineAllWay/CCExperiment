@@ -19,5 +19,6 @@ interface NgramRunEngine<K> {
 	double calculateLikelihood(int n);
 	double calculatePerplexity(int n);
 	void evaluateModel();
+	void preAction();
 	void run();
 }

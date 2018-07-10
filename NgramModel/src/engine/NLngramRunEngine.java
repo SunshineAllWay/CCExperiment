@@ -28,41 +28,41 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
     public ArrayList<Double> likelihood;        //likelihood of n-gram model
     public ArrayList<Double> perplexity;        //perplexity of n-gram model
 	/**
-	 * @param n: the max parameter of n-gram models
-	 * @param type:  0:natural language model;   1: programming language model
+	 * @param n the max parameter of n-gram models
+	 * @param ratio  the radio of testing files
 	 */
-	public NLngramRunEngine(int n, int type, double ratio) {
+	public NLngramRunEngine(int n, double ratio) {
 		maxN = n;
 		gramArray = (BasicNGram<K>[]) new BasicNGram [n];
 		testRatio = ratio;
 		likelihood = new ArrayList<>();
         perplexity = new ArrayList<>();
 
-		CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
+		CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
 		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(testRatio);
 		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
 
 		for (int i = 0; i < n; i++) {
-			this.gramArray[i] = new BasicNGram<>(i + 1, type);
+			this.gramArray[i] = new BasicNGram<>(i + 1, 0);
 		}
 	}
 
 	/**
-	 * @param type:  0:natural language model;   1: programming language model
+	 * @param ratio  the radio of testing files
 	 */
-	public NLngramRunEngine(int type, double ratio) {
+	public NLngramRunEngine(double ratio) {
 		maxN = 3;
 		gramArray = (BasicNGram<K>[]) new BasicNGram [3];
 		testRatio = ratio;
         likelihood = new ArrayList<>();
         perplexity = new ArrayList<>();
 
-		CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
+		CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
 		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(ratio);
 		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
 
 		for (int i = 0; i < 3; i++) {
-			this.gramArray[i] = new BasicNGram<>(i + 1, type);
+			this.gramArray[i] = new BasicNGram<>(i + 1, 0);
 		}
 	}
 
@@ -83,8 +83,6 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			System.out.println();
 		}
 		System.out.println("N-gram engine for natural language is prepared");
-
-		//evaluateModel();
 	}
 
     /**
@@ -161,7 +159,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 
 		//POLISH
         Tokensequence<K> lastSeq = nseq.subTokenSequence(nseq.length() - 1, nseq.length());
-        HashMap<K, Integer> elemCntMap = gramArray[1].getBasicNGramCntModel().get(lastSeq);
+        HashMap<K, Integer> elemCntMap = gramArray[1].getModel().get(lastSeq);
 
 		if (elemCntMap == null) {
 			return Optional.empty();
@@ -204,7 +202,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			for (int i = 0; i < len; i++) {
 			    ArrayList<K> tokenseq = new ArrayList<>();
 			    tokenseq.add(testingTokenList.get(i));
-			    HashMap<K, Integer> map = gramArray[0].getBasicNGramCntModel().get(new Tokensequence<>(tokenseq));
+			    HashMap<K, Integer> map = gramArray[0].getModel().get(new Tokensequence<>(tokenseq));
 			    int count;
 			    if (map == null) {
 			    	count = 1;
@@ -262,7 +260,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
      */
 	public HashMap<K, Integer> getPostTokenInfo(Tokensequence<K> tokenseq, int i) {
 		if (i >= 0) {
-			HashMap<K, Integer> map = gramArray[i].getBasicNGramCntModel().get(tokenseq);
+			HashMap<K, Integer> map = gramArray[i].getModel().get(tokenseq);
 			if (map != null) {
 				return map;
 			} else {

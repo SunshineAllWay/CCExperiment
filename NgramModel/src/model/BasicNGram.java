@@ -5,8 +5,6 @@ import refineunit.LidstoneSmoothing;
 import refineunit.SmoothingType;
 import tokenunit.Token;
 import tokenunit.Tokensequence;
-
-import static java.lang.Math.min;
 import static refineunit.SmoothingType.*;
 
 
@@ -16,12 +14,17 @@ import static refineunit.SmoothingType.*;
  */
 
 public class BasicNGram<K> {
-	public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
+    public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
 	public int modelType;      //0: natural language model;   1: programming language model
 	private int seqNum;        //number of sequence
 	private HashMap<Tokensequence<K>, HashMap<K, Integer>> seqCntModel;  //kernel model in n-gram
-    public HashSet<K> dic;   //dictionary of token elements
+    public HashSet<K> dic;     //dictionary of token elements
 
+	/**
+	 * Construct an object of BasicNGram
+	 * @param ngramN the length of gram in n-gram model
+	 * @param type the type of n-gram model, type = 0 when the model process natural language, type = 1 for PL
+	 */
 	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
 		this.modelType = type;
@@ -32,7 +35,7 @@ public class BasicNGram<K> {
 
 	/**
 	 * split the list of tokens into the list of sequences of tokens
-	 * @param wholeTokenList: the list of tokens
+	 * @param wholeTokenList the list of tokens
 	 * @return the list of sequences of tokens with length n
 	 */
 	public ArrayList<Tokensequence<K>> splitWholeTokenList(ArrayList<K> wholeTokenList) {
@@ -53,7 +56,7 @@ public class BasicNGram<K> {
 	//error prone
 	/**
 	 * train seqCntModel to calculate the probability of a given sequence
-	 * @param tokenseqList: the list of sequences of tokens extracted from corpus
+	 * @param tokenseqList the list of sequences of tokens extracted from corpus
 	 */
 	private void trainBasicNGramCntModel(ArrayList<Tokensequence<K>> tokenseqList) {
 		int len = tokenseqList.size();
@@ -112,7 +115,12 @@ public class BasicNGram<K> {
 		System.out.println("Time cost: " + String.valueOf(trainTime2) + " ms");
 	}
 
-    //return candidates corresponding to token sequence
+
+    /**
+     * return candidates corresponding to token sequence
+     * @param tokenseq token sequence
+     * @return candidates corresponding to token sequence
+     */
 	public Optional<HashMap<K, Integer>> getBasicNGramCandidates(Tokensequence<K> tokenseq) {
 		if (seqCntModel.containsKey(tokenseq)) {
 		    return Optional.of(seqCntModel.get(tokenseq));
@@ -121,6 +129,12 @@ public class BasicNGram<K> {
         }
 	}
 
+    /**
+     * Calculate the relative probability of a given token being the post token of token sequence
+     * @param nseq prefix token sequence
+     * @param t last token
+     * @return relative probability of t being the post token of nseq
+     */
 	public double getRelativeProbability(Tokensequence<K> nseq, Token<K> t) {
 	    //TODO: Need to polish
 		Optional<HashMap<K, Integer>> elemCollection = getBasicNGramCandidates(nseq);
@@ -145,15 +159,22 @@ public class BasicNGram<K> {
 		return relativeProb;
 	}
 
+    /**
+     * return the probability after smooth operation
+     * @param count1 total count
+     * @param count2 captured count
+     * @param type type of smooth, NONE for no smooth operation
+     * @return the probability after smooth operation
+     */
 	public double smoothing(int count1, int count2, SmoothingType type) {
 		switch (type) {
 			case Lidstone:
 				//TODO: Error prone
-				LidstoneSmoothing sm = new LidstoneSmoothing(0.5, dic.size());
+				LidstoneSmoothing sm = new LidstoneSmoothing(0.1, dic.size());
 				return sm.probAfterSmoothing(count1, count2);
 
 			default:
-				return (1.0 * count1) / count2;
+				return (1.0 * count2) / count1;
 		}
 	}
 
@@ -161,12 +182,36 @@ public class BasicNGram<K> {
 	 * get the map from token sequence to the set of tokencount
 	 * @return seqCntModel
 	 */
-	public HashMap<Tokensequence<K>, HashMap<K, Integer>> getBasicNGramCntModel() {
+	public HashMap<Tokensequence<K>, HashMap<K, Integer>> getModel() {
 		//get the model
 		return this.seqCntModel;
 	}
 
+    /**
+     * return the number of sequences
+     * @return the number of sequences
+     */
 	public int getSeqNum() {
 		return this.seqNum;
+	}
+
+	/**
+	 * Return the number of sequence with the given prefix
+	 * @param prefix given prefix
+	 * @return the number of sequence with the given prefix
+	 */
+	public int getSeqWithSpecificPrefix(Tokensequence<K> prefix) {
+		HashMap<K, Integer> cntmap = seqCntModel.get(prefix);
+		if (cntmap == null) {
+			return 0;
+		}
+
+		Iterator<Map.Entry<K, Integer>> it = cntmap.entrySet().iterator();
+		int cnt = 0;
+		while(it.hasNext()) {
+			cnt += it.next().getValue();
+		}
+
+		return cnt;
 	}
 }
