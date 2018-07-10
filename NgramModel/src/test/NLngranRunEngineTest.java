@@ -11,7 +11,7 @@ import tokenunit.Tokensequence;
  * Test model
  */
 
-public class Test {
+class NLngramRunEngineTest {
     public static void testRun(NLngramRunEngine<Character> runtest) {
 
         /*********************************** Test case 1 **************************************/

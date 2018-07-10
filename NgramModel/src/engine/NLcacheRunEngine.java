@@ -103,11 +103,13 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
             return Optional.empty();
         }
 
-        ArrayList<K> tailStream = (ArrayList<K>)currentFileTokenStream.subList(length - prefixLength, length);
+        ArrayList<K> tailStream = new ArrayList<>();
+        tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
 
         //get the candidates from 2-gram model
-        ArrayList<K> miniTailStream = (ArrayList<K>)tailStream.subList(prefixLength - 1, prefixLength);
-        Tokensequence<K> seq = new Tokensequence<>(miniTailStream);
+        ArrayList<K> miniTailStream = new ArrayList<>();
+        miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
+        Tokensequence<K> seq = new Tokensequence<>(tailStream);
         Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
         HashMap<K, Integer> elemCntMap = new HashMap<>();
 
@@ -126,7 +128,10 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         //Need to polish, select the Tokencount with the maximal count in the set.
         while(it.hasNext()) {
             Map.Entry<K, Integer> entry = it.next();
-            double prob = calculateProbability(seq.append(new Token<>(entry.getKey())));
+            ArrayList<K> completeTailStream = (ArrayList<K>)tailStream.clone();
+            completeTailStream.add(entry.getKey());
+            Tokensequence<K> nseq = new Tokensequence<K>(completeTailStream);
+            double prob = calculateProbability(nseq);
             if (prob > maxProb) {
                 maxProb = prob;
                 retElem = entry.getKey();
@@ -148,7 +153,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
      */
 
     /** maxN = 3
-     * using refineunit such as LidstoneSmoothing
+     * using refine unit such as Lidstone Smoothing
      * P(a1 a2 a3 a4 ... ak ... a_(n-1), an)
      * = p(a1) * p(a2 | a1) * p(a3 | a1 a2) * ... * p(an | a_(n-2) a_(n-1))
      * = p(a1) * (p(a1 a2) / p(a1)) * (p(a1 a2 a3) / p(a1 a2)) * ... * p(a_(n-2) a_(n-1) a_n) / p(a_(n-2) a_(n-1))
@@ -184,6 +189,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
     public void reloadCacheContent() {
         CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
         int fileNum = cacheFileList.size();
+        cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < fileNum; i++) {
             cacheTokenStream.addAll(corpusImporter.importCorpusFromSingleFile(cacheFileList.get(i)));

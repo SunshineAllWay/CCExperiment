@@ -173,7 +173,9 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		//Need to polish, select the Tokencount with the maximal count in the set.
 		while(it.hasNext()) {
             Map.Entry<K, Integer> entry = it.next();
-			double prob = calculateProbability(nseq.append(new Token<>(entry.getKey())));
+            ArrayList<K> ls = (ArrayList<K>)nseq.getSequence().clone();
+            ls.add(entry.getKey());
+			double prob = calculateProbability(new Tokensequence<>(ls));
 			if (prob > maxProb) {
 				maxProb = prob;
 				retElem = entry.getKey();
