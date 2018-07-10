@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Optional;
 
 public interface CacheRunEngine<K> {
-    Optional<K> completePostToken(Tokensequence<K> nseq);
+    Optional<K> completePostToken();
     double calculateProbability(Tokensequence<K> nseq);
     void reloadCacheContent();
     void updateCacheList(File newCurFile);
