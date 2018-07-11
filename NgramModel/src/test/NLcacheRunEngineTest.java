@@ -9,7 +9,7 @@ import java.util.Optional;
 public class NLcacheRunEngineTest {
     public static void main(String[] args) {
         File currentFile = new File("corpus\\natural_language_dataset3\\writing.txt");
-        NLcacheRunEngine<Character> runtest = new NLcacheRunEngine<>(3, 1, currentFile);
+        NLcacheRunEngine<Character> runtest = new NLcacheRunEngine<>(3, 0, currentFile);
         runtest.run();
         Optional<Character> optoken = runtest.completePostToken();
 

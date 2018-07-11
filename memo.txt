@@ -39,3 +39,4 @@ Development Schedule
 [Keep Moving 36] [6, July, 2018] Update the developmenet memo.
 [Keep Moving 37] [10, July, 2018] Implement the cache model, need to test and refine.
 [Keep Moving 38] [11, July, 2018] Test the cache model successfully, the module of token completion ran free of bugs.
+[Keep Moving 39] [12, July, 2018] Add search unit, and implement BFContextSearcher UNFINISHED.
