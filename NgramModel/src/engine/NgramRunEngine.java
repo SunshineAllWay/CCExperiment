@@ -13,12 +13,8 @@ import tokenunit.Tokensequence;
  * @param <K>: type of element in n-gram model
  */
 
-interface NgramRunEngine<K> {
-	Optional<K> completePostToken(Tokensequence<K> nseq);
-	double calculateProbability(Tokensequence<K> nseq);
+interface NgramRunEngine<K> extends CCRunEngine<K>{
 	double calculateLikelihood(int n);
 	double calculatePerplexity(int n);
 	void evaluateModel();
-	void preAction();
-	void run();
 }

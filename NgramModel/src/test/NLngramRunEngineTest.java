@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import engine.NLngramRunEngine;
+import searchunit.BFContextSearcher;
 import tokenunit.Tokensequence;
 
 /**
@@ -23,9 +24,11 @@ class NLngramRunEngineTest {
 
         Tokensequence<Character> queryseq = new Tokensequence<>(query);
         System.out.println(query);
-        Optional<Character> inferredWord = runtest.completePostToken(queryseq);
-        if (inferredWord.isPresent()) {
-            System.out.println(inferredWord.get());
+        ArrayList<Character> inferredWord = runtest.completePostToken(queryseq);
+        if (inferredWord.size() != 0) {
+            for (int i = 0; i < inferredWord.size(); i++) {
+                System.out.println(inferredWord.get(i));
+            }
         } else {
             System.out.println("miss value");
         }
@@ -46,8 +49,10 @@ class NLngramRunEngineTest {
         queryseq = new Tokensequence<>(query);
         System.out.println(query);
         inferredWord = runtest.completePostToken(queryseq);
-        if (inferredWord.isPresent()) {
-            System.out.println(inferredWord.get());
+        if (inferredWord.size() != 0) {
+            for (int i = 0; i < inferredWord.size(); i++) {
+                System.out.println(inferredWord.get(i));
+            }
         } else {
             System.out.println("miss value");
         }
@@ -67,8 +72,10 @@ class NLngramRunEngineTest {
         queryseq = new Tokensequence<>(query);
         System.out.println(query);
         inferredWord = runtest.completePostToken(queryseq);
-        if (inferredWord.isPresent()) {
-            System.out.println(inferredWord.get());
+        if (inferredWord.size() != 0) {
+            for (int i = 0; i < inferredWord.size(); i++) {
+                System.out.println(inferredWord.get(i));
+            }
         } else {
             System.out.println("miss value");
         }
@@ -95,10 +102,28 @@ class NLngramRunEngineTest {
         }
     }
 
+    public static void testContextSearcher(NLngramRunEngine<Character> runtest) {
+        BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest, 0.8, 1.5);
+        ArrayList<Character> query = new ArrayList<>();
+        query.add('房');
+        query.add('间');
+        query.add('很');
+        query.add('整');
+        query.add('洁');
+
+        Tokensequence<Character> queryseq = new Tokensequence<>(query);
+        ArrayList<Tokensequence<Character>> searchResult = fuzzySearcher.getSimilarSequences(queryseq);
+
+        for (int i = 0; i < searchResult.size(); i++) {
+            System.out.println(searchResult.get(i));
+        }
+    }
+
     public static void main(String[] args) {
-        NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(3, 0.8);
+        NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(3, 1);
         runtest.run();
-        testRun(runtest);
-        evaluateRun(runtest);
+        //testRun(runtest);
+        //evaluateRun(runtest);
+        testContextSearcher(runtest);
     }
 }

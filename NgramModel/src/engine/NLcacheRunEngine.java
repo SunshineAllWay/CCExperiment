@@ -15,7 +15,7 @@ import static java.lang.StrictMath.log;
 import static java.lang.StrictMath.min;
 
 public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
-    private int maxN;                          //maximal parameter in gramArray
+    public int maxN;                          //maximal parameter in gramArray
     private double gamma;                      //concentration parameter
     private CacheModel<K>[] cacheModelArray;   //unigram, bigram, trigram or unigram ...ngram
 
@@ -86,6 +86,74 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         System.out.println("Cache engine for natural language is prepared");
     }
 
+    /**
+     * Infer and recommend the post token for current file
+     * @param seq specify the token sequence
+     * @return the most likely post token of the sequence
+     */
+    public ArrayList<K> completePostToken(Tokensequence<K> seq) {
+        //retain the cache components
+        retrainCacheModel();
+        int length = seq.getSequence().size();
+        Tokensequence<K> nseq = new Tokensequence<>((ArrayList<K>)seq.getSequence().clone());
+        int prefixLength = Math.min(length, maxN);
+
+        ArrayList<K> candidatesList = new ArrayList<>();
+
+        if (length == 0) {
+            return candidatesList;
+        }
+
+        ArrayList<K> tailStream = new ArrayList<>();
+        tailStream.addAll(seq.getSequence().subList(length - prefixLength, length));
+
+        //get the candidates from 2-gram model
+        ArrayList<K> miniTailStream = new ArrayList<>();
+        miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
+        Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
+        HashMap<K, Integer> elemCntMap = new HashMap<>();
+
+        elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
+        elemCntMap.putAll(cacheModelArray[1].getNcacheModel().getModel().get(lastSeq));
+
+        if (elemCntMap.size() == 0) {
+            return candidatesList;
+        }
+
+        //HashMap<K, Integer> elemCntMap = candiadates.get();
+        Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
+        double maxProb = 0.0;
+
+
+        HashMap<K, Double> elemProbMap = new HashMap<>();
+        while(it.hasNext()) {
+            Map.Entry<K, Integer> entry = it.next();
+            ArrayList<K> ls = (ArrayList<K>)nseq.getSequence().clone();
+            ls.add(entry.getKey());
+            double prob = calculateProbability(new Tokensequence<>(ls));
+            elemProbMap.put(entry.getKey(), prob);
+        }
+
+        Set<Map.Entry<K, Double>> elemProbSet = elemProbMap.entrySet();
+
+
+        while(!elemProbSet.isEmpty()) {
+            double maxProbablity = 0.0;
+            Tokensequence<K> closestSequence = null;
+            Map.Entry<K, Double> recordEntry = null;
+            for (Map.Entry<K, Double> entry : elemProbSet) {
+                if (entry.getValue() > maxProbablity) {
+                    recordEntry = entry;
+                    maxProbablity = entry.getValue();
+                }
+            }
+            candidatesList.add(recordEntry.getKey());
+            elemProbSet.remove(recordEntry);
+        }
+
+        return candidatesList;
+    }
+
 
     /**
      * Infer and recommend the post token for current file
@@ -109,7 +177,6 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         //get the candidates from 2-gram model
         ArrayList<K> miniTailStream = new ArrayList<>();
         miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
-        Tokensequence<K> seq = new Tokensequence<>(tailStream);
         Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
         HashMap<K, Integer> elemCntMap = new HashMap<>();
 
@@ -223,5 +290,21 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         preAction();
         reloadCacheContent();
         return;
+    }
+
+    /**
+     * Return the array of cache models
+     * @return the array of cache models
+     */
+    public CacheModel<K>[] getCacheModelArray() {
+        return this.cacheModelArray;
+    }
+
+    public BasicNGram<K>[] getNgramArray(){
+        BasicNGram<K>[] retArray = new BasicNGram [maxN];
+        for (int i = 0; i < this.maxN; i++) {
+            retArray[i] = cacheModelArray[i].getNgramModel();
+        }
+        return retArray;
     }
 }

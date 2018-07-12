@@ -20,7 +20,7 @@ import static java.lang.StrictMath.*;
  */
 
 public class NLngramRunEngine<K> implements NgramRunEngine<K>{
-    private int maxN;                     //maximal parameter in gramArray
+    public int maxN;                     //maximal parameter in gramArray
     public double testRatio;              //the ratio of test files in the corpus
 	private BasicNGram<K> [] gramArray;   //unigram, bigram, trigram or unigram ...ngram
 	private ArrayList<K> trainingTokenList;  //list of tokens in the corpus used for training
@@ -153,22 +153,22 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 * @param seq: token sequence
 	 * @return the most likely post token of nseq(can be null)
 	 */
-	public Optional<K> completePostToken(Tokensequence<K> seq) {
+	public ArrayList<K> completePostToken(Tokensequence<K> seq) {
 		//get the candidates from 2-gram model
 		Tokensequence<K> nseq = new Tokensequence<>((ArrayList<K>)seq.getSequence().clone());
+		ArrayList<K> candidatesList = new ArrayList<>();
 
 		//POLISH
         Tokensequence<K> lastSeq = nseq.subTokenSequence(nseq.length() - 1, nseq.length());
         HashMap<K, Integer> elemCntMap = gramArray[1].getModel().get(lastSeq);
 
 		if (elemCntMap == null) {
-			return Optional.empty();
+			return candidatesList;
 		}
 
 		//HashMap<K, Integer> elemCntMap = candiadates.get();
         Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
-		double maxProb = 0.0;
-		K retElem = null;
+		HashMap<K, Double> elemProbMap = new HashMap<>();
 
 		//Need to polish, select the Tokencount with the maximal count in the set.
 		while(it.hasNext()) {
@@ -176,17 +176,26 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
             ArrayList<K> ls = (ArrayList<K>)nseq.getSequence().clone();
             ls.add(entry.getKey());
 			double prob = calculateProbability(new Tokensequence<>(ls));
-			if (prob > maxProb) {
-				maxProb = prob;
-				retElem = entry.getKey();
-			}
+			elemProbMap.put(entry.getKey(), prob);
 		}
 
-		if (retElem == null) {
-			return Optional.empty();
-		} else {
-			return Optional.of(retElem);
+		Set<Map.Entry<K, Double>> elemProbSet = elemProbMap.entrySet();
+
+
+		while(!elemProbSet.isEmpty()) {
+			double maxProbablity = 0.0;
+			Map.Entry<K, Double> recordEntry = null;
+			for (Map.Entry<K, Double> entry : elemProbSet) {
+				if (entry.getValue() > maxProbablity) {
+					recordEntry = entry;
+					maxProbablity = entry.getValue();
+				}
+			}
+			candidatesList.add(recordEntry.getKey());
+			elemProbSet.remove(recordEntry);
 		}
+
+		return candidatesList;
 	}
 
 	/**
@@ -271,5 +280,13 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Return the array of basic n-gram models
+	 * @return the array of basic n-gram models
+	 */
+	public BasicNGram<K>[] getNgramArray() {
+		return this.gramArray;
 	}
 }
