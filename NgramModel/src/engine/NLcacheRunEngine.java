@@ -84,6 +84,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
             System.out.println();
         }
         System.out.println("Cache engine for natural language is prepared");
+        retrainCacheModel();
     }
 
     /**
@@ -113,8 +114,12 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
         HashMap<K, Integer> elemCntMap = new HashMap<>();
 
-        elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
-        elemCntMap.putAll(cacheModelArray[1].getNcacheModel().getModel().get(lastSeq));
+        if (cacheModelArray[1].getNgramModel().getModel().get(lastSeq) != null) {
+            elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
+        }
+        if (cacheModelArray[1].getNcacheModel().getModel().get(lastSeq) != null) {
+            elemCntMap.putAll(cacheModelArray[1].getNcacheModel().getModel().get(lastSeq));
+        }
 
         if (elemCntMap.size() == 0) {
             return candidatesList;
@@ -159,7 +164,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
      * Infer and recommend the post token for current file
      * @return the most likely post token of nseq(can be null)
      */
-    public Optional<K> completePostToken() {
+    public ArrayList<K> completePostToken() {
         //retain the cache components
         retrainCacheModel();
         CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
@@ -168,48 +173,13 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         int prefixLength = Math.min(length, maxN);
 
         if (length == 0) {
-            return Optional.empty();
+            return new ArrayList<>();
         }
 
         ArrayList<K> tailStream = new ArrayList<>();
         tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
-
-        //get the candidates from 2-gram model
-        ArrayList<K> miniTailStream = new ArrayList<>();
-        miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
-        Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
-        HashMap<K, Integer> elemCntMap = new HashMap<>();
-
-        elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
-        elemCntMap.putAll(cacheModelArray[1].getNcacheModel().getModel().get(lastSeq));
-
-        if (elemCntMap.size() == 0) {
-            return Optional.empty();
-        }
-
-        //HashMap<K, Integer> elemCntMap = candiadates.get();
-        Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
-        double maxProb = 0.0;
-        K retElem = null;
-
-        //Need to polish, select the Tokencount with the maximal count in the set.
-        while(it.hasNext()) {
-            Map.Entry<K, Integer> entry = it.next();
-            ArrayList<K> completeTailStream = (ArrayList<K>)tailStream.clone();
-            completeTailStream.add(entry.getKey());
-            Tokensequence<K> nseq = new Tokensequence<K>(completeTailStream);
-            double prob = calculateProbability(nseq);
-            if (prob > maxProb) {
-                maxProb = prob;
-                retElem = entry.getKey();
-            }
-        }
-
-        if (retElem == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(retElem);
-        }
+        ArrayList<K> candidatesList = completePostToken(new Tokensequence<>(tailStream));
+        return candidatesList;
     }
 
 
@@ -306,5 +276,9 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
             retArray[i] = cacheModelArray[i].getNgramModel();
         }
         return retArray;
+    }
+
+    public File getCurFile() {
+        return this.curFile;
     }
 }

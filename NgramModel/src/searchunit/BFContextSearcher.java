@@ -18,13 +18,9 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
     /**
      * Construct an object of BFContextSearcher(context searcher based on BFS)
      * @param pCCEngine Code Completion Engine
-     * @param factor1 lower bound of length stretch of sequence
-     * @param factor2 high bound of length stretch of sequence
      */
-    public BFContextSearcher(CCRunEngine<K> pCCEngine, double factor1, double factor2) {
+    public BFContextSearcher(CCRunEngine<K> pCCEngine) {
         this.CCEngine = pCCEngine;
-        this.stretchLowFactor = factor1;
-        this.stretchHighFactor =  factor2;
     }
 
     /**
@@ -36,45 +32,40 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
         ArrayList<Tokensequence<K>> similarSequenceList = new ArrayList<>();
         ArrayList<K> ls = seq.getSequence();
         HashSet<ArrayList<K>> listSet = new HashSet<>();
-        int minDepth = (int)(ls.size() * stretchLowFactor);
-        int maxDepth = (int) (ls.size() * stretchHighFactor);
+        int maxDepth = seq.getSequence().size();
 
         for (int i = 0; i < ls.size(); i++) {
             K elem = ls.get(i);
-
             ArrayList<K> singleElemList  = new ArrayList<>();
             singleElemList.add(elem);
             listSet.add(singleElemList);
 
             int depth = 1;
-            boolean flag = false;
-            while (depth < maxDepth && !flag) {
-                flag = true;
+
+            while (depth < maxDepth - i) {
                 HashSet<ArrayList<K>> newListSet = new HashSet<>();
                 for (ArrayList<K> list : listSet) {
                     ArrayList<K> oplist = CCEngine.completePostToken(new Tokensequence<>(list));
                     if (oplist.size() == 0) {
                         continue;
                     }
-                    flag = false;
-                    ArrayList<K> nextTokenList = (ArrayList<K>)oplist.clone();
+                    ArrayList<K> nextTokenList = (ArrayList<K>) oplist.clone();
                     int remainNum = Math.min(2, nextTokenList.size());
 
                     for (int j = 0; j < remainNum; j++) {
-                        ArrayList<K> newList = (ArrayList<K>)list.clone();
+                        ArrayList<K> newList = (ArrayList<K>) list.clone();
                         newList.add(nextTokenList.get(j));
                         newListSet.add(newList);
                     }
                 }
-                listSet =  newListSet;
+                listSet = newListSet;
                 depth++;
             }
-        }
 
-        for (ArrayList<K> l : listSet) {
-            if (l.size() > minDepth) {
+            for (ArrayList<K> l : listSet) {
                 similarSequenceList.add(new Tokensequence<>(l));
             }
+            listSet.clear();
         }
 
         //Sort by the similarity
@@ -116,18 +107,23 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
         ArrayList<K> list2 = seq2.getSequence();
         int len1 = list1.size();
         int len2 = list2.size();
+
+        if (len1 == 0 || len2 == 0) {
+            return 0;
+        }
+
         int[][] dp = new int[len1][len2];
 
         dp[0][0] = (list1.get(0) == list2.get(0)) ? 1 : 0;
-        for (int i = 0; i < len1; i++) {
-            dp[i][0] = (list1.get(i) == list2.get(i)) ? 1 : dp[i - 1][0];
+        for (int i = 1; i < len1; i++) {
+            dp[i][0] = (list1.get(i) == list2.get(0)) ? 1 : dp[i - 1][0];
         }
-        for (int i = 0; i < len2; i++) {
-            dp[0][i] = (list1.get(i) == list2.get(i)) ? 1: dp[0][i - 1];
+        for (int i = 1; i < len2; i++) {
+            dp[0][i] = (list1.get(0) == list2.get(i)) ? 1: dp[0][i - 1];
         }
         for (int i = 1; i < len1; i++) {
             for (int j = 1; j < len2; j++) {
-                if (list1.get(i) == list2.get(j)) {
+                if (list1.get(i).equals(list2.get(j))) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
                     dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
@@ -135,9 +131,9 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
             }
         }
 
-        int commonSubseqLength = dp[len1 - 1][len2 - 1];
-        similarity = similarity * commonSubseqLength / len1;
-        similarity = similarity * commonSubseqLength / len2;
+        int commonSubsequenceLength = dp[len1 - 1][len2 - 1];
+        similarity = similarity * commonSubsequenceLength / len1;
+        similarity = similarity * commonSubsequenceLength / len2;
         return similarity;
     }
 }

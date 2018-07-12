@@ -181,7 +181,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 
 		Set<Map.Entry<K, Double>> elemProbSet = elemProbMap.entrySet();
 
-
+		//Sort by probability
 		while(!elemProbSet.isEmpty()) {
 			double maxProbablity = 0.0;
 			Map.Entry<K, Double> recordEntry = null;

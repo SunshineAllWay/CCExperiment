@@ -103,7 +103,7 @@ class NLngramRunEngineTest {
     }
 
     public static void testContextSearcher(NLngramRunEngine<Character> runtest) {
-        BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest, 0.8, 1.5);
+        BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest);
         ArrayList<Character> query = new ArrayList<>();
         query.add('房');
         query.add('间');
@@ -115,8 +115,11 @@ class NLngramRunEngineTest {
         ArrayList<Tokensequence<Character>> searchResult = fuzzySearcher.getSimilarSequences(queryseq);
 
         for (int i = 0; i < searchResult.size(); i++) {
-            System.out.println(searchResult.get(i));
+            System.out.print(searchResult.get(i));
+            System.out.print("    ");
+            System.out.println(searchResult.get(i).length());
         }
+        System.out.println(searchResult.size());
     }
 
     public static void main(String[] args) {
