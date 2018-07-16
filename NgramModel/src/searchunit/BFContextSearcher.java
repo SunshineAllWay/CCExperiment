@@ -1,11 +1,6 @@
 package searchunit;
 
 import engine.CCRunEngine;
-import engine.NLcacheRunEngine;
-import engine.NLngramRunEngine;
-import model.BasicNGram;
-import model.CacheModel;
-import model.CacheNGram;
 import tokenunit.Tokensequence;
 
 import java.util.*;
@@ -56,6 +51,23 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
                         ArrayList<K> newList = (ArrayList<K>) list.clone();
                         newList.add(nextTokenList.get(j));
                         newListSet.add(newList);
+                        nextTokenList.remove(j);
+                        remainNum = Math.min(1, nextTokenList.size());
+                    }
+
+                    int k = 0;
+                    while(nextTokenList.size() > 1) {
+                        int size = nextTokenList.size();
+                        Random random = new Random();
+                        int index = random.nextInt(size - 1);
+                        ArrayList<K> newList = (ArrayList<K>) list.clone();
+                        newList.add(nextTokenList.get(index));
+                        newListSet.add(newList);
+                        nextTokenList.remove(index);
+                        k++;
+                        if (k == 4) {
+                            break;
+                        }
                     }
                 }
                 listSet = newListSet;

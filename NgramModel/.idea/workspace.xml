@@ -20,29 +20,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="NLcacheRunEngine.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/engine/NLcacheRunEngine.java">
+      <file leaf-file-name="NLngramRunApp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/NLngramRunApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="700">
-              <caret line="119" column="63" selection-start-line="119" selection-start-column="63" selection-end-line="119" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#11581#11582#0" expanded="true" />
-                <element signature="e#11616#11617#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="59">
+              <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BFContextSearcher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java">
+      <file leaf-file-name="NLcacheRunApp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/NLcacheRunApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
-              <caret line="77" selection-start-line="77" selection-end-line="77" />
+            <state relative-caret-position="1425">
+              <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#838#839#0" expanded="true" />
-                <element signature="e#879#880#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,44 +44,8 @@
       <file leaf-file-name="NLngramRunAppTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/NLngramRunAppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NLcacheRunApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/NLcacheRunApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="41" column="67" selection-start-line="41" selection-start-column="67" selection-end-line="41" selection-end-column="67" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CacheRunEngine.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/CacheRunEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="9" column="24" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CCRunApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/CCRunApp.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+              <caret line="6" column="32" lean-forward="true" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,13 +53,57 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NLcacheRunAppTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunAppTest.java">
+      <file leaf-file-name="NLngramRunEngineTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/NLngramRunEngineTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
+            <state relative-caret-position="25">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BFContextSearcher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1191">
+              <caret line="26" column="72" lean-forward="true" selection-start-line="26" selection-start-column="72" selection-end-line="26" selection-end-column="72" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CCRunEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/engine/CCRunEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NLngramRunEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/engine/NLngramRunEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3516">
+              <caret line="131" column="54" lean-forward="true" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tokensequence.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tokenunit/Tokensequence.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
+              <folding>
+                <element signature="e#1255#1256#0" expanded="true" />
+                <element signature="e#1275#1276#0" expanded="true" />
+                <element signature="e#1341#1342#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,30 +114,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
               <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NLcacheRunEngineTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="12" column="87" lean-forward="true" selection-start-line="12" selection-start-column="87" selection-end-line="12" selection-end-column="87" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NLngramRunApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/NLngramRunApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -161,6 +138,8 @@
       <find>System.out.println</find>
       <find>System.out</find>
       <find>update</find>
+      <find>时</find>
+      <find>友</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -174,7 +153,6 @@
         <option value="$PROJECT_DIR$/src/tokenunit/Tokensequence.java" />
         <option value="$PROJECT_DIR$/src/tokenunit/Tokenstream.java" />
         <option value="$PROJECT_DIR$/src/refineunit/LidstoneSmoothing.java" />
-        <option value="$PROJECT_DIR$/devmemo.txt" />
         <option value="$PROJECT_DIR$/src/refineunit/KNSmoothing.java" />
         <option value="$PROJECT_DIR$/src/refineunit/WBSmoothing.java" />
         <option value="$PROJECT_DIR$/src/model/CacheNGram.java" />
@@ -188,17 +166,18 @@
         <option value="$PROJECT_DIR$/src/engine/NgramRunEngine.java" />
         <option value="$PROJECT_DIR$/src/engine/CacheRunEngine.java" />
         <option value="$PROJECT_DIR$/src/engine/CCRunEngine.java" />
-        <option value="$PROJECT_DIR$/config/corpuspath.properties" />
         <option value="$PROJECT_DIR$/src/app/CCRunApp.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngramRunEngineTest.java" />
         <option value="$PROJECT_DIR$/src/engine/NLngramRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/searchunit/BFContextSearcher.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngramRunAppTest.java" />
-        <option value="$PROJECT_DIR$/src/app/NLngramRunApp.java" />
-        <option value="$PROJECT_DIR$/src/app/NLcacheRunApp.java" />
         <option value="$PROJECT_DIR$/src/test/NLcacheRunAppTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java" />
+        <option value="$PROJECT_DIR$/devmemo.txt" />
         <option value="$PROJECT_DIR$/src/engine/NLcacheRunEngine.java" />
+        <option value="$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java" />
+        <option value="$PROJECT_DIR$/src/searchunit/BFContextSearcher.java" />
+        <option value="$PROJECT_DIR$/src/app/NLngramRunApp.java" />
+        <option value="$PROJECT_DIR$/src/test/NLngramRunAppTest.java" />
+        <option value="$PROJECT_DIR$/src/app/NLcacheRunApp.java" />
+        <option value="$PROJECT_DIR$/config/corpuspath.properties" />
+        <option value="$PROJECT_DIR$/src/test/NLngramRunEngineTest.java" />
       </list>
     </option>
   </component>
@@ -208,7 +187,8 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="293" />
     <option name="width" value="683" />
     <option name="height" value="728" />
   </component>
@@ -218,8 +198,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -289,10 +267,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Course" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="calculateL&#9;PSI&#9;JAVA://engine.NgramRunEngine#calculateLikelihood" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -316,8 +297,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="NLcacheRunAppTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.NLcacheRunAppTest" />
+    <configuration name="NLngramRunEngineTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.NLngramRunEngineTest" />
       <module name="NgramModel" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <extension name="coverage">
@@ -370,7 +351,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NLcacheRunAppTest" />
+        <item itemvalue="Application.NLngramRunEngineTest" />
       </list>
     </recent_temporary>
   </component>
@@ -409,21 +390,21 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50076336" side_tool="true" weight="0.3298969" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50076336" side_tool="true" visible="true" weight="0.21649484" />
       <window_info anchor="right" id="Maven Projects" order="8" side_tool="true" weight="0.32977098" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" x="3" y="3" width="1359" height="722" id="Run" order="2" type="FLOATING" weight="0.4742268" />
-      <window_info anchor="bottom" id="Terminal" order="6" weight="0.0" />
+      <window_info anchor="bottom" x="0" y="0" width="1366" height="728" id="Run" order="2" type="FLOATING" weight="0.4742268" />
+      <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49923664" visible="true" weight="0.21649484" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6960432" visible="true" weight="0.26793894" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7872807" visible="true" weight="0.25725192" />
       <window_info id="Learn" order="5" weight="0.32977098" />
-      <window_info id="Structure" order="1" sideWeight="0.30395684" side_tool="true" weight="0.30763358" />
+      <window_info id="Structure" order="1" sideWeight="0.21271929" side_tool="true" visible="true" weight="0.25725192" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.2243346" side_tool="true" weight="0.25267175" />
-      <window_info id="Debug" order="8" sideWeight="0.49656358" weight="0.21221374" />
+      <window_info id="Debug" order="8" sideWeight="0.48464912" weight="0.32519084" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24961832" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32977098" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
@@ -434,31 +415,31 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.010309278" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24961832" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32977098" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
+      <window_info anchor="bottom" x="0" y="0" width="1366" height="728" id="Run" order="2" type="FLOATING" weight="0.4742268" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49923664" weight="0.3298969" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6960432" visible="true" weight="0.30763358" />
       <window_info id="Structure" order="1" sideWeight="0.30395684" side_tool="true" visible="true" weight="0.30763358" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.24914089" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" x="0" y="0" width="1366" height="728" id="Run" order="2" type="FLOATING" weight="0.4742268" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.49656358" weight="0.0068728523" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.010309278" />
       <window_info id="Learn" order="5" weight="0.32977098" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="6" visible="true" weight="0.0" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50076336" side_tool="true" weight="0.3298969" />
+      <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.32977098" />
+      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.49656358" weight="0.0068728523" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50076336" side_tool="true" weight="0.3298969" />
       <window_info id="Capture Tool" order="7" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49923664" weight="0.3298969" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="6" visible="true" weight="0.0" />
       <window_info anchor="right" id="Maven Projects" order="8" side_tool="true" weight="0.32977098" />
       <window_info id="Favorites" order="6" sideWeight="0.2243346" side_tool="true" weight="0.25267175" />
     </layout-to-restore>
@@ -489,7 +470,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java</url>
-          <line>14</line>
+          <line>12</line>
           <properties />
           <option name="timeStamp" value="75" />
         </line-breakpoint>
@@ -512,37 +493,37 @@
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java</url>
-          <line>77</line>
-          <properties />
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/app/NLngramRunApp.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/app/NLcacheRunApp.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/app/NLcacheRunApp.java</url>
-          <line>28</line>
-          <properties />
-          <option name="timeStamp" value="114" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/engine/NLcacheRunEngine.java</url>
           <line>119</line>
           <properties />
           <option name="timeStamp" value="115" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java</url>
+          <line>26</line>
+          <properties />
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/NLngramRunEngineTest.java</url>
+          <line>79</line>
+          <properties />
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/app/NLngramRunApp.java</url>
+          <line>20</line>
+          <properties />
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java</url>
+          <line>83</line>
+          <properties />
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="116" />
+      <option name="time" value="123" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -691,13 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/devmemo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/refineunit/GTEstimator.java" />
     <entry file="file://$PROJECT_DIR$/src/refineunit/KNSmoothing.java" />
     <entry file="file://$PROJECT_DIR$/src/refineunit/WBSmoothing.java" />
@@ -712,26 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="775">
           <caret line="41" column="41" lean-forward="true" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/refineunit/SmoothingType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tokenunit/Tokensequence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-          <folding>
-            <element signature="e#1255#1256#0" expanded="true" />
-            <element signature="e#1275#1276#0" expanded="true" />
-            <element signature="e#1314#1315#0" expanded="true" />
-            <element signature="e#1341#1342#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -754,11 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#263#264#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -775,16 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
           <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/NgramRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -798,73 +737,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/CCRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="12" column="55" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="12" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunEngineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/BasicNGram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getSeqWithSpecificPrefix#0;class#BasicNGram#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/NLngramRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding>
-            <element signature="e#9125#9126#0" expanded="true" />
-            <element signature="e#9153#9154#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/NLngramRunApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#879#880#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/CCRunApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
+        <state relative-caret-position="100">
           <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -874,38 +749,84 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/CacheRunEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="150">
           <caret line="9" column="24" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunAppTest.java">
+    <entry file="file://$PROJECT_DIR$/src/refineunit/SmoothingType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="100">
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/NLcacheRunApp.java">
+    <entry file="file://$PROJECT_DIR$/src/model/BasicNGram.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="41" column="67" selection-start-line="41" selection-start-column="67" selection-end-line="41" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="275">
+          <caret line="149" column="29" lean-forward="true" selection-start-line="149" selection-start-column="29" selection-end-line="149" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunAppTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
+        <state relative-caret-position="275">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/NgramRunEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/NLcacheRunEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="152" column="17" selection-start-line="152" selection-start-column="17" selection-end-line="152" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/devmemo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-263">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/NLcacheRunApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/NLngramRunApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunAppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="32" lean-forward="true" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -919,24 +840,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java">
+    <entry file="file://$PROJECT_DIR$/src/engine/CCRunEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="12" column="87" lean-forward="true" selection-start-line="12" selection-start-column="87" selection-end-line="12" selection-end-column="87" />
+        <state relative-caret-position="125">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tokenunit/Tokensequence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+          <folding>
+            <element signature="e#1255#1256#0" expanded="true" />
+            <element signature="e#1275#1276#0" expanded="true" />
+            <element signature="e#1341#1342#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/NLngramRunEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3516">
+          <caret line="131" column="54" lean-forward="true" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1191">
+          <caret line="26" column="72" lean-forward="true" selection-start-line="26" selection-start-column="72" selection-end-line="26" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/NLcacheRunEngine.java">
+    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunEngineTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="119" column="63" selection-start-line="119" selection-start-column="63" selection-end-line="119" selection-end-column="63" />
+        <state relative-caret-position="25">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11581#11582#0" expanded="true" />
-            <element signature="e#11616#11617#0" expanded="true" />
           </folding>
         </state>
       </provider>

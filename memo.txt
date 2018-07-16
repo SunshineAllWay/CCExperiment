@@ -40,3 +40,5 @@ Development Schedule
 [Keep Moving 37] [10, July, 2018] Implement the cache model, need to test and refine.
 [Keep Moving 38] [11, July, 2018] Test the cache model successfully, the module of token completion ran free of bugs.
 [Keep Moving 39] [12, July, 2018] Add search unit, and implement BFContextSearcher UNFINISHED.
+[Keep Moving 40] [12, July, 2018] Restruct cache module. Implement context searcher for n-gram model and cache model respectively. Unfound bugs after primary test.
+[Keep Moving 41] [16, July, 2018] Refine the fuzzy context search. Find a prone: low precision in some situations.

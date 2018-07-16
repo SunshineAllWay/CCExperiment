@@ -1,11 +1,9 @@
 package test;
 
 import engine.NLcacheRunEngine;
-import engine.NLngramRunEngine;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class NLcacheRunEngineTest {
     public static void main(String[] args) {
