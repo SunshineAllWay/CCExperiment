@@ -24,7 +24,6 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
     public double testRatio;              //the ratio of test files in the corpus
 	private BasicNGram<K> [] gramArray;   //unigram, bigram, trigram or unigram ...ngram
 	private ArrayList<K> trainingTokenList;  //list of tokens in the corpus used for training
-	private ArrayList<K> testingTokenList; //list of tokens in the corpus used for testing
     public ArrayList<Double> likelihood;        //likelihood of n-gram model
     public ArrayList<Double> perplexity;        //perplexity of n-gram model
 	/**
@@ -39,8 +38,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
         perplexity = new ArrayList<>();
 
 		CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(testRatio);
-		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
+		trainingTokenList = corpusImporter.importTrainingCorpusFromBase();
 
 		for (int i = 0; i < n; i++) {
 			this.gramArray[i] = new BasicNGram<>(i + 1, 0);
@@ -58,8 +56,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
         perplexity = new ArrayList<>();
 
 		CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-		trainingTokenList = corpusImporter.importTrainingCorpusFromBase(ratio);
-		testingTokenList = corpusImporter.imporTestingCorpusFromBase(testRatio);
+		trainingTokenList = corpusImporter.importTrainingCorpusFromBase();
 
 		for (int i = 0; i < 3; i++) {
 			this.gramArray[i] = new BasicNGram<>(i + 1, 0);
@@ -111,6 +108,24 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		return;
 	}
 
+	private double getProbInUnaryGram(K elem) {
+		ArrayList<K> ls = new ArrayList<>();
+		ls.add(elem);
+		Tokensequence<K> seq = new Tokensequence<>(ls);
+
+		if (!gramArray[0].getModel().containsKey(seq)) {
+			return -1;
+		}
+
+		int capturedCount = gramArray[0].getModel().get(seq).get(null);
+		int totalCount = 0;
+		Iterator<Map.Entry<Tokensequence<K>, HashMap<K, Integer>>> it = gramArray[0].getModel().entrySet().iterator();
+		while(it.hasNext()) {
+			totalCount += it.next().getValue().get(null);
+		}
+
+		return (capturedCount * 1.0 / totalCount);
+	}
 	/**
 	 * Estimate the probability of the sentence
 	 * @param nseq: Token sequence(sentence)
@@ -134,6 +149,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		int maxGramLength = min(maxN, seqlength);
 
         //TODO: probability of 1-gram, assume all tokens in the sequence appear in the training list
+		logprob += log(getProbInUnaryGram(nseq.getSequence().get(0)));
 		for (i = 1; i < maxGramLength; i++) {
 			Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
 			logprob += log(gramArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
@@ -205,22 +221,19 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 */
 	public double calculateLikelihood(int n) {
         double likelihood = 0.0;
-        int len = testingTokenList.size();
+        int len = trainingTokenList.size();
 
         //Assume tokens in testing list all appeared in the training list, and it can't stand in many situations
 	    if (n == 1) {
 			int seqNum = gramArray[0].getSeqNum();
 			for (int i = 0; i < len; i++) {
 			    ArrayList<K> tokenseq = new ArrayList<>();
-			    tokenseq.add(testingTokenList.get(i));
+			    tokenseq.add(trainingTokenList.get(i));
 			    HashMap<K, Integer> map = gramArray[0].getModel().get(new Tokensequence<>(tokenseq));
-			    int count;
 			    if (map == null) {
-			    	count = 1;
-				} else {
-					count = map.get(null);
+			    	continue;
 				}
-			    double prob =  count * 1.0 / seqNum;
+			    double prob =  getProbInUnaryGram(trainingTokenList.get(i));
                 likelihood += log(prob);
             }
             return likelihood;
@@ -231,11 +244,11 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 			int fromIndex = max(0, i - n + 1);
 			ArrayList<K> seq = new ArrayList<>();
 			for (int k = fromIndex; k < toIndex; k++) {
-				seq.add(testingTokenList.get(k));
+				seq.add(trainingTokenList.get(k));
 			}
 
 			Tokensequence<K> tokenseq = new Tokensequence<>(seq);
-			Token<K> t = new Token<K>(testingTokenList.get(toIndex));
+			Token<K> t = new Token<K>(trainingTokenList.get(toIndex));
 			double prob = gramArray[toIndex - fromIndex].getRelativeProbability(tokenseq, t);
 			likelihood += log(prob);
 		}
@@ -248,7 +261,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 * @return the perplexity of n-gram in the testing corpus
 	 */
 	public double calculatePerplexity(int n) {
-		double likelihood = calculatePerplexity(n);
+		double likelihood = calculateLikelihood(n);
 		double perplexity = calculatePerplexity(likelihood);
 		return perplexity;
 	}
@@ -259,7 +272,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
      * @return the perplexity of n-gram in the testing corpus
      */
 	public double calculatePerplexity(double likelihood) {
-        double perplexity = exp(-likelihood * log(2) / testingTokenList.size());
+        double perplexity = exp(-likelihood * log(2) / trainingTokenList.size());
         return perplexity;
     }
 
@@ -269,14 +282,14 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
      * @param i: model parameter plus 1, assume i is equal to the length of prefix token sequence
      * @return post token candidates and counts
      */
-	public HashMap<K, Integer> getPostTokenInfo(Tokensequence<K> tokenseq, int i) {
+	public HashMap<K, Integer> getPostInfoBybackingOff(Tokensequence<K> tokenseq, int i) {
 		if (i >= 0) {
 			HashMap<K, Integer> map = gramArray[i].getModel().get(tokenseq);
 			if (map != null) {
 				return map;
 			} else {
 			    Tokensequence<K> tailTokenSeq = tokenseq.subTokenSequence(1, tokenseq.length());
-				return getPostTokenInfo(tailTokenSeq, i - 1);
+				return getPostInfoBybackingOff(tailTokenSeq, i - 1);
 			}
 		}
 		return null;

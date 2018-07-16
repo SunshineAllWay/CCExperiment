@@ -36,7 +36,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         cacheModelArray = (CacheModel<K>[]) new CacheModel[maxN];
 
         CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-        corpusTokenStream = corpusImporter.importTrainingCorpusFromBase(1);
+        corpusTokenStream = corpusImporter.importTrainingCorpusFromBase();
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
@@ -57,7 +57,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         cacheModelArray = (CacheModel<K>[]) new CacheModel[maxN];
 
         CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-        corpusTokenStream = corpusImporter.importTrainingCorpusFromBase(1);
+        corpusTokenStream = corpusImporter.importTrainingCorpusFromBase();
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
@@ -182,6 +182,24 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         return candidatesList;
     }
 
+    private double getProbInUnaryGram(K elem) {
+        ArrayList<K> ls = new ArrayList<>();
+        ls.add(elem);
+        Tokensequence<K> seq = new Tokensequence<>(ls);
+
+        if (!getNgramArray()[0].getModel().containsKey(seq)) {
+            return -1;
+        }
+
+        int capturedCount = getNgramArray()[0].getModel().get(seq).get(null);
+        int totalCount = 0;
+        Iterator<Map.Entry<Tokensequence<K>, HashMap<K, Integer>>> it = getNgramArray()[0].getModel().entrySet().iterator();
+        while(it.hasNext()) {
+            totalCount += it.next().getValue().get(null);
+        }
+
+        return (capturedCount * 1.0 / totalCount);
+    }
 
     /**
      * Estimate the probability of the sentence
@@ -206,6 +224,7 @@ public class NLcacheRunEngine<K> implements CacheRunEngine<K>{
         int maxGramLength = min(maxN, seqlength);
 
         //TODO: probability of 1-gram, assume all tokens in the sequence appear in the training list
+        logprob += log(getProbInUnaryGram(nseq.getSequence().get(0)));
         for (i = 1; i < maxGramLength; i++) {
             Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
             logprob += log(cacheModelArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));

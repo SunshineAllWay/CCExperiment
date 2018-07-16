@@ -52,30 +52,13 @@ public class CorpusImporter<K> {
 	 * Import the list of elements of token used for training
 	 * @return the list of elements of token used for training
 	 */
-	public ArrayList<K> importTrainingCorpusFromBase(double ratio) {
+	public ArrayList<K> importTrainingCorpusFromBase() {
 		//collect names of files in trainingDataSrcDir and store in trainingDataList
-		int fileNum = (int)(trainingDataFileList.size() * ratio);
+		int fileNum = trainingDataFileList.size();
 		ArrayList<K> tokenList = new ArrayList<>();
 		for (int i = 0; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
 		}
 		return tokenList;
 	}
-
-	/**
-	 * Import the list of elements of token used for testing
-	 * @return the list of elements of token used for testing
-	 */
-	public ArrayList<K> imporTestingCorpusFromBase(double ratio) {
-		//collect names of files in trainingDataSrcDir and store in trainingDataList
-		int fileNum = trainingDataFileList.size();
-		int startIndex = (int)(fileNum * ratio);
-		ArrayList<K> tokenList = new ArrayList<>();
-		for (int i = startIndex; i < fileNum; i++) {
-			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
-		}
-		return tokenList;
-	}
-
-
 }

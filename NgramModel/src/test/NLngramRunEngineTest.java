@@ -73,10 +73,10 @@ class NLngramRunEngineTest {
     }
 
     public static void main(String[] args) {
-        NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(3, 1);
+        NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(5, 0.5);
         runtest.run();
         //testRun(runtest);
-        //evaluateRun(runtest);
-        testContextSearcher(runtest);
+        evaluateRun(runtest);
+        //testContextSearcher(runtest);
     }
 }

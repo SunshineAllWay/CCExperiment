@@ -1,6 +1,0 @@
-room facilities --fine
-hotel service --acceptable
-hotel location -- convenient
-food -- fine
-
-				      				    
