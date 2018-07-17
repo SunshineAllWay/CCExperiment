@@ -24,6 +24,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
     public double testRatio;              //the ratio of test files in the corpus
 	private BasicNGram<K> [] gramArray;   //unigram, bigram, trigram or unigram ...ngram
 	private ArrayList<K> trainingTokenList;  //list of tokens in the corpus used for training
+	private ArrayList<K> testingTokenList;   //list of tokens in the corpus used for testing
     public ArrayList<Double> likelihood;        //likelihood of n-gram model
     public ArrayList<Double> perplexity;        //perplexity of n-gram model
 	/**

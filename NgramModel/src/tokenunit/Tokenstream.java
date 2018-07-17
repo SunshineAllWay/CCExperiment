@@ -44,7 +44,7 @@ public class Tokenstream<K> {
 			reader = new InputStreamReader(new FileInputStream(tokenSourceFile), "UTF-8");
 			int tempchar;
 			while ((tempchar = reader.read()) != -1) {
-				if (((char) tempchar) != '\r') {
+				if (((char) tempchar) != '\r' && ((char) tempchar) != '\t' && ((char) tempchar) != '(' && ((char) tempchar) != ')' && ((char) tempchar) != ' ' && ((char) tempchar) != '\n' && ((char) tempchar) != '，' && ((char) tempchar) != ',' && ((char) tempchar) != '.' && ((char) tempchar) != '。' && ((char) tempchar) != '！' && ((char) tempchar) != '!') {
 					strStream.add(new Character((char) tempchar));
 				}
 			}

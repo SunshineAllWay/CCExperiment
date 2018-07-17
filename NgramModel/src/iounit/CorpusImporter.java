@@ -1,6 +1,7 @@
 package iounit;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
@@ -17,6 +18,7 @@ import tokenunit.Tokenstream;
 public class CorpusImporter<K> {
 	static public String rootdir;
 	public ArrayList<File> trainingDataFileList;
+	public ArrayList<File> testingDataFileList;
 	public int datatype; //0: natural language data; 1: programming language data
 	
 	public CorpusImporter(int type) {
@@ -32,14 +34,18 @@ public class CorpusImporter<K> {
 		}
 		
 		String trainingDataSrcDir = "";
+		String testingDataSrcDir = "";
 		if (datatype == 0) {
 			trainingDataSrcDir = properties.getProperty("TRAINING_NL_DATAFILEDIR");
+			testingDataSrcDir = properties.getProperty("TESTING_NL_DATAFILEDIR");
 		} else {
 			//for programming language
 		}
 		
-		File DataSrcDir = new File(trainingDataSrcDir);
-		trainingDataFileList = new ArrayList<>(Arrays.asList(DataSrcDir.listFiles()));
+		File trainingDataDir = new File(trainingDataSrcDir);
+		File testingDataDir = new File(testingDataSrcDir);
+		trainingDataFileList = new ArrayList<>(Arrays.asList(trainingDataDir.listFiles()));
+		testingDataFileList = new ArrayList<>(Arrays.asList(testingDataDir.listFiles()));
 	}
 	
 	//import Dictionary of Token Sequence from single file
@@ -58,6 +64,15 @@ public class CorpusImporter<K> {
 		ArrayList<K> tokenList = new ArrayList<>();
 		for (int i = 0; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
+		}
+		return tokenList;
+	}
+
+	public ArrayList<K> importTestingCorpusFromBase() {
+		int fileNum = testingDataFileList.size();
+		ArrayList<K> tokenList = new ArrayList<>();
+		for (int i = 0; i < fileNum; i++) {
+			tokenList.addAll(importCorpusFromSingleFile(testingDataFileList.get(i)));
 		}
 		return tokenList;
 	}
