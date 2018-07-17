@@ -8,9 +8,9 @@ public class NLngramRunAppTest {
     public static void main(String[] args) {
         NLngramRunApp<Character> app = new NLngramRunApp<>(3);
         ArrayList<Character> query = new ArrayList<>();
-        query.add('井');
-        query.add('井');
-        query.add('有');
+        query.add('二');
+        query.add('新');
+        query.add('水');
 
         Tokensequence<Character> queryseq = new Tokensequence<>(query);
         ArrayList<Character> tokenCandidatesList =  app.completePostToken(queryseq);

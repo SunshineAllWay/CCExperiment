@@ -16,9 +16,9 @@ class NLngramRunEngineTest {
         /*********************************** Test case 1 **************************************/
         //井井有条
         ArrayList<Character> query = new ArrayList<>();
-        query.add('井');
-        query.add('井');
-        query.add('有');
+        query.add('五');
+        query.add('星');
+        query.add('高');
 
         Tokensequence<Character> queryseq = new Tokensequence<>(query);
         System.out.println(query);
@@ -57,9 +57,9 @@ class NLngramRunEngineTest {
     public static void testContextSearcher(NLngramRunEngine<Character> runtest) {
         BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest);
         ArrayList<Character> query = new ArrayList<>();
-        query.add('井');
-        query.add('井');
-        query.add('有');
+        query.add('五');
+        query.add('星');
+        query.add('低');
 
         Tokensequence<Character> queryseq = new Tokensequence<>(query);
         ArrayList<Tokensequence<Character>> searchResult = fuzzySearcher.getSimilarSequences(queryseq);
@@ -75,8 +75,8 @@ class NLngramRunEngineTest {
     public static void main(String[] args) {
         NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(5, 0.5);
         runtest.run();
-        //testRun(runtest);
-        evaluateRun(runtest);
+        testRun(runtest);
+        //evaluateRun(runtest);
         //testContextSearcher(runtest);
     }
 }

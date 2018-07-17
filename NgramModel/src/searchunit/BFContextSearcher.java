@@ -1,6 +1,7 @@
 package searchunit;
 
 import engine.CCRunEngine;
+import tokenunit.Token;
 import tokenunit.Tokensequence;
 
 import java.util.*;
@@ -44,30 +45,12 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
                     if (oplist.size() == 0) {
                         continue;
                     }
-                    ArrayList<K> nextTokenList = (ArrayList<K>) oplist.clone();
-                    int remainNum = Math.min(2, nextTokenList.size());
 
-                    for (int j = 0; j < remainNum; j++) {
-                        ArrayList<K> newList = (ArrayList<K>) list.clone();
-                        newList.add(nextTokenList.get(j));
+                    ArrayList<K> sortedCandidatesList = getSearchSelectedCandidates(seq, list, oplist);
+                    for (int j = 0; j < Math.min(2, sortedCandidatesList.size()); j++) {
+                        ArrayList<K> newList = (ArrayList<K>)list.clone();
+                        newList.add(sortedCandidatesList.get(j));
                         newListSet.add(newList);
-                        nextTokenList.remove(j);
-                        remainNum = Math.min(1, nextTokenList.size());
-                    }
-
-                    int k = 0;
-                    while(nextTokenList.size() > 1) {
-                        int size = nextTokenList.size();
-                        Random random = new Random();
-                        int index = random.nextInt(size - 1);
-                        ArrayList<K> newList = (ArrayList<K>) list.clone();
-                        newList.add(nextTokenList.get(index));
-                        newListSet.add(newList);
-                        nextTokenList.remove(index);
-                        k++;
-                        if (k == 4) {
-                            break;
-                        }
                     }
                 }
                 listSet = newListSet;
@@ -80,7 +63,7 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
             listSet.clear();
         }
 
-        //Sort by the similarity
+        //Sort
         HashMap<Tokensequence<K>, Double> seqToSimilarityMap = new HashMap<>();
         for (int i = 0; i < similarSequenceList.size(); i++) {
             double similarity = calculateSequenceSimilarity(similarSequenceList.get(i), seq);
@@ -92,12 +75,20 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
 
         while(!seqToSimilaritySet.isEmpty()) {
             double maxSimilarity = 0.0;
+            int largestIndex = -1;
             Tokensequence<K> closestSequence = null;
             Map.Entry<Tokensequence<K>, Double> recordEntry = null;
+
             for (Map.Entry<Tokensequence<K>, Double> entry : seqToSimilaritySet) {
                 if (entry.getValue() > maxSimilarity) {
                     recordEntry = entry;
                     maxSimilarity = entry.getValue();
+                    largestIndex = calculateLastEqualTokenPosition(entry.getKey(), seq);
+                } else if (entry.getValue() == maxSimilarity) {
+                    if (calculateSequenceSimilarity(entry.getKey(), seq) > largestIndex) {
+                        recordEntry = entry;
+                        largestIndex = calculateLastEqualTokenPosition(entry.getKey(), seq);
+                    }
                 }
             }
             similarSequenceList.add(recordEntry.getKey());
@@ -107,6 +98,41 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
         return similarSequenceList;
     }
 
+    /**
+     * Sort the token list in fuzzy search
+     * @param seq pattern sequence
+     * @param list prefix token list
+     * @param nextTokenList the list of next tokens without sort
+     * @return sorted list based on probability
+     */
+    public ArrayList<K> getSearchSelectedCandidates(Tokensequence<K> seq, ArrayList<K> list, ArrayList<K> nextTokenList) {
+        HashMap<K, Double> map = new HashMap<>();
+        for (int j = 0; j < nextTokenList.size(); j++) {
+            ArrayList<K> newList = (ArrayList<K>) list.clone();
+            newList.add(nextTokenList.get(j));
+            double similarity = calculateSequenceSimilarity(new Tokensequence<>(newList), seq);
+            map.put(nextTokenList.get(j), new Double(similarity));
+        }
+
+        ArrayList<K> sortedCandidatesList = new ArrayList<>();
+        Set<Map.Entry<K, Double>> elemToSimilaritySet = map.entrySet();
+
+        while(!elemToSimilaritySet.isEmpty()) {
+            double maxSimilarity = 0.0;
+            K elem = null;
+            Map.Entry<K, Double> recordEntry = null;
+            for (Map.Entry<K, Double> entry : elemToSimilaritySet) {
+                if (entry.getValue() > maxSimilarity) {
+                    recordEntry = entry;
+                    maxSimilarity = entry.getValue();
+                }
+            }
+            sortedCandidatesList.add(recordEntry.getKey());
+            elemToSimilaritySet.remove(recordEntry);
+        }
+
+        return sortedCandidatesList;
+    }
     /**
      * Calculate the similarity between two sequences
      * @param seq1 sequence 1
@@ -147,5 +173,26 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
         similarity = similarity * commonSubsequenceLength / len1;
         similarity = similarity * commonSubsequenceLength / len2;
         return similarity;
+    }
+
+    /**
+     * Calculate the largest index of longest common sub sequence in patternseq
+     * @param seq sequence in corpus
+     * @param patternseq input sequence
+     * @return the largest index of longest common sub sequence in patternseq
+     */
+    private int calculateLastEqualTokenPosition(Tokensequence<K> seq, Tokensequence<K> patternseq) {
+        int len1 = seq.length();
+        int len2 = patternseq.length();
+
+        for (int i = len1 - 1; i >= 0; i--) {
+            for (int j = len2 - 1; j >= 0; j--) {
+                if (seq.getSequence().get(i) == patternseq.getSequence().get(j)) {
+                    return j;
+                }
+            }
+        }
+
+        return -1;
     }
 }

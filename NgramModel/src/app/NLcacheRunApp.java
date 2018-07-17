@@ -20,9 +20,15 @@ public class NLcacheRunApp<K> implements CCRunApp<K> {
     }
 
     public ArrayList<K> completePostToken(Tokensequence<K> nseq) {
+        ArrayList<K> tokenCandidatesList = new ArrayList<>();
+        tokenCandidatesList = runEngine.completePostToken(nseq);
+        if (tokenCandidatesList.size() != 0) {
+            return tokenCandidatesList;
+        }
+
         BFContextSearcher<K> fuzzySearcher = new BFContextSearcher(runEngine);
         ArrayList<Tokensequence<K>> similarSequenceList = fuzzySearcher.getSimilarSequences(new Tokensequence<>((ArrayList<K>)nseq.getSequence().clone()));
-        ArrayList<K> tokenCandidatesList = new ArrayList<>();
+
 
         HashMap<K, Double> probMap = new HashMap<>();
         HashSet<K> elemSet = new HashSet<>();
