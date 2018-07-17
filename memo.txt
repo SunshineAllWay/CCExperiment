@@ -44,4 +44,4 @@ Development Schedule
 [Keep Moving 41] [16, July, 2018] Refine the fuzzy context search. Find a prone: low precision in some situations.
 [Keep Moving 42] [17, July, 2018] Refine the calculation of likelihood and perplexity. Perplexity can be calculated free of bugs.
 [Keep Moving 43] [17, July, 2018] Refine the fuzzy context search. Free of bugs. Primary fuzzy context search done.
-[Keep Moving 44] [17, July, 2018] Batch test[top3: 0.701, top5: 0.72, top10: 0.751, MRR: 0.624] 
+[Keep Moving 44] [17, July, 2018] Batch test[top3: 0.701, top5: 0.72, top10: 0.751, MRR: 0.624]  
