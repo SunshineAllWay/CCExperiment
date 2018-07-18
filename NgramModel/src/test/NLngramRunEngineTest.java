@@ -11,18 +11,18 @@ import tokenunit.Tokensequence;
  */
 
 class NLngramRunEngineTest {
-    public static void testRun(NgramRunEngine<Character> runtest) {
+    public static void testRun(NgramRunEngine runtest) {
 
         /*********************************** Test case 1 **************************************/
         //井井有条
-        ArrayList<Character> query = new ArrayList<>();
-        query.add('五');
-        query.add('星');
-        query.add('高');
+        ArrayList<String> query = new ArrayList<>();
+        query.add("五");
+        query.add("星");
+        query.add("高");
 
-        Tokensequence<Character> queryseq = new Tokensequence<>(query);
+        Tokensequence queryseq = new Tokensequence(query);
         System.out.println(query);
-        ArrayList<Character> inferredWord = runtest.completePostToken(queryseq);
+        ArrayList inferredWord = runtest.completePostToken(queryseq);
         if (inferredWord.size() != 0) {
             for (int i = 0; i < inferredWord.size(); i++) {
                 System.out.println(inferredWord.get(i));
@@ -31,13 +31,13 @@ class NLngramRunEngineTest {
             System.out.println("miss value");
         }
 
-        double prob = runtest.calculateProbability(new Tokensequence<>(query));
+        double prob = runtest.calculateProbability(new Tokensequence(query));
         System.out.println(prob);
         System.out.println("Finish");
         System.out.println();
     }
 
-    public static void evaluateRun(NgramRunEngine<Character> runtest) {
+    public static void evaluateRun(NgramRunEngine runtest) {
         runtest.evaluateModel();
         System.out.println("Likelihood:");
         for (int i = 0; i < runtest.likelihood.size(); i++) {
@@ -54,15 +54,15 @@ class NLngramRunEngineTest {
         }
     }
 
-    public static void testContextSearcher(NgramRunEngine<Character> runtest) {
-        BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest);
-        ArrayList<Character> query = new ArrayList<>();
-        query.add('五');
-        query.add('星');
-        query.add('低');
+    public static void testContextSearcher(NgramRunEngine runtest) {
+        BFContextSearcher fuzzySearcher = new BFContextSearcher(runtest);
+        ArrayList<String> query = new ArrayList<>();
+        query.add("五");
+        query.add("星");
+        query.add("高");
 
-        Tokensequence<Character> queryseq = new Tokensequence<>(query);
-        ArrayList<Tokensequence<Character>> searchResult = fuzzySearcher.getSimilarSequences(queryseq);
+        Tokensequence queryseq = new Tokensequence(query);
+        ArrayList<Tokensequence> searchResult = fuzzySearcher.getSimilarSequences(queryseq);
 
         for (int i = 0; i < searchResult.size(); i++) {
             System.out.print(searchResult.get(i));
@@ -73,7 +73,7 @@ class NLngramRunEngineTest {
     }
 
     public static void main(String[] args) {
-        NgramRunEngine<Character> runtest = new NgramRunEngine<>(0, 5, 0.5);
+        NgramRunEngine runtest = new NgramRunEngine(0, 5, 0.5);
         runtest.run();
         testRun(runtest);
         //evaluateRun(runtest);

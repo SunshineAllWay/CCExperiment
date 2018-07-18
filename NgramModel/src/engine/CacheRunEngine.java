@@ -13,14 +13,14 @@ import static java.lang.StrictMath.exp;
 import static java.lang.StrictMath.log;
 import static java.lang.StrictMath.min;
 
-public class CacheRunEngine<K> implements CCRunEngine<K>{
+public class CacheRunEngine implements CCRunEngine{
     public int type;                          //model type: 1 for program language, 0 for natural language
     public int maxN;                          //maximal parameter in gramArray
     private double gamma;                      //concentration parameter
-    private CacheModel<K>[] cacheModelArray;   //unigram, bigram, trigram or unigram ...ngram
+    private CacheModel[] cacheModelArray;   //unigram, bigram, trigram or unigram ...ngram
 
-    private ArrayList<K> corpusTokenStream;  //token stream in the corpus
-    private ArrayList<K> cacheTokenStream;   //token stream in the cache files
+    private ArrayList<String> corpusTokenStream;  //token stream in the corpus
+    private ArrayList<String> cacheTokenStream;   //token stream in the cache files
 
     private ArrayList<File> cacheFileList;   //the list of cache files
     private File curFile;                    //current edited file
@@ -35,14 +35,14 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
         this.type = ptype;
         this.maxN = n;
         this.gamma = g;
-        cacheModelArray = (CacheModel<K>[]) new CacheModel[maxN];
+        cacheModelArray = new CacheModel[maxN];
 
-        CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
+        CorpusImporter corpusImporter = new CorpusImporter(type);
         corpusTokenStream = corpusImporter.importTrainingCorpusFromBase();
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
-            cacheModelArray[i] =  new CacheModel<>(i + 1, 0, gamma);
+            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma);
         }
 
         cacheFileList = new ArrayList<>();
@@ -59,14 +59,14 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
         this.type = ptype;
         this.maxN = 3;
         this.gamma = g;
-        cacheModelArray = (CacheModel<K>[]) new CacheModel[maxN];
+        cacheModelArray = (CacheModel[]) new CacheModel[maxN];
 
-        CorpusImporter<K> corpusImporter = new CorpusImporter<>(type);
+        CorpusImporter corpusImporter = new CorpusImporter(type);
         corpusTokenStream = corpusImporter.importTrainingCorpusFromBase();
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
-            cacheModelArray[i] =  new CacheModel<>(i + 1, 0, gamma);
+            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma);
         }
 
         cacheFileList = new ArrayList<>();
@@ -97,27 +97,27 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
      * @param seq specify the token sequence
      * @return the most likely post token of the sequence
      */
-    public ArrayList<K> completePostToken(Tokensequence<K> seq) {
+    public ArrayList<String> completePostToken(Tokensequence seq) {
         //retain the cache components
         retrainCacheModel();
         int length = seq.getSequence().size();
-        Tokensequence<K> nseq = new Tokensequence<>((ArrayList<K>)seq.getSequence().clone());
+        Tokensequence nseq = new Tokensequence((ArrayList<String>)seq.getSequence().clone());
         int prefixLength = Math.min(length, maxN);
 
-        ArrayList<K> candidatesList = new ArrayList<>();
+        ArrayList<String> candidatesList = new ArrayList<>();
 
         if (length == 0) {
             return candidatesList;
         }
 
-        ArrayList<K> tailStream = new ArrayList<>();
+        ArrayList<String> tailStream = new ArrayList<>();
         tailStream.addAll(seq.getSequence().subList(length - prefixLength, length));
 
         //get the candidates from 2-gram model
-        ArrayList<K> miniTailStream = new ArrayList<>();
+        ArrayList<String> miniTailStream = new ArrayList<>();
         miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
-        Tokensequence<K> lastSeq = new Tokensequence<>(miniTailStream);
-        HashMap<K, Integer> elemCntMap = new HashMap<>();
+        Tokensequence lastSeq = new Tokensequence(miniTailStream);
+        HashMap<String, Integer> elemCntMap = new HashMap<>();
 
         if (cacheModelArray[1].getNgramModel().getModel().get(lastSeq) != null) {
             elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
@@ -130,28 +130,28 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
             return candidatesList;
         }
 
-        //HashMap<K, Integer> elemCntMap = candiadates.get();
-        Iterator<Map.Entry<K, Integer>> it = elemCntMap.entrySet().iterator();
+        //HashMap<String, Integer> elemCntMap = candiadates.get();
+        Iterator<Map.Entry<String, Integer>> it = elemCntMap.entrySet().iterator();
         double maxProb = 0.0;
 
 
-        HashMap<K, Double> elemProbMap = new HashMap<>();
+        HashMap<String, Double> elemProbMap = new HashMap<>();
         while(it.hasNext()) {
-            Map.Entry<K, Integer> entry = it.next();
-            ArrayList<K> ls = (ArrayList<K>)nseq.getSequence().clone();
+            Map.Entry<String, Integer> entry = it.next();
+            ArrayList<String> ls = (ArrayList<String>)nseq.getSequence().clone();
             ls.add(entry.getKey());
-            double prob = calculateProbability(new Tokensequence<>(ls));
+            double prob = calculateProbability(new Tokensequence(ls));
             elemProbMap.put(entry.getKey(), prob);
         }
 
-        Set<Map.Entry<K, Double>> elemProbSet = elemProbMap.entrySet();
+        Set<Map.Entry<String, Double>> elemProbSet = elemProbMap.entrySet();
 
 
         while(!elemProbSet.isEmpty()) {
             double maxProbablity = 0.0;
-            Tokensequence<K> closestSequence = null;
-            Map.Entry<K, Double> recordEntry = null;
-            for (Map.Entry<K, Double> entry : elemProbSet) {
+            Tokensequence closestSequence = null;
+            Map.Entry<String, Double> recordEntry = null;
+            for (Map.Entry<String, Double> entry : elemProbSet) {
                 if (entry.getValue() > maxProbablity) {
                     recordEntry = entry;
                     maxProbablity = entry.getValue();
@@ -169,11 +169,11 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
      * Infer and recommend the post token for current file
      * @return the most likely post token of nseq(can be null)
      */
-    public ArrayList<K> completePostToken() {
+    public ArrayList<String> completePostToken() {
         //retain the cache components
         retrainCacheModel();
-        CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-        ArrayList<K> currentFileTokenStream = corpusImporter.importCorpusFromSingleFile(curFile);
+        CorpusImporter corpusImporter = new CorpusImporter(type);
+        ArrayList<String> currentFileTokenStream = corpusImporter.importCorpusFromSingleFile(curFile);
         int length = currentFileTokenStream.size();
         int prefixLength = Math.min(length, maxN);
 
@@ -181,16 +181,16 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
             return new ArrayList<>();
         }
 
-        ArrayList<K> tailStream = new ArrayList<>();
+        ArrayList<String> tailStream = new ArrayList<>();
         tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
-        ArrayList<K> candidatesList = completePostToken(new Tokensequence<>(tailStream));
+        ArrayList<String> candidatesList = completePostToken(new Tokensequence(tailStream));
         return candidatesList;
     }
 
-    private double getProbInUnaryGram(K elem) {
-        ArrayList<K> ls = new ArrayList<>();
+    private double getProbInUnaryGram(String elem) {
+        ArrayList<String> ls = new ArrayList<>();
         ls.add(elem);
-        Tokensequence<K> seq = new Tokensequence<>(ls);
+        Tokensequence seq = new Tokensequence(ls);
 
         if (!getNgramArray()[0].getModel().containsKey(seq)) {
             return -1;
@@ -198,7 +198,7 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
 
         int capturedCount = getNgramArray()[0].getModel().get(seq).get(null);
         int totalCount = 0;
-        Iterator<Map.Entry<Tokensequence<K>, HashMap<K, Integer>>> it = getNgramArray()[0].getModel().entrySet().iterator();
+        Iterator<Map.Entry<Tokensequence, HashMap<String, Integer>>> it = getNgramArray()[0].getModel().entrySet().iterator();
         while(it.hasNext()) {
             totalCount += it.next().getValue().get(null);
         }
@@ -220,23 +220,23 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
      * = p(a1) * p(a1 a2) * p(a1 a2 a3) * p(a2 a3 a4) * ... * p(a_(n-2) a_(n-1) a_(n)) /
      *   p(a1) * p(a1 a2) * p(a2 a3) * p(a3 a4) * p(a4 a5) * ... * p(a_(n-2) a_(n-1))
      */
-    public double calculateProbability(Tokensequence<K> nseq) {
+    public double calculateProbability(Tokensequence nseq) {
         int seqlength = nseq.length();
         double logprob = 0.0;
 
-        ArrayList<K> nseqContent = nseq.getSequence();
+        ArrayList<String> nseqContent = nseq.getSequence();
         int i;
         int maxGramLength = min(maxN, seqlength);
 
         //TODO: probability of 1-gram, assume all tokens in the sequence appear in the training list
         logprob += log(getProbInUnaryGram(nseq.getSequence().get(0)));
         for (i = 1; i < maxGramLength; i++) {
-            Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(0, i).toArray());
-            logprob += log(cacheModelArray[i].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
+            Tokensequence subTokenSeq = new Tokensequence((String[])nseqContent.subList(0, i).toArray());
+            logprob += log(cacheModelArray[i].getRelativeProbability(subTokenSeq, new Token(nseqContent.get(i))));
         }
         for (i = maxN; i < seqlength; i++) {
-            Tokensequence<K> subTokenSeq = new Tokensequence<>((K[])nseqContent.subList(i - maxN + 1, i).toArray());
-            logprob += log(cacheModelArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token<>(nseqContent.get(i))));
+            Tokensequence subTokenSeq = new Tokensequence((String[])nseqContent.subList(i - maxN + 1, i).toArray());
+            logprob += log(cacheModelArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token(nseqContent.get(i))));
         }
 
         double prob = exp(logprob);
@@ -248,7 +248,7 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
      * Reload the cache when handling the request to complete the post token of the sequence
      */
     public void reloadCacheContent() {
-        CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
+        CorpusImporter corpusImporter = new CorpusImporter(type);
         int fileNum = cacheFileList.size();
         cacheTokenStream = new ArrayList<>();
 
@@ -288,12 +288,12 @@ public class CacheRunEngine<K> implements CCRunEngine<K>{
      * Return the array of cache models
      * @return the array of cache models
      */
-    public CacheModel<K>[] getCacheModelArray() {
+    public CacheModel[] getCacheModelArray() {
         return this.cacheModelArray;
     }
 
-    public BasicNGram<K>[] getNgramArray(){
-        BasicNGram<K>[] retArray = new BasicNGram [maxN];
+    public BasicNGram[] getNgramArray(){
+        BasicNGram[] retArray = new BasicNGram [maxN];
         for (int i = 0; i < this.maxN; i++) {
             retArray[i] = cacheModelArray[i].getNgramModel();
         }

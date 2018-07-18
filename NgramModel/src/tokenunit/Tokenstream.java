@@ -10,21 +10,35 @@ import java.util.Arrays;
 
 /**
  * @author HHeart
- * @param <K>: type of element in stream
  */
 
-public class Tokenstream<K> {
+public class Tokenstream {
+	public int type;
 	public File tokenSourceFile;  //sourcefile containing tokens with type K
-	private ArrayList<K> wholeStream;
+	private ArrayList<String> wholeStream;
 
-	public Tokenstream(File ptokenSourceFile) {
+	public Tokenstream(int ptype, File ptokenSourceFile) {
+		this.type = ptype;
 		this.tokenSourceFile = ptokenSourceFile;
 		importTokenStreamFromFile();
 	}
 
+	private boolean tokenFiltering(char ch) {
+		if (type == 0) {
+			if (ch != '\r' && ch != '\t' && ch != '(' && ch != ')' && ch != ' ' && ch != '\n' && ch != '，' && ch != ',' && ch != '.' && ch != '。' && ch != '！' && ch != '!') {
+				return true;
+			}
+		} else {
+			if (ch != '\r' && ch != '\t' && ch != ' ' && ch != '.' && ch != '(' && ch != ')' && ch != '{' && ch != '}' && ch != ';' && ch != '[' && ch != ']' && ch != '\n') {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	//import token stream from sourcefile
 	private void importTokenStreamFromFile() {
-		ArrayList<Character> strStream = new ArrayList<Character>();
+		ArrayList<Character> strStream = new ArrayList<>();
 		try {
 			strStream = importCharStreamFromFile();
 		} catch (Exception e) {
@@ -38,13 +52,17 @@ public class Tokenstream<K> {
 	//import character stream from sourcefile
 	private ArrayList<Character> importCharStreamFromFile() {
 		Reader reader = null;
-		ArrayList<Character> strStream = new ArrayList<Character>();
+		ArrayList<Character> strStream = new ArrayList<>();
 
 		try {
 			reader = new InputStreamReader(new FileInputStream(tokenSourceFile), "UTF-8");
 			int tempchar;
 			while ((tempchar = reader.read()) != -1) {
-				if (((char) tempchar) != '\r' && ((char) tempchar) != '\t' && ((char) tempchar) != '(' && ((char) tempchar) != ')' && ((char) tempchar) != ' ' && ((char) tempchar) != '\n' && ((char) tempchar) != '，' && ((char) tempchar) != ',' && ((char) tempchar) != '.' && ((char) tempchar) != '。' && ((char) tempchar) != '！' && ((char) tempchar) != '!') {
+				if (type == 0) {
+					if (tokenFiltering((char) tempchar)) {
+						strStream.add(new Character((char) tempchar));
+					}
+				} else {
 					strStream.add(new Character((char) tempchar));
 				}
 			}
@@ -57,16 +75,28 @@ public class Tokenstream<K> {
 	}
 
 	private void convertCharStreamToTokenStream(ArrayList<Character> strStream) {
-		wholeStream = new ArrayList<K>();
+		wholeStream = new ArrayList<>();
 		int len = strStream.size();
 
 		//K: Character(default), String, etc.
+		StringBuilder sb = new StringBuilder();
+
 		for (int i = 0; i < len; i++) {
-			wholeStream.add((K)strStream.get(i));
+			char ch = strStream.get(i).charValue();
+			if (ch != '\r' && ch != '\t' && ch != ' ' && ch != '.' && ch != '(' && ch != ')' && ch != '{' && ch != '}' && ch != ';' && ch != '[' && ch != ']' && ch != '\n') {
+				sb.append(ch);
+				if (type == 0) {
+						wholeStream.add(sb.toString());
+						sb = new StringBuilder();
+				}
+			} else {
+				wholeStream.add(sb.toString());
+				sb = new StringBuilder();
+			}
 		}
 	}
 
-	public ArrayList<K> getWholeStream() {
+	public ArrayList<String> getWholeStream() {
 		return wholeStream;
 	}
 }

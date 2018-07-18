@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class CacheModel<K> {
+public class CacheModel {
     public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
     public int modelType;      //0: natural language model;   1: programming language model
     public double gamma;       //concentration parameter
 
-    private ArrayList<K> cacheTokenStream;  //token stream in the cache files
-    private BasicNGram<K>  ngramModel;  //n-gram model
-    private CacheNGram<K> ncacheModel;  //cache n-gram model
+    private ArrayList<String> cacheTokenStream;  //token stream in the cache files
+    private BasicNGram  ngramModel;  //n-gram model
+    private CacheNGram ncacheModel;  //cache n-gram model
 
 
     /**
@@ -27,15 +27,15 @@ public class CacheModel<K> {
         this.n = n;
         this.modelType = modelType;
         this.gamma = gamma;
-        this.ngramModel = new BasicNGram<>(n, modelType);
-        this.ncacheModel = new CacheNGram<>(n, modelType);
+        this.ngramModel = new BasicNGram(n, modelType);
+        this.ncacheModel = new CacheNGram(n, modelType);
     }
 
     /**
      * Train the ngramModel
      * @param corpusTokenStream token stream in the corpus
      */
-    public void preAction(ArrayList<K> corpusTokenStream) {
+    public void preAction(ArrayList<String> corpusTokenStream) {
         ngramModel.preAction(corpusTokenStream);
     }
 
@@ -43,8 +43,8 @@ public class CacheModel<K> {
      * update cacheTokenStream with token stream in cache files
      * @param newCacheTokenStream token stream in cache files
      */
-    public void updateCacheTokenStream(ArrayList<K> newCacheTokenStream) {
-        cacheTokenStream = (ArrayList<K>)newCacheTokenStream.clone();
+    public void updateCacheTokenStream(ArrayList<String> newCacheTokenStream) {
+        cacheTokenStream = (ArrayList<String>)newCacheTokenStream.clone();
     }
 
     /**
@@ -60,7 +60,7 @@ public class CacheModel<K> {
      * @param t last token
      * @return relative probability of t being the post token of nseq
      */
-    public double getRelativeProbability(Tokensequence<K> nseq, Token<K> t) {
+    public double getRelativeProbability(Tokensequence nseq, Token t) {
         double p1 = ngramModel.getRelativeProbability(nseq, t);
         double p2 = ncacheModel.getRelativeProbability(nseq, t);
         int h = ncacheModel.getSeqWithSpecificPrefix(nseq);
@@ -77,7 +77,7 @@ public class CacheModel<K> {
      * Return n-gram model component
      * @return n-gram model component
      */
-    public BasicNGram<K> getNgramModel() {
+    public BasicNGram getNgramModel() {
         return this.ngramModel;
     }
 
@@ -85,7 +85,7 @@ public class CacheModel<K> {
      * Return cache component
      * @return cache component
      */
-    public CacheNGram<K> getNcacheModel() {
+    public CacheNGram getNcacheModel() {
         return this.ncacheModel;
     }
 }

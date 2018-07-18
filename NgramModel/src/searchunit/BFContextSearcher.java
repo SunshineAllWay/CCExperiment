@@ -6,8 +6,8 @@ import tokenunit.Tokensequence;
 
 import java.util.*;
 
-public class BFContextSearcher<K> implements ContextSearcher<K> {
-    CCRunEngine<K> CCEngine;    //code completion engine
+public class BFContextSearcher implements ContextSearcher {
+    CCRunEngine CCEngine;    //code completion engine
     double stretchLowFactor;   //lower bound of length stretch of sequence
     double stretchHighFactor;  //high bound of length stretch of sequence
 
@@ -15,7 +15,7 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
      * Construct an object of BFContextSearcher(context searcher based on BFS)
      * @param pCCEngine Code Completion Engine
      */
-    public BFContextSearcher(CCRunEngine<K> pCCEngine) {
+    public BFContextSearcher(CCRunEngine pCCEngine) {
         this.CCEngine = pCCEngine;
     }
 
@@ -24,31 +24,31 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
      * @param seq sequence input
      * @return similar sequences
      */
-    public ArrayList<Tokensequence<K>> getSimilarSequences(Tokensequence<K> seq) {
-        ArrayList<Tokensequence<K>> similarSequenceList = new ArrayList<>();
-        ArrayList<K> ls = seq.getSequence();
-        HashSet<ArrayList<K>> listSet = new HashSet<>();
+    public ArrayList<Tokensequence> getSimilarSequences(Tokensequence seq) {
+        ArrayList<Tokensequence> similarSequenceList = new ArrayList<>();
+        ArrayList<String> ls = seq.getSequence();
+        HashSet<ArrayList<String>> listSet = new HashSet<>();
         int maxDepth = seq.getSequence().size();
 
         for (int i = 0; i < ls.size(); i++) {
-            K elem = ls.get(i);
-            ArrayList<K> singleElemList  = new ArrayList<>();
+            String elem = ls.get(i);
+            ArrayList<String> singleElemList  = new ArrayList<>();
             singleElemList.add(elem);
             listSet.add(singleElemList);
 
             int depth = 1;
 
             while (depth < maxDepth - i) {
-                HashSet<ArrayList<K>> newListSet = new HashSet<>();
-                for (ArrayList<K> list : listSet) {
-                    ArrayList<K> oplist = CCEngine.completePostToken(new Tokensequence<>(list));
+                HashSet<ArrayList<String>> newListSet = new HashSet<>();
+                for (ArrayList<String> list : listSet) {
+                    ArrayList<String> oplist = CCEngine.completePostToken(new Tokensequence(list));
                     if (oplist.size() == 0) {
                         continue;
                     }
 
-                    ArrayList<K> sortedCandidatesList = getSearchSelectedCandidates(seq, list, oplist);
+                    ArrayList<String> sortedCandidatesList = getSearchSelectedCandidates(seq, list, oplist);
                     for (int j = 0; j < Math.min(2, sortedCandidatesList.size()); j++) {
-                        ArrayList<K> newList = (ArrayList<K>)list.clone();
+                        ArrayList<String> newList = (ArrayList<String>)list.clone();
                         newList.add(sortedCandidatesList.get(j));
                         newListSet.add(newList);
                     }
@@ -57,29 +57,29 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
                 depth++;
             }
 
-            for (ArrayList<K> l : listSet) {
-                similarSequenceList.add(new Tokensequence<>(l));
+            for (ArrayList<String> l : listSet) {
+                similarSequenceList.add(new Tokensequence(l));
             }
             listSet.clear();
         }
 
         //Sort
-        HashMap<Tokensequence<K>, Double> seqToSimilarityMap = new HashMap<>();
+        HashMap<Tokensequence, Double> seqToSimilarityMap = new HashMap<>();
         for (int i = 0; i < similarSequenceList.size(); i++) {
             double similarity = calculateSequenceSimilarity(similarSequenceList.get(i), seq);
             seqToSimilarityMap.put(similarSequenceList.get(i), new Double(similarity));
         }
 
         similarSequenceList.clear();
-        Set<Map.Entry<Tokensequence<K>, Double>> seqToSimilaritySet = seqToSimilarityMap.entrySet();
+        Set<Map.Entry<Tokensequence, Double>> seqToSimilaritySet = seqToSimilarityMap.entrySet();
 
         while(!seqToSimilaritySet.isEmpty()) {
             double maxSimilarity = 0.0;
             int largestIndex = -1;
-            Tokensequence<K> closestSequence = null;
-            Map.Entry<Tokensequence<K>, Double> recordEntry = null;
+            Tokensequence closestSequence = null;
+            Map.Entry<Tokensequence, Double> recordEntry = null;
 
-            for (Map.Entry<Tokensequence<K>, Double> entry : seqToSimilaritySet) {
+            for (Map.Entry<Tokensequence, Double> entry : seqToSimilaritySet) {
                 if (entry.getValue() > maxSimilarity) {
                     recordEntry = entry;
                     maxSimilarity = entry.getValue();
@@ -105,23 +105,23 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
      * @param nextTokenList the list of next tokens without sort
      * @return sorted list based on probability
      */
-    public ArrayList<K> getSearchSelectedCandidates(Tokensequence<K> seq, ArrayList<K> list, ArrayList<K> nextTokenList) {
-        HashMap<K, Double> map = new HashMap<>();
+    public ArrayList<String> getSearchSelectedCandidates(Tokensequence seq, ArrayList<String> list, ArrayList<String> nextTokenList) {
+        HashMap<String, Double> map = new HashMap<>();
         for (int j = 0; j < nextTokenList.size(); j++) {
-            ArrayList<K> newList = (ArrayList<K>) list.clone();
+            ArrayList<String> newList = (ArrayList<String>) list.clone();
             newList.add(nextTokenList.get(j));
-            double similarity = calculateSequenceSimilarity(new Tokensequence<>(newList), seq);
+            double similarity = calculateSequenceSimilarity(new Tokensequence(newList), seq);
             map.put(nextTokenList.get(j), new Double(similarity));
         }
 
-        ArrayList<K> sortedCandidatesList = new ArrayList<>();
-        Set<Map.Entry<K, Double>> elemToSimilaritySet = map.entrySet();
+        ArrayList<String> sortedCandidatesList = new ArrayList<>();
+        Set<Map.Entry<String, Double>> elemToSimilaritySet = map.entrySet();
 
         while(!elemToSimilaritySet.isEmpty()) {
             double maxSimilarity = 0.0;
-            K elem = null;
-            Map.Entry<K, Double> recordEntry = null;
-            for (Map.Entry<K, Double> entry : elemToSimilaritySet) {
+            String elem = null;
+            Map.Entry<String, Double> recordEntry = null;
+            for (Map.Entry<String, Double> entry : elemToSimilaritySet) {
                 if (entry.getValue() > maxSimilarity) {
                     recordEntry = entry;
                     maxSimilarity = entry.getValue();
@@ -139,10 +139,10 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
      * @param seq2 sequence 2
      * @return the similarity between seq1 and seq2
      */
-    public double calculateSequenceSimilarity(Tokensequence<K> seq1, Tokensequence<K> seq2) {
+    public double calculateSequenceSimilarity(Tokensequence seq1, Tokensequence seq2) {
         double similarity = 1.0;
-        ArrayList<K> list1 = seq1.getSequence();
-        ArrayList<K> list2 = seq2.getSequence();
+        ArrayList<String> list1 = seq1.getSequence();
+        ArrayList<String> list2 = seq2.getSequence();
         int len1 = list1.size();
         int len2 = list2.size();
 
@@ -181,7 +181,7 @@ public class BFContextSearcher<K> implements ContextSearcher<K> {
      * @param patternseq input sequence
      * @return the largest index of longest common sub sequence in patternseq
      */
-    private int calculateLastEqualTokenPosition(Tokensequence<K> seq, Tokensequence<K> patternseq) {
+    private int calculateLastEqualTokenPosition(Tokensequence seq, Tokensequence patternseq) {
         int len1 = seq.length();
         int len2 = patternseq.length();
 

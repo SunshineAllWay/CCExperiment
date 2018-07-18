@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class NLcacheRunEngineTest {
     public static void main(String[] args) {
         File currentFile = new File("corpus\\natural_language_dataset3\\writing1.txt");
-        CacheRunEngine<Character> runtest = new CacheRunEngine<>(3, 1000, currentFile);
+        CacheRunEngine runtest = new CacheRunEngine(0, 3, 1000, currentFile);
         runtest.run();
-        ArrayList<Character> ls = runtest.completePostToken();
+        ArrayList<String> ls = runtest.completePostToken();
 
         if (ls.size() != 0) {
             for (int i = 0; i < ls.size(); i++) {

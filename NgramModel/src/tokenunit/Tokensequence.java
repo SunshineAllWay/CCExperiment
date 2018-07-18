@@ -6,30 +6,25 @@ import java.util.Optional;
 
 /**
  * @author HHeart
- * @param <K>: type of element in token
  */
 
-public class Tokensequence<K> {
+public class Tokensequence {
 	public int n;  //length of token sequence
-	public ArrayList<K> sequence;
+	public ArrayList<String> sequence;
 	
-	private ArrayList<K> initSequence;
-	private K lastToken;
-	
-	//If strArray.length is not equal to N in NGram model, it needs to report the failure
-	public Tokensequence(K[] tokenArray) {
-		int len = tokenArray.length;
-		this.n = len;
-		this.sequence = new ArrayList<>();  //need to guarantee the pre-post order
-	
-		for (int i = 0; i < len; i++) {
-			this.sequence.add(tokenArray[i]);
+	private ArrayList<String> initSequence;
+	private String lastToken;
+
+	public Tokensequence(String[] strarr) {
+		ArrayList<String> tokenList = new ArrayList<>();
+		for (int i = 0; i < strarr.length; i++) {
+			tokenList.add(strarr[i]);
 		}
-		
+		n = tokenList.size();
+		sequence = tokenList;
 		splitTokenSeq();
 	}
-
-	public Tokensequence(ArrayList<K> tokenList) {
+	public Tokensequence(ArrayList<String> tokenList) {
 		n = tokenList.size();
 		sequence = tokenList;
 		splitTokenSeq();
@@ -37,8 +32,8 @@ public class Tokensequence<K> {
 
 	public void splitTokenSeq() {
 		if (n > 1) {
-			ArrayList<K> tmpsequence = (ArrayList<K>) sequence.clone();
-			K lastElem = tmpsequence.remove(n - 1);
+			ArrayList<String> tmpsequence = (ArrayList<String>) sequence.clone();
+			String lastElem = tmpsequence.remove(n - 1);
 			initSequence = tmpsequence;
 			lastToken = lastElem;
 		} else {
@@ -47,32 +42,33 @@ public class Tokensequence<K> {
 		}
 	}
 
-	public Tokensequence<K> append(Token ptoken) {
-		ArrayList<K> ls = sequence;
-		ls.add((K)ptoken.mTokenELem);
-		return (new Tokensequence<>(ls));
+	public Tokensequence append(Token ptoken) {
+		ArrayList<String> ls = sequence;
+		ls.add(ptoken.mTokenElem);
+		return (new Tokensequence(ls));
 	}
 	
 	public int length() {
 		return this.n;
 	}
 	
-	public ArrayList<K> getSequence() {
+	public ArrayList<String> getSequence() {
 		return this.sequence;
 	}
 
-	public ArrayList<K> getInitSequence() {
+	public ArrayList<String> getInitSequence() {
 		return this.initSequence;
 	}
 
-	public K getLastToken() {
+	public String getLastToken() {
 		return this.lastToken;
 	}
 
-	public Tokensequence<K> subTokenSequence(int indexFrom, int indexTo) {
-		List<K> tmpsequence = ((ArrayList<K>) sequence.clone()).subList(indexFrom, indexTo);
-		K[] tmparr = (K[])tmpsequence.toArray();
-		return (new Tokensequence<>(tmparr));
+	public Tokensequence subTokenSequence(int indexFrom, int indexTo) {
+		List<String> tmpsequence = ((ArrayList<String>) sequence.clone()).subList(indexFrom, indexTo);
+		ArrayList<String> ls = new ArrayList<>();
+		ls.addAll(tmpsequence);
+		return (new Tokensequence(ls));
 	}
 
 	//POLISH
@@ -89,7 +85,7 @@ public class Tokensequence<K> {
 			return false;
 		}
 		
-		Tokensequence<?> tokenseq = (Tokensequence<?>) obj;
+		Tokensequence tokenseq = (Tokensequence) obj;
 		boolean b1 = (this.n == tokenseq.n);
 		boolean b2 = true;
 		

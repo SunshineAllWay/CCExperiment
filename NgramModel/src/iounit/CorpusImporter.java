@@ -12,10 +12,9 @@ import tokenunit.Tokenstream;
 /**
  * @author HHeart
  * CorpusImporter: import the corpus from external files
- * @param <K>: type of token
  */
 
-public class CorpusImporter<K> {
+public class CorpusImporter {
 	static public String rootdir;
 	public ArrayList<File> trainingDataFileList;
 	public ArrayList<File> testingDataFileList;
@@ -81,8 +80,8 @@ public class CorpusImporter<K> {
 	}
 
 	//import Dictionary of Token Sequence from single file
-	public ArrayList<K> importCorpusFromSingleFile(File pfile) {
-		Tokenstream<K> corpustream = new Tokenstream<>(pfile);
+	public ArrayList<String> importCorpusFromSingleFile(File pfile) {
+		Tokenstream corpustream = new Tokenstream(datatype, pfile);
 		return corpustream.getWholeStream();
 	}
 
@@ -90,19 +89,19 @@ public class CorpusImporter<K> {
 	 * Import the list of elements of token used for training
 	 * @return the list of elements of token used for training
 	 */
-	public ArrayList<K> importTrainingCorpusFromBase() {
+	public ArrayList<String> importTrainingCorpusFromBase() {
 		//collect names of files in trainingDataSrcDir and store in trainingDataList
 		int fileNum = trainingDataFileList.size();
-		ArrayList<K> tokenList = new ArrayList<>();
+		ArrayList<String> tokenList = new ArrayList<>();
 		for (int i = 0; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i)));
 		}
 		return tokenList;
 	}
 
-	public ArrayList<K> importTestingCorpusFromBase() {
+	public ArrayList<String> importTestingCorpusFromBase() {
 		int fileNum = testingDataFileList.size();
-		ArrayList<K> tokenList = new ArrayList<>();
+		ArrayList<String> tokenList = new ArrayList<>();
 		for (int i = 0; i < fileNum; i++) {
 			tokenList.addAll(importCorpusFromSingleFile(testingDataFileList.get(i)));
 		}

@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 
-public interface CCRunEngine<K> {
-    ArrayList<K> completePostToken(Tokensequence<K> nseq);
-    double calculateProbability(Tokensequence<K> nseq);
-    BasicNGram<K>[] getNgramArray();
+public interface CCRunEngine {
+    ArrayList<String> completePostToken(Tokensequence nseq);
+    double calculateProbability(Tokensequence nseq);
+    BasicNGram[] getNgramArray();
     void preAction();
     void run();
 }

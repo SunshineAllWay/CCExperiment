@@ -4,7 +4,7 @@ import tokenunit.Tokensequence;
 
 import java.util.ArrayList;
 
-public interface ContextSearcher<K> {
-    ArrayList<Tokensequence<K>> getSimilarSequences(Tokensequence<K> seq);
-    double calculateSequenceSimilarity(Tokensequence<K> seq1, Tokensequence<K> seq2);
+public interface ContextSearcher{
+    ArrayList<Tokensequence> getSimilarSequences(Tokensequence seq);
+    double calculateSequenceSimilarity(Tokensequence seq1, Tokensequence seq2);
 }

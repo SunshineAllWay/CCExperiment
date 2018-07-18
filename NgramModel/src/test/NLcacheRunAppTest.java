@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class NLcacheRunAppTest {
     public static void main(String[] args) {
         File currentFile = new File("corpus\\natural_language_dataset3\\writing2.txt");
-        CacheRunApp<Character> app = new CacheRunApp(0, 3, 0, currentFile);
-        ArrayList<Character> tokenCandidatesList = app.completePostToken();
+        CacheRunApp app = new CacheRunApp(0, 3, 0, currentFile);
+        ArrayList<String> tokenCandidatesList = app.completePostToken();
 
         if (tokenCandidatesList.size() > 0) {
             for (int i = 0; i < tokenCandidatesList.size(); i++) {

@@ -2,25 +2,20 @@ package tokenunit;
 
 /**
  * @author HHeart
- * @param <K>: type of element in token
  */
 
-public class Token<K> {
-	public K mTokenELem;
+public class Token {
+	public String mTokenElem;
 
-	public Token(K ptokenElem) {
-		this.mTokenELem = ptokenElem;
+	public Token(String ptokenElem) {
+		this.mTokenElem = ptokenElem;
 	}
 
 	public int hashCode() {
-		return (mTokenELem.hashCode());
+		return (mTokenElem.hashCode());
 	}
 
-	public boolean equals(Token<K> tc) {
-		return (mTokenELem == tc.mTokenELem);
-	}
-
-	public String toString() {
-		return mTokenELem.toString();
+	public boolean equals(Token tc) {
+		return (mTokenElem == tc.mTokenElem);
 	}
 }
