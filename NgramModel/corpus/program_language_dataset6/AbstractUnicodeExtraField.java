@@ -176,8 +176,4 @@ public abstract class AbstractUnicodeExtraField implements ZipExtraField {
 
         nameCRC32 = ZipLong.getValue(buffer, offset + 1);
         unicodeName = new byte[length - 5];
-        System.arraycopy(buffer, offset + 5, unicodeName, 0, length - 5);
-        data = null;
-    }
-
-}
+        System.arraycopy

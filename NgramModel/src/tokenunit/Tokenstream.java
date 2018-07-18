@@ -90,8 +90,10 @@ public class Tokenstream {
 						sb = new StringBuilder();
 				}
 			} else {
-				wholeStream.add(sb.toString());
-				sb = new StringBuilder();
+			    if (sb.toString().length() != 0) {
+                    wholeStream.add(sb.toString());
+                    sb = new StringBuilder();
+                }
 			}
 		}
 	}
