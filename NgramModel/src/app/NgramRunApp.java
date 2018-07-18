@@ -1,21 +1,18 @@
 package app;
 
-import engine.NLcacheRunEngine;
-import iounit.CorpusImporter;
+import engine.NgramRunEngine;
 import searchunit.BFContextSearcher;
 import tokenunit.Tokensequence;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
 
-public class NLcacheRunApp<K> implements CCRunApp<K> {
-    private NLcacheRunEngine<K> runEngine;
+public class NgramRunApp<K> implements CCRunApp<K> {
+    private NgramRunEngine<K> runEngine;
 
-    public NLcacheRunApp(int maxN, double gamma, File curFile) {
-        runEngine = new NLcacheRunEngine(maxN, gamma, curFile);
+    public NgramRunApp(int type, int maxN) {
+        runEngine = new NgramRunEngine(type, maxN, 1);
         runEngine.preAction();
     }
 
@@ -69,22 +66,5 @@ public class NLcacheRunApp<K> implements CCRunApp<K> {
         }
 
         return tokenCandidatesList;
-    }
-
-    public ArrayList<K> completePostToken() {
-        //retain the cache components
-        runEngine.retrainCacheModel();
-        CorpusImporter<K> corpusImporter = new CorpusImporter<>(0);
-        ArrayList<K> currentFileTokenStream = corpusImporter.importCorpusFromSingleFile(runEngine.getCurFile());
-        int length = currentFileTokenStream.size();
-        int prefixLength = Math.min(length, runEngine.maxN);
-
-        if (length == 0) {
-            return new ArrayList<>();
-        }
-
-        ArrayList<K> tailStream = new ArrayList<>();
-        tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
-        return completePostToken(new Tokensequence<>(tailStream));
     }
 }

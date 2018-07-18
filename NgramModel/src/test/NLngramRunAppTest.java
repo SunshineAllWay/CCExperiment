@@ -1,12 +1,12 @@
 package test;
 
-import app.NLngramRunApp;
+import app.NgramRunApp;
 import tokenunit.Tokensequence;
 import java.util.ArrayList;
 
 public class NLngramRunAppTest {
     public static void main(String[] args) {
-        NLngramRunApp<Character> app = new NLngramRunApp<>(3);
+        NgramRunApp<Character> app = new NgramRunApp<>(0, 3);
         ArrayList<Character> query = new ArrayList<>();
         query.add('二');
         query.add('新');

@@ -1,6 +1,6 @@
 package test;
 
-import engine.NLcacheRunEngine;
+import engine.CacheRunEngine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class NLcacheRunEngineTest {
     public static void main(String[] args) {
         File currentFile = new File("corpus\\natural_language_dataset3\\writing1.txt");
-        NLcacheRunEngine<Character> runtest = new NLcacheRunEngine<>(3, 1000, currentFile);
+        CacheRunEngine<Character> runtest = new CacheRunEngine<>(3, 1000, currentFile);
         runtest.run();
         ArrayList<Character> ls = runtest.completePostToken();
 

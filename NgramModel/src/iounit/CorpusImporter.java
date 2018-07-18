@@ -40,14 +40,46 @@ public class CorpusImporter<K> {
 			testingDataSrcDir = properties.getProperty("TESTING_NL_DATAFILEDIR");
 		} else {
 			//for programming language
+			trainingDataSrcDir = properties.getProperty("TRAINING_PL_DATAFILEDIR");
+			testingDataSrcDir = properties.getProperty("TESTING_PL_DATAFILEDIR");
 		}
 		
 		File trainingDataDir = new File(trainingDataSrcDir);
 		File testingDataDir = new File(testingDataSrcDir);
-		trainingDataFileList = new ArrayList<>(Arrays.asList(trainingDataDir.listFiles()));
-		testingDataFileList = new ArrayList<>(Arrays.asList(testingDataDir.listFiles()));
+		trainingDataFileList = new ArrayList<>();
+		testingDataFileList = new ArrayList<>();
+		searchForFileListInDirectory(trainingDataDir, trainingDataFileList);
+		searchForFileListInDirectory(testingDataDir, testingDataFileList);
 	}
-	
+
+	public ArrayList<File> searchForFileListInDirectory(File file, ArrayList<File> fileList) {
+		if (!file.isDirectory()) {
+			String suffix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+			if (datatype == 1) {
+				if (suffix.equals("java") || suffix.equals("c") || suffix.equals("py")) {
+					fileList.add(file);
+					return fileList;
+				}
+			} else {
+				if (suffix.equals("txt")) {
+					fileList.add(file);
+					return fileList;
+				}
+			}
+		}
+
+		File[] files = file.listFiles();
+		if (files == null) {
+			return fileList;
+		}
+
+		for (int i = 0; i < files.length; i++) {
+			searchForFileListInDirectory(files[i], fileList);
+		}
+
+		return fileList;
+	}
+
 	//import Dictionary of Token Sequence from single file
 	public ArrayList<K> importCorpusFromSingleFile(File pfile) {
 		Tokenstream<K> corpustream = new Tokenstream<>(pfile);

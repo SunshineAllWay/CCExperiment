@@ -1,7 +1,7 @@
 package test;
 
 import java.util.ArrayList;
-import engine.NLngramRunEngine;
+import engine.NgramRunEngine;
 import searchunit.BFContextSearcher;
 import tokenunit.Tokensequence;
 
@@ -11,7 +11,7 @@ import tokenunit.Tokensequence;
  */
 
 class NLngramRunEngineTest {
-    public static void testRun(NLngramRunEngine<Character> runtest) {
+    public static void testRun(NgramRunEngine<Character> runtest) {
 
         /*********************************** Test case 1 **************************************/
         //井井有条
@@ -37,7 +37,7 @@ class NLngramRunEngineTest {
         System.out.println();
     }
 
-    public static void evaluateRun(NLngramRunEngine<Character> runtest) {
+    public static void evaluateRun(NgramRunEngine<Character> runtest) {
         runtest.evaluateModel();
         System.out.println("Likelihood:");
         for (int i = 0; i < runtest.likelihood.size(); i++) {
@@ -54,7 +54,7 @@ class NLngramRunEngineTest {
         }
     }
 
-    public static void testContextSearcher(NLngramRunEngine<Character> runtest) {
+    public static void testContextSearcher(NgramRunEngine<Character> runtest) {
         BFContextSearcher<Character> fuzzySearcher = new BFContextSearcher<>(runtest);
         ArrayList<Character> query = new ArrayList<>();
         query.add('五');
@@ -73,7 +73,7 @@ class NLngramRunEngineTest {
     }
 
     public static void main(String[] args) {
-        NLngramRunEngine<Character> runtest = new NLngramRunEngine<>(5, 0.5);
+        NgramRunEngine<Character> runtest = new NgramRunEngine<>(0, 5, 0.5);
         runtest.run();
         testRun(runtest);
         //evaluateRun(runtest);

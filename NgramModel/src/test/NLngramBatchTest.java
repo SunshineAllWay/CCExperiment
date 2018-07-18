@@ -1,6 +1,6 @@
 package test;
 
-import app.NLngramRunApp;
+import app.NgramRunApp;
 import iounit.CorpusImporter;
 import tokenunit.Tokensequence;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class NLngramBatchTest {
     public static void main(String[] args) {
-        NLngramRunApp<Character> app = new NLngramRunApp<>(3);
+        NgramRunApp<Character> app = new NgramRunApp<>(0, 3);
         CorpusImporter<Character> corpusImporter = new CorpusImporter<>(0);
         ArrayList<File> testFileList = corpusImporter.testingDataFileList;
 //        ArrayList<Character> lp = new ArrayList<>();

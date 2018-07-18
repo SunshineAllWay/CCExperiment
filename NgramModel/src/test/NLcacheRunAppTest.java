@@ -1,7 +1,6 @@
 package test;
 
-import app.NLcacheRunApp;
-import tokenunit.Tokensequence;
+import app.CacheRunApp;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 public class NLcacheRunAppTest {
     public static void main(String[] args) {
         File currentFile = new File("corpus\\natural_language_dataset3\\writing2.txt");
-        NLcacheRunApp<Character> app = new NLcacheRunApp(3, 0, currentFile);
+        CacheRunApp<Character> app = new CacheRunApp(0, 3, 0, currentFile);
         ArrayList<Character> tokenCandidatesList = app.completePostToken();
 
         if (tokenCandidatesList.size() > 0) {
