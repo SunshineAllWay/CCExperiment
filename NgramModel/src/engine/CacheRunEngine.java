@@ -193,7 +193,7 @@ public class CacheRunEngine implements CCRunEngine{
         Tokensequence seq = new Tokensequence(ls);
 
         if (!getNgramArray()[0].getModel().containsKey(seq)) {
-            return -1;
+            return 1.0 / getNgramArray()[0].getModel().size();
         }
 
         int capturedCount = getNgramArray()[0].getModel().get(seq).get(null);
@@ -231,11 +231,15 @@ public class CacheRunEngine implements CCRunEngine{
         //TODO: probability of 1-gram, assume all tokens in the sequence appear in the training list
         logprob += log(getProbInUnaryGram(nseq.getSequence().get(0)));
         for (i = 1; i < maxGramLength; i++) {
-            Tokensequence subTokenSeq = new Tokensequence((String[])nseqContent.subList(0, i).toArray());
+            ArrayList<String> ls = new ArrayList<>();
+            ls.addAll(nseqContent.subList(0, i));
+            Tokensequence subTokenSeq = new Tokensequence(ls);
             logprob += log(cacheModelArray[i].getRelativeProbability(subTokenSeq, new Token(nseqContent.get(i))));
         }
         for (i = maxN; i < seqlength; i++) {
-            Tokensequence subTokenSeq = new Tokensequence((String[])nseqContent.subList(i - maxN + 1, i).toArray());
+            ArrayList<String> ls = new ArrayList<>();
+            ls.addAll(nseqContent.subList(i - maxN + 1, i));
+            Tokensequence subTokenSeq = new Tokensequence(ls);
             logprob += log(cacheModelArray[maxN - 1].getRelativeProbability(subTokenSeq, new Token(nseqContent.get(i))));
         }
 
@@ -265,6 +269,10 @@ public class CacheRunEngine implements CCRunEngine{
     public void updateCacheList(File newCurFile) {
         cacheFileList.add(curFile);
         curFile = newCurFile;
+    }
+
+    public void addCacheFileList(File file) {
+        cacheFileList.add(file);
     }
 
     public void retrainCacheModel() {
@@ -302,5 +310,10 @@ public class CacheRunEngine implements CCRunEngine{
 
     public File getCurFile() {
         return this.curFile;
+    }
+
+    public void setCurFile(File pCurFile) {
+        this.curFile = pCurFile;
+        reloadCacheContent();
     }
 }

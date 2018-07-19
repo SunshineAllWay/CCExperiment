@@ -118,7 +118,7 @@ public class NgramRunEngine implements CCRunEngine{
 		Tokensequence seq = new Tokensequence(ls);
 
 		if (!gramArray[0].getModel().containsKey(seq)) {
-			return -1;
+			return 1.0 / getNgramArray()[0].getModel().size();
 		}
 
 		int capturedCount = gramArray[0].getModel().get(seq).get(null);

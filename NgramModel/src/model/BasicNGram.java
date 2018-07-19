@@ -90,13 +90,13 @@ public class BasicNGram {
 	 */
 	public void preAction(ArrayList<String> wholeTokenList) {
 		//Step 1: Import Corpus, check whether n is matched or not
-		System.out.println("Stream split begins");
+		//System.out.println("Stream split begins");
 		long importCorpusMoment1 = System.currentTimeMillis();
 		ArrayList<Tokensequence> corpusList = splitWholeTokenList(wholeTokenList);
-		System.out.println("Stream split finished");
+		//System.out.println("Stream split finished");
 		long importCorpusMoment2 = System.currentTimeMillis();
 		long importCorpusTime = importCorpusMoment2 - importCorpusMoment1;
-		System.out.println("Time cost: " + String.valueOf(importCorpusTime) + " ms");
+		//System.out.println("Time cost: " + String.valueOf(importCorpusTime) + " ms");
 		
 		int len = corpusList.size();
 		if (len == 0) return;
@@ -105,13 +105,13 @@ public class BasicNGram {
 		}
 		
 		//Step 2: Train Model
-		System.out.println("Count Model Training begins");
+		//System.out.println("Count Model Training begins");
 		long trainMoment3 = System.currentTimeMillis();
 		trainBasicNGramCntModel(corpusList);
-		System.out.println("Count Model Training finished");
+		//.out.println("Count Model Training finished");
 		long trainMoment4 = System.currentTimeMillis();
 		long trainTime2 = trainMoment4 - trainMoment3;
-		System.out.println("Time cost: " + String.valueOf(trainTime2) + " ms");
+		//System.out.println("Time cost: " + String.valueOf(trainTime2) + " ms");
 	}
 
 

@@ -45,7 +45,10 @@ public class CacheRunApp implements CCRunApp{
             }
         }
 
-        String[] tokenCandidatesArray = (String[])tokenCandidatesList.toArray();
+        String[] tokenCandidatesArray = new String[tokenCandidatesList.size()];
+        for (int i = 0; i < tokenCandidatesList.size(); i++) {
+            tokenCandidatesArray[i] = tokenCandidatesList.get(i);
+        }
         ArrayList<String> sortedTokenCandidatesList = new ArrayList<>();
 
         for (int i = 0; i < tokenCandidatesList.size(); i++) {
@@ -84,5 +87,9 @@ public class CacheRunApp implements CCRunApp{
         ArrayList<String> tailStream = new ArrayList<>();
         tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
         return completePostToken(new Tokensequence(tailStream));
+    }
+
+    public CacheRunEngine getRunEngine() {
+        return runEngine;
     }
 }
