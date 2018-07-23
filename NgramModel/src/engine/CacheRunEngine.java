@@ -19,8 +19,8 @@ public class CacheRunEngine implements CCRunEngine{
     private double gamma;                      //concentration parameter
     private CacheModel[] cacheModelArray;   //unigram, bigram, trigram or unigram ...ngram
 
-    private ArrayList<String> corpusTokenStream;  //token stream in the corpus
-    private ArrayList<String> cacheTokenStream;   //token stream in the cache files
+    public ArrayList<String> corpusTokenStream;  //token stream in the corpus
+    public ArrayList<String> cacheTokenStream;   //token stream in the cache files
 
     private ArrayList<File> cacheFileList;   //the list of cache files
     private File curFile;                    //current edited file
@@ -77,7 +77,7 @@ public class CacheRunEngine implements CCRunEngine{
      * Train the n-gram model component during the preparation phase
      */
     public void preAction() {
-        System.out.println("Cache engine for natural language warms up");
+        System.out.println("Cache engine warms up");
         for (int i = 0; i < cacheModelArray.length; i++) {
             System.out.println("---------------------------------");
             System.out.print(Integer.toString(i + 1) + "-gram");
@@ -88,7 +88,7 @@ public class CacheRunEngine implements CCRunEngine{
             System.out.println("---------------------------------");
             System.out.println();
         }
-        System.out.println("Cache engine for natural language is prepared");
+        System.out.println("Cache engine is prepared");
         retrainCacheModel();
     }
 
@@ -259,6 +259,7 @@ public class CacheRunEngine implements CCRunEngine{
         for (int i = 0; i < fileNum; i++) {
             cacheTokenStream.addAll(corpusImporter.importCorpusFromSingleFile(cacheFileList.get(i)));
         }
+
         cacheTokenStream.addAll(corpusImporter.importCorpusFromSingleFile(curFile));
     }
 

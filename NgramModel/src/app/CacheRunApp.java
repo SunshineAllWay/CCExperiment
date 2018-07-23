@@ -74,10 +74,9 @@ public class CacheRunApp implements CCRunApp{
 
     public ArrayList<String> completePostToken() {
         //retain the cache components
+
         runEngine.retrainCacheModel();
-        CorpusImporter corpusImporter = new CorpusImporter(runEngine.type);
-        ArrayList<String> currentFileTokenStream = corpusImporter.importCorpusFromSingleFile(runEngine.getCurFile());
-        int length = currentFileTokenStream.size();
+        int length = runEngine.cacheTokenStream.size();
         int prefixLength = Math.min(length, runEngine.maxN);
 
         if (length == 0) {
@@ -85,7 +84,7 @@ public class CacheRunApp implements CCRunApp{
         }
 
         ArrayList<String> tailStream = new ArrayList<>();
-        tailStream.addAll(currentFileTokenStream.subList(length - prefixLength, length));
+        tailStream.addAll(runEngine.cacheTokenStream.subList(length - prefixLength, length));
         return completePostToken(new Tokensequence(tailStream));
     }
 

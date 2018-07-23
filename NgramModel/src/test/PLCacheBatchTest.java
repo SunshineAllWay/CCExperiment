@@ -2,9 +2,11 @@ package test;
 
 import app.CacheRunApp;
 import engine.CacheRunEngine;
+import iounit.CorpusImporter;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PLCacheBatchTest{
     public static int top3 = 0;
@@ -16,23 +18,31 @@ public class PLCacheBatchTest{
     public static double top5rate = 0.0;
     public static double top10rate = 0.0;
     public static double MRR = 0.0;
+    public static HashSet<Integer> completeIndexSet = new HashSet<>();
+    public static ArrayList<String> tokenList = new ArrayList<>();
 
 
-    public static String filterSpecificCharacter(String str) {
+    public static void filterSpecificCharacter(String str) {
         char[] charr = str.toCharArray();
         StringBuilder sb = new StringBuilder();
+        tokenList = new ArrayList<>();
+        completeIndexSet = new HashSet<>();
+
         for (int i = 0; i < charr.length; i++) {
             char ch = charr[i];
-            if (ch != '\r' && ch != '\t' && ch != ' ' && ch != '.' && ch != '(' && ch != ')' && ch != '{' && ch != '}' && ch != ';' && ch != '[' && ch != ']' && ch != '\n') {
+            if (ch != '\r' && ch != '.' && ch != '\t' && ch != ' ' && ch != ',' && ch != '(' && ch != ')' && ch != '{' && ch != '}' && ch != ';' && ch != '[' && ch != ']' && ch != '\n') {
                 sb.append(ch);
             } else {
-                sb.append(' ');
+                tokenList.add(sb.toString().trim());
+                sb = new StringBuilder();
+            }
+            if (ch == '.') {
+                completeIndexSet.add(tokenList.size() - 1);
             }
         }
-        return sb.toString();
     }
 
-    public static void evaluateCandidateList(ArrayList<String> candidatesList, String answer) {
+    public static void  evaluateCandidateList(ArrayList<String> candidatesList, String answer) {
         int rank = 0;
         count++;
         while (rank < candidatesList.size()) {
@@ -58,25 +68,35 @@ public class PLCacheBatchTest{
             FileReader reader = new FileReader(sourceFile);
             BufferedReader br = new BufferedReader(reader);
             String str = null;
+            FileWriter writer;
 
             while((str = br.readLine()) != null) {
-                String strAfterFilter = filterSpecificCharacter(str).trim();
-                String[] strArr = strAfterFilter.split(" ");
-                for (int i = 0; i < strArr.length - 1; i++) {
-                    FileWriter writer = new FileWriter(currentFile, true);
-                    BufferedWriter bw = new BufferedWriter(writer);
-                    bw.write(strArr[i]);
-                    bw.write(" ");
-                    bw.close();
+                filterSpecificCharacter(str.trim());
+
+                for (int i = 0; i < tokenList.size() - 1; i++) {
+                    writer = new FileWriter(currentFile, true);
+                    writer.write(" " + tokenList.get(i));
+                    writer.flush();
                     writer.close();
-                    if (i < 3) {
+
+                    if (completeIndexSet.contains(new Integer(i - 1))) {
                         ArrayList<String> candidiateList = app.completePostToken();
-                        evaluateCandidateList(candidiateList, strArr[i + 1]);
+                        evaluateCandidateList(candidiateList, tokenList.get(i));
 
                         System.out.println();
                         System.out.println("-----------------------");
                         System.out.print("Count: ");
                         System.out.println(count);
+                        System.out.print("Prefix: ");
+                        System.out.println(tokenList.get(i - 1));
+                        System.out.print("Answer: ");
+                        System.out.println(tokenList.get(i));
+
+                        for (int j = 0; j < Math.min(3, candidiateList.size()); j++) {
+                            System.out.print("List: ");
+                            System.out.println(candidiateList.get(j));
+                        }
+
                         System.out.print("TOP 3: ");
                         System.out.println(top3);
                         System.out.print("TOP 5: ");
@@ -87,13 +107,13 @@ public class PLCacheBatchTest{
                         System.out.println();
                     }
                 }
-                FileWriter writer = new FileWriter(currentFile, true);
-                BufferedWriter bw = new BufferedWriter(writer);
-                bw.write(strArr[strArr.length - 1]);
-                bw.write(" ");
-                bw.close();
-                writer.close();
 
+                if (tokenList.size() > 0) {
+                    writer = new FileWriter(currentFile, true);
+                    writer.write(" " + tokenList.get(tokenList.size() - 1));
+                    writer.flush();
+                    writer.close();
+                }
             }
             br.close();
             reader.close();
