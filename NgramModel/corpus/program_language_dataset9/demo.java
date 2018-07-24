@@ -5,4 +5,8 @@ public class ClassDemo {
     public void print(int value) {  
         System.out.println(value);  
     }  
+
+    public void scanf() {
+    	
+    }
 }  

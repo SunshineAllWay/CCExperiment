@@ -1,4 +1,4 @@
-package parserunit;
+package parseunit;
 
 import org.eclipse.jdt.core.dom.*;
 
