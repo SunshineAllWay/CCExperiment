@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="org.eclipse.core.contenttype_3.4.200.v20140207-1251">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.core.contenttype_3.4.200.v20140207-1251.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.osgi_3.10.2.v20150203-1939.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.jdt.core_3.10.2.v20150120-1634.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.jdt.core.manipulation_1.5.0.v20130605-1748.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.equinox.preferences_3.5.200.v20140224-1527.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.core.runtime_3.10.0.v20140318-2214.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.core.resources_3.9.1.v20140825-1431.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.core.jobs_3.6.1.v20141014-1248.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/antlr-4.5.2-complete.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/special-parse.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/program-processor.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/org.eclipse.jdt.core.source_3.10.2.v20150120-1634.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/special-parse.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/program-processor.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,8 +1,6 @@
 package test;
 
 import app.CacheRunApp;
-import iounit.CorpusImporter;
-import tokenunit.Tokensequence;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package searchunit;
 
 import engine.CCRunEngine;
-import tokenunit.Token;
 import tokenunit.Tokensequence;
 
 import java.util.*;

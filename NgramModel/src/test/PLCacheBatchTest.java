@@ -1,7 +1,6 @@
 package test;
 
 import app.CacheRunApp;
-import engine.CacheRunEngine;
 import iounit.CorpusImporter;
 
 import java.io.*;
