@@ -2,6 +2,8 @@ package parseunit;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
@@ -9,6 +11,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 public class MethodNodeVisitor extends ASTVisitor {
 
 	List<MethodDeclaration> methodNodeList = new ArrayList<>();
+	List<ASTNode> astNodeList = new ArrayList<>();
 
 	public List<MethodDeclaration> getMethodDecs() {
 		return methodNodeList;
@@ -19,5 +22,4 @@ public class MethodNodeVisitor extends ASTVisitor {
 		methodNodeList.add(node);
 		return true;
 	}
-
 }

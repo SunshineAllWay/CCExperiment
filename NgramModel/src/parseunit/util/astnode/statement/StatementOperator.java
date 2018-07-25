@@ -1,0 +1,77 @@
+package parseunit.util.astnode.statement;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.jdt.core.dom.ASTNode;
+
+import parseunit.entity.ASTNodeMappingElement;
+import parseunit.util.GlobalProperty;
+import parseunit.util.string.StringUtil;
+
+public class StatementOperator {
+
+	/**
+	 * TODO get statement mapping relationship
+	 * Note: 
+	 * (1) define equivalence class 
+	 * (2) define standard statement description for each statement
+	 * (3) calculate similarity > threshold 
+	 * @param stListRef
+	 * @param stListTar
+	 * @return
+	 */
+	public static List<ASTNodeMappingElement> getMappingList(
+			List<ASTNode> stListRef, List<ASTNode> stListTar) {
+		List<ASTNodeMappingElement> list = new ArrayList<ASTNodeMappingElement>();
+		
+		//calculate similarity
+		double[][] similarity = new double[stListRef.size()][stListTar.size()];
+		double minDistance;
+		for(int indexRef = 0;indexRef<stListRef.size();indexRef++){
+			for(int indexTar=0;indexTar<stListTar.size();indexTar++){
+				minDistance = (double)StringUtil.minDistance(stListRef.get(indexRef).toString()
+						, stListTar.get(indexTar).toString());
+				similarity[indexRef][indexTar] = 1.0 - (minDistance/(stListRef.get(indexRef).toString().length()
+						+ stListTar.get(indexTar).toString().length()));
+			}
+			
+		}
+		
+		// mapping
+		boolean[] available = new boolean[stListTar.size()];
+		for(int index = 0;index<available.length;index++){
+			available[index] = true;
+		}
+		int[] mapResult = new int[stListRef.size()];
+		double tem = 0.0;
+		for(int indexRef = 0;indexRef<stListRef.size();indexRef++){
+			mapResult[indexRef] = -1;
+			tem = 0.0;
+			for(int indexTar=0;indexTar<stListTar.size();indexTar++){
+				if(similarity[indexRef][indexTar] > tem && 
+						similarity[indexRef][indexTar] > GlobalProperty.SIMILARITY
+						&& available[indexTar]){
+					tem = similarity[indexRef][indexTar];
+					mapResult[indexRef] = indexTar;
+					available[indexTar] = false;
+				}
+			}
+		}
+		
+		// build StatmentMappingElement
+		ASTNodeMappingElement element;
+		for(int indexMap=0;indexMap<mapResult.length;indexMap++){
+			if(mapResult[indexMap] >= 0){
+				element = new ASTNodeMappingElement(
+						stListRef.get(indexMap),
+						stListTar.get(mapResult[indexMap]));
+				list.add(element);
+			}
+		}
+		return list;
+	}
+
+
+}

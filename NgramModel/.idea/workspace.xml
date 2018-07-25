@@ -26,97 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="PostOrderVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/PostOrderVisitor.java">
+      <file leaf-file-name="CBArrayAccess.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBArrayAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-122">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyASTNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/MyASTNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MethodNodeVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/MethodNodeVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NodeVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/NodeVisitor.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="ASTGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/ASTGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyMethodNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/MyMethodNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SingleJavaParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/SingleJavaParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="750">
-              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SingleJavaStream.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parseunit/SingleJavaStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PLcacheRunASTAppTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="13" column="77" selection-start-line="13" selection-start-column="77" selection-end-line="13" selection-end-column="77" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="44">
+              <caret line="6" column="46" lean-forward="true" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -154,6 +68,7 @@
       <find>CorpusImporter&lt;&gt;</find>
       <find>&lt;Character&gt;</find>
       <find>CompilationUnit</find>
+      <find>com.tomgu</find>
     </findStrings>
     <replaceStrings>
       <replace>Token</replace>
@@ -161,62 +76,64 @@
       <replace>String</replace>
       <replace>CorpusImporter</replace>
       <replace>Expression</replace>
+      <replace>parseunit.entity</replace>
+      <replace>parseunit</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/tokenunit/Tokencount.java" />
-        <option value="$PROJECT_DIR$/src/refineunit/LidstoneSmoothing.java" />
-        <option value="$PROJECT_DIR$/src/refineunit/KNSmoothing.java" />
-        <option value="$PROJECT_DIR$/src/refineunit/WBSmoothing.java" />
-        <option value="$PROJECT_DIR$/src/test/Test.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngranRunEgnineTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngranRunEngineTest.java" />
-        <option value="$PROJECT_DIR$/src/test/LeetCode.java" />
-        <option value="$PROJECT_DIR$/src/app/NLngramRunApp.java" />
-        <option value="$PROJECT_DIR$/src/engine/NLngramRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/engine/NLcacheRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/app/NLcacheRunApp.java" />
-        <option value="$PROJECT_DIR$/src/app/CCRunApp.java" />
-        <option value="$PROJECT_DIR$/src/tokenunit/Token.java" />
-        <option value="$PROJECT_DIR$/src/app/NgramRunApp.java" />
-        <option value="$PROJECT_DIR$/src/model/CacheNGram.java" />
-        <option value="$PROJECT_DIR$/src/searchunit/ContextSearcher.java" />
-        <option value="$PROJECT_DIR$/src/searchunit/BFContextSearcher.java" />
-        <option value="$PROJECT_DIR$/src/iounit/CorpusImporter.java" />
-        <option value="$PROJECT_DIR$/src/tokenunit/Tokensequence.java" />
-        <option value="$PROJECT_DIR$/src/model/CacheModel.java" />
-        <option value="$PROJECT_DIR$/src/test/NLcacheRunAppTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngramRunAppTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngramRunEngineTest.java" />
-        <option value="$PROJECT_DIR$/src/test/NLngramBatchTest.java" />
-        <option value="$PROJECT_DIR$/src/test/PLngramRunEngineTest.java" />
-        <option value="$PROJECT_DIR$/src/tokenunit/Tokenstream.java" />
-        <option value="$PROJECT_DIR$/corpus/program_language_dataset6/TarArchiveSparseEntry.java" />
-        <option value="$PROJECT_DIR$/corpus/program_language_dataset6/AbstractUnicodeExtraField.java" />
-        <option value="$PROJECT_DIR$/src/test/PLcacheRunAppTest.java" />
-        <option value="$PROJECT_DIR$/src/test/PLngramBatchTest.java" />
-        <option value="$PROJECT_DIR$/devmemo.txt" />
-        <option value="$PROJECT_DIR$/src/app/CacheRunApp.java" />
-        <option value="$PROJECT_DIR$/src/test/PLCacheBatchTest.java" />
-        <option value="$PROJECT_DIR$/config/corpuspath.properties" />
-        <option value="$PROJECT_DIR$/src/engine/core/NgramRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/engine/NgramRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/engine/CacheRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/engine/CCRunEngine.java" />
-        <option value="$PROJECT_DIR$/src/model/BasicNGram.java" />
-        <option value="$PROJECT_DIR$/src/parserunit/SingleJavaStream.java" />
-        <option value="$PROJECT_DIR$/src/parserunit/SingleJavaParser.java" />
-        <option value="$PROJECT_DIR$/src/parserunit/PostOrderVisitor.java" />
-        <option value="$PROJECT_DIR$/src/parserunit/MyASTNode.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/MyASTNode.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/MyMethodNode.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/MethodNodeVisitor.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/NodeVisitor.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/ASTGenerator.java" />
-        <option value="$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/CBASTNode.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/AbstractCBASTNode.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBSingleVariableDeclaration.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBVariableDeclaration.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBVariableDeclaratrionFragment.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBAssertStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBAssignment.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBBooleanLiteral.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBCastExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBCharacterLiteral.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBConditionalExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBFieldAccess.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInfixExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInstanceofExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBMethodInvocation.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBName.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBNullLiteral.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBNumberLiteral.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBParenthesizedExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBPostfixExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBPrefixExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBStringLiteral.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBSuperFieldAccess.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBSuperMethodInvocation.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBVariableDeclarationExpression.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBBlock.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBBreakStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBCatchClause.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBConstructorInvocation.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBContinueStatemment.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBDoStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBEmptyStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBEnhancedForStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBExpressionStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBFiledDeclaration.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBForStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBIfStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBInitializer.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBLabeledStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBReturnStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSuperConstrutorInvocation.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSwitchCase.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSwitchStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSychronizedStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBThrowStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBTryStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBVariableDeclarationStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBWhileStatement.java" />
+        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBArrayAccess.java" />
       </list>
     </option>
   </component>
@@ -226,7 +143,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="683" />
@@ -237,9 +154,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="Course" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -310,12 +226,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="getUn&#9;PSI&#9;JAVA://engine.NgramRunEngine#getProbInUnaryGram&#10;getUna&#9;null&#9;null&#10;calculateL&#9;PSI&#9;JAVA://engine.NgramRunEngine#calculateLikelihood" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/CPAchecker-1.7-windows/CPAchecker-1.7-windows" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -326,6 +243,7 @@
       <recent name="test" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Research\CodeCompletion\CCExperiment\NgramModel\src\parseunit\util" />
       <recent name="D:\Research\CodeCompletion\CCExperiment\NgramModel\src\parseunit" />
     </key>
   </component>
@@ -427,10 +345,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="4" weight="0.24914089" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49923664" weight="0.3298969" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -438,10 +356,11 @@
       <window_info anchor="right" id="Maven Projects" order="8" side_tool="true" weight="0.32977098" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" x="5" y="6" width="1355" height="716" id="Run" order="9" type="FLOATING" weight="0.4742268" />
-      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49923664" weight="0.03436426" />
+      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49923664" weight="0.14089347" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.34351146" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.3610687" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.66838485" />
       <window_info id="Learn" order="5" sideWeight="0.49913344" weight="0.32977098" />
       <window_info id="Structure" order="1" sideWeight="0.28249568" side_tool="true" weight="0.29923666" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
@@ -455,8 +374,6 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.37800688" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49923664" weight="0.3298969" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -596,323 +513,379 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/refineunit/SmoothingType.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBFieldAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="872">
+          <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInfixExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1372">
+          <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInstanceofExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="797">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBMethodInvocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="774">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBNullLiteral.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBNumberLiteral.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="747">
+          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBParenthesizedExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="674">
+          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBPostfixExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="797">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBPrefixExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="772">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBStringLiteral.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="822">
+          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBSuperMethodInvocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBVariableDeclarationExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1447">
+          <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBSuperFieldAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-725">
+          <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBSingleVariableDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBVariableDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="28" column="50" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/variabledeclaration/CBVariableDeclaratrionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBAssertStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBBreakStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1175">
+          <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBCatchClause.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBConstructorInvocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1197">
+          <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBContinueStatemment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBDoStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBEmptyStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+          <folding>
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBEnhancedForStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBExpressionStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBFiledDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1422">
+          <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBForStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBIfStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBLabeledStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBReturnStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="997">
+          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSuperConstrutorInvocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1272">
+          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSwitchCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSwitchStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBSychronizedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBThrowStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1047">
+          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBTryStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBVariableDeclarationStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/AbstractCBASTNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/refineunit/LidstoneSmoothing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/CCRunApp.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/CBASTNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/NgramRunApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunEngineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunEngineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="75" column="43" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset6/TarArchiveSparseEntry.java" />
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset6/AbstractUnicodeExtraField.java" />
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset6/JavaCompletionProposals.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/NLcacheRunAppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="19" column="9" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/NLngramRunAppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset6/Activator.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/NLngramBatchTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="76" column="32" selection-start-line="66" selection-start-column="8" selection-end-line="76" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/CacheNGram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/devmemo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/Ngram.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/Utilities.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/NoSorter.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/Data.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/Word.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/CachecaComputer.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/Cache.java" />
-    <entry file="file://$USER_HOME$/Desktop/Ngram.java" />
-    <entry file="file://$USER_HOME$/Desktop/Activator.java" />
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset8/JavaCompletionProposals.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corpus/program_language_dataset1/tar/TarEntry.java" />
-    <entry file="file://$PROJECT_DIR$/src/model/CacheModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/searchunit/BFContextSearcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tokenunit/Tokenstream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1150">
-          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/CacheRunApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/PLCacheBatchTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2975">
-          <caret line="124" column="30" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/corpuspath.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" column="58" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iounit/CorpusImporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="52" column="90" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="432" selection-start-line="432" selection-end-line="432" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunAppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="10" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/CCRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/BasicNGram.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/visitor/CBVariableDeclarationStatementVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBWhileStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/CacheRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tokenunit/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parserunit/parsehelper/OneTypeVisitor.java" />
-    <entry file="file://$PROJECT_DIR$/src/engine/NgramRunEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tokenunit/Tokensequence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/SingleJavaStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/SingleJavaParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/PostOrderVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-122">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/MyMethodNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/MyASTNode.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/ASTNodeMappingElement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/NodeVisitor.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/parseunit/MethodNodeVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/util/astnode/statement/BlockOperator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="100">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/util/astnode/ASTNodeOperator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/parseunit/ASTGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="100">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java">
+    <entry file="file://$PROJECT_DIR$/src/parseunit/util/astnode/statement/StatementOperator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="13" column="77" selection-start-line="13" selection-start-column="77" selection-end-line="13" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="100">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBArrayAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="6" column="46" lean-forward="true" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
         </state>
       </provider>
     </entry>
