@@ -52,4 +52,4 @@ Development Schedule
 [Keep Moving 49] [24, July, 2018] Cache app batch testing again. [top3: 0.535] [top5: 0.549] [top10: 0.561] [MRR: 0.448] [CORPUS: program_language_dataset1] [TEST: Cache SRC]
 [Keep Moving 50] [25, July, 2018] Begin AST parse.
 [Keep Moving 51] [25, July, 2018] Generate AST and get the list of method
-[Keep Moving 52] [25, July, 2018] AST Parse, code from tomgu.
+[Keep Moving 52] [25, July, 2018] AST Parse. Code from tomgu.
