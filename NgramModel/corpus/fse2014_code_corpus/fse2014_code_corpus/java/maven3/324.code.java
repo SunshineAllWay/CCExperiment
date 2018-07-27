@@ -1,0 +1,6 @@
+package org.apache.maven.configuration;
+public interface BeanConfigurator
+{
+    void configureBean( BeanConfigurationRequest request )
+        throws BeanConfigurationException;
+}

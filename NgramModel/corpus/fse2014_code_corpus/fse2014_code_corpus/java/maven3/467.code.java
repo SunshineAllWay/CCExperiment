@@ -1,0 +1,89 @@
+package org.apache.maven.project;
+import java.util.List;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.building.AbstractModelBuildingListener;
+import org.apache.maven.model.building.ModelBuildingEvent;
+import org.apache.maven.model.building.ModelProblem.Severity;
+import org.apache.maven.plugin.PluginResolutionException;
+import org.apache.maven.plugin.version.PluginVersionResolutionException;
+class DefaultModelBuildingListener
+    extends AbstractModelBuildingListener
+{
+    private MavenProject project;
+    private ProjectBuildingHelper projectBuildingHelper;
+    private ProjectBuildingRequest projectBuildingRequest;
+    private List<ArtifactRepository> remoteRepositories;
+    private List<ArtifactRepository> pluginRepositories;
+    public DefaultModelBuildingListener( MavenProject project, ProjectBuildingHelper projectBuildingHelper,
+                                         ProjectBuildingRequest projectBuildingRequest )
+    {
+        if ( project == null )
+        {
+            throw new IllegalArgumentException( "project missing" );
+        }
+        this.project = project;
+        if ( projectBuildingHelper == null )
+        {
+            throw new IllegalArgumentException( "project building helper missing" );
+        }
+        this.projectBuildingHelper = projectBuildingHelper;
+        if ( projectBuildingRequest == null )
+        {
+            throw new IllegalArgumentException( "project building request missing" );
+        }
+        this.projectBuildingRequest = projectBuildingRequest;
+        this.remoteRepositories = projectBuildingRequest.getRemoteRepositories();
+        this.pluginRepositories = projectBuildingRequest.getPluginArtifactRepositories();
+    }
+    public MavenProject getProject()
+    {
+        return project;
+    }
+    @Override
+    public void buildExtensionsAssembled( ModelBuildingEvent event )
+    {
+        Model model = event.getModel();
+        try
+        {
+            pluginRepositories =
+                projectBuildingHelper.createArtifactRepositories( model.getPluginRepositories(), pluginRepositories,
+                                                                  projectBuildingRequest );
+        }
+        catch ( Exception e )
+        {
+            event.getProblems().add( Severity.ERROR, "Invalid plugin repository: " + e.getMessage(), null, e );
+        }
+        project.setPluginArtifactRepositories( pluginRepositories );
+        if ( event.getRequest().isProcessPlugins() )
+        {
+            try
+            {
+                ProjectRealmCache.CacheRecord record =
+                    projectBuildingHelper.createProjectRealm( project, model, projectBuildingRequest );
+                project.setClassRealm( record.realm );
+                project.setExtensionDependencyFilter( record.extensionArtifactFilter );
+            }
+            catch ( PluginResolutionException e )
+            {
+                event.getProblems().add( Severity.ERROR, "Unresolveable build extension: " + e.getMessage(), null, e );
+            }
+            catch ( PluginVersionResolutionException e )
+            {
+                event.getProblems().add( Severity.ERROR, "Unresolveable build extension: " + e.getMessage(), null, e );
+            }
+            projectBuildingHelper.selectProjectRealm( project );
+        }
+        try
+        {
+            remoteRepositories =
+                projectBuildingHelper.createArtifactRepositories( model.getRepositories(), remoteRepositories,
+                                                                  projectBuildingRequest );
+        }
+        catch ( Exception e )
+        {
+            event.getProblems().add( Severity.ERROR, "Invalid artifact repository: " + e.getMessage(), null, e );
+        }
+        project.setRemoteArtifactRepositories( remoteRepositories );
+    }
+}

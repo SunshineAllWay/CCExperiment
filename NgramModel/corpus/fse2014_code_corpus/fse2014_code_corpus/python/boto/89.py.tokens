@@ -1,0 +1,1 @@
+from boto . exception import BotoServerError class DNSServerError ( BotoServerError ) : pass

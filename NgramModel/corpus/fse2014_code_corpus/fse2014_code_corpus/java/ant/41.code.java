@@ -1,0 +1,5 @@
+package org.example;
+public class Foo {
+    public Foo() {}
+    public native String bar(Object baz);
+}

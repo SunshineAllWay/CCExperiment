@@ -1,0 +1,5 @@
+package org.apache.lucene.search.highlight;
+public interface Formatter
+{
+	String highlightTerm(String originalText, TokenGroup tokenGroup);
+}

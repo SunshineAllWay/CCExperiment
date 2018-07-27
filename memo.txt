@@ -53,3 +53,4 @@ Development Schedule
 [Keep Moving 50] [25, July, 2018] Begin AST parse.
 [Keep Moving 51] [25, July, 2018] Generate AST and get the list of method
 [Keep Moving 52] [25, July, 2018] AST Parse. Code from tomgu.
+[Keep Moving 53] [27, July, 2018] Download 2014 fse corpus.

@@ -1,0 +1,1 @@
+class SimpleResultSet ( list ) : def __init__ ( self , input_list ) : for x in input_list : self . append ( x ) self . is_truncated = False

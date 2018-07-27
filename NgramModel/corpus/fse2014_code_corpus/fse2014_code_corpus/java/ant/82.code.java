@@ -1,0 +1,5 @@
+package org.apache.tools.ant;
+public interface SubBuildListener extends BuildListener {
+    void subBuildStarted(BuildEvent event);
+    void subBuildFinished(BuildEvent event);
+}

@@ -1,0 +1,1 @@
+from r2 . lib . db . thing import Thing , Relation , Vote class Link ( Thing ) : _int_props = Thing . _int_props + ( 'num_comments' , ) class Account ( Thing ) : pass class Tag ( Relation ( Account , Link ) ) : pass class LinkAuthor ( Relation ( Account , Link ) ) : pass class Friend ( Relation ( Account , Account ) ) : _int_props = ( 'extra' , ) v = Vote ( ( Account , Link ) )

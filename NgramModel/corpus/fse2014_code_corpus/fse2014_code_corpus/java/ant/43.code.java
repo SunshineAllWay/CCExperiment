@@ -1,0 +1,5 @@
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+public interface RemoteTimestamp extends Remote {
+    long when() throws RemoteException ;
+}

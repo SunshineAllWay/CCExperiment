@@ -1,0 +1,9 @@
+package org.apache.maven.artifact.manager;
+public class WagonA
+    extends WagonMock
+{
+    public String[] getSupportedProtocols()
+    {
+        return new String[]{ "a" };
+    }
+}

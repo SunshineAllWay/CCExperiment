@@ -1,0 +1,1 @@
+def jury_cache_dict ( account , ip , slash16 ) : return { "recent-juror-key" : 1 } def voir_dire_priv ( account , ip , slash16 , defendant , sr ) : return True

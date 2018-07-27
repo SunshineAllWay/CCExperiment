@@ -1,0 +1,4 @@
+package org.apache.solr.request;
+public class JSONResponseWriter extends org.apache.solr.response.JSONResponseWriter 
+{
+}

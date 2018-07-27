@@ -1,0 +1,5 @@
+package com.klopotek.utils.log;
+public interface JDBCIDHandler
+{
+	Object getID();
+}

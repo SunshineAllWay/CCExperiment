@@ -1,0 +1,1 @@
+from django import forms class ManagementForm ( forms . Form ) : current_step = forms . CharField ( widget = forms . HiddenInput )

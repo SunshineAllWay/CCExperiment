@@ -1,0 +1,1 @@
+package org . apache . solr . handler . dataimport ; public abstract class Evaluator { public abstract String evaluate ( String expression , Context context ) ; }

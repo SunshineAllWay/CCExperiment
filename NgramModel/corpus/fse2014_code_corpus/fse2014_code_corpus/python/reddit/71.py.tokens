@@ -1,0 +1,1 @@
+from r2 . lib . base import * class TemplateController ( BaseController ) : def view ( self , url ) : abort ( 404 )

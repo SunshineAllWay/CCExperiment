@@ -1,0 +1,1 @@
+def add ( mc ) : mc ( '/admin/' , controller = 'awards' ) try : from r2admin . config . routing import * except ImportError : pass

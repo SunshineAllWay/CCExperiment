@@ -1,0 +1,1 @@
+from boto . regioninfo import RegionInfo class RDSRegionInfo ( RegionInfo ) : def __init__ ( self , connection = None , name = None , endpoint = None ) : from boto . rds import RDSConnection RegionInfo . __init__ ( self , connection , name , endpoint , RDSConnection )

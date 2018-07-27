@@ -1,0 +1,1 @@
+from boto . sqs . message import Message import yaml class YAMLMessage ( Message ) : def __init__ ( self , queue = None , body = '' , xml_attrs = None ) : self . data = None Message . __init__ ( self , queue , body ) def set_body ( self , body ) : self . data = yaml . load ( body ) def get_body ( self ) : return yaml . dump ( self . data )

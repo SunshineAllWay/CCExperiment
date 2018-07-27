@@ -1,0 +1,1 @@
+import sys try : pyreadline_codepage = sys . stdout . encoding except AttributeError : pyreadline_codepage = "ascii" def ensure_unicode ( text ) : if isinstance ( text , str ) : return text . decode ( pyreadline_codepage , "replace" ) return text def ensure_str ( text ) : if isinstance ( text , unicode ) : return text . encode ( pyreadline_codepage , "replace" ) return text

@@ -1,0 +1,1 @@
+import clr clr . AddReferenceByPartialName ( "System.Windows.Forms" ) import System . Windows . Forms . Clipboard as cb def GetClipboardText ( ) : text = "" if cb . ContainsText ( ) : text = cb . GetText ( ) return text def SetClipboardText ( text ) : cb . SetText ( text ) if __name__ == '__main__' : txt = GetClipboardText ( ) print txt

@@ -1,0 +1,1 @@
+""" Email message and email sending related helper functions. """ import socket class CachedDnsName ( object ) : def __str__ ( self ) : return self . get_fqdn ( ) def get_fqdn ( self ) : if not hasattr ( self , '_fqdn' ) : self . _fqdn = socket . getfqdn ( ) return self . _fqdn DNS_NAME = CachedDnsName ( )

@@ -1,0 +1,1 @@
+from __future__ import absolute_import , division , with_statement def set_close_exec ( fd ) : raise NotImplementedError ( ) class Waker ( object ) : def fileno ( self ) : raise NotImplementedError ( ) def wake ( self ) : raise NotImplementedError ( ) def consume ( self ) : raise NotImplementedError ( ) def close ( self ) : raise NotImplementedError ( )

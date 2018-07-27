@@ -1,0 +1,1 @@
+from boto . regioninfo import RegionInfo class SDBRegionInfo ( RegionInfo ) : def __init__ ( self , connection = None , name = None , endpoint = None ) : from boto . sdb . connection import SDBConnection RegionInfo . __init__ ( self , connection , name , endpoint , SDBConnection )

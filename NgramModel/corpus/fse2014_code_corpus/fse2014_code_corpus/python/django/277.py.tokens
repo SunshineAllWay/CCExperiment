@@ -1,0 +1,1 @@
+from __future__ import absolute_import from django . conf . urls import patterns , url from . import views urlpatterns = patterns ( '' , ( r'^template_response_view/$' , views . template_response_view ) , url ( r'^snark/' , views . snark , name = 'snark' ) , )

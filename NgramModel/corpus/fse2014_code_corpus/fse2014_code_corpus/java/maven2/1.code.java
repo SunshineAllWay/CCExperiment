@@ -1,0 +1,74 @@
+package org.apache.maven.artifact;
+import org.apache.maven.artifact.handler.ArtifactHandler;
+import org.apache.maven.artifact.metadata.ArtifactMetadata;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
+import org.apache.maven.artifact.versioning.VersionRange;
+import java.io.File;
+import java.util.Collection;
+import java.util.List;
+import java.util.regex.Pattern;
+public interface Artifact
+    extends Comparable<Artifact>
+{
+    String LATEST_VERSION = "LATEST";
+    String SNAPSHOT_VERSION = "SNAPSHOT";
+    Pattern VERSION_FILE_PATTERN = Pattern.compile( "^(.*)-([0-9]{8}.[0-9]{6})-([0-9]+)$" );
+    String SCOPE_COMPILE = "compile";
+    String SCOPE_TEST = "test";
+    String SCOPE_RUNTIME = "runtime";
+    String SCOPE_PROVIDED = "provided";
+    String SCOPE_SYSTEM = "system";
+    String SCOPE_IMPORT = "import";   
+    String RELEASE_VERSION = "RELEASE";
+    String getGroupId();
+    String getArtifactId();
+    String getVersion();
+    void setVersion( String version );
+    String getScope();
+    String getType();
+    String getClassifier();
+    boolean hasClassifier();
+    File getFile();
+    void setFile( File destination );
+    String getBaseVersion();
+    void setBaseVersion( String baseVersion );
+    String getId();
+    String getDependencyConflictId();
+    void addMetadata( ArtifactMetadata metadata );
+    ArtifactMetadata getMetadata( Class<?> metadataClass );
+    Collection<ArtifactMetadata> getMetadataList();
+    void setRepository( ArtifactRepository remoteRepository );
+    ArtifactRepository getRepository();
+    void updateVersion( String version, ArtifactRepository localRepository );
+    String getDownloadUrl();
+    void setDownloadUrl( String downloadUrl );
+    ArtifactFilter getDependencyFilter();
+    void setDependencyFilter( ArtifactFilter artifactFilter );
+    ArtifactHandler getArtifactHandler();
+    List<String> getDependencyTrail();
+    void setDependencyTrail( List<String> dependencyTrail );
+    void setScope( String scope );
+    VersionRange getVersionRange();
+    void setVersionRange( VersionRange newRange );
+    void selectVersion( String version );
+    void setGroupId( String groupId );
+    void setArtifactId( String artifactId );
+    boolean isSnapshot();
+    void setResolved( boolean resolved );
+    boolean isResolved();
+    void setResolvedVersion( String version );
+    void setArtifactHandler( ArtifactHandler handler );
+    boolean isRelease();
+    void setRelease( boolean release );
+    List<ArtifactVersion> getAvailableVersions();
+    void setAvailableVersions( List<ArtifactVersion> versions );
+    boolean isOptional();
+    void setOptional( boolean optional );
+    ArtifactVersion getSelectedVersion()
+        throws OverConstrainedVersionException;
+    boolean isSelectedVersionKnown()
+        throws OverConstrainedVersionException;
+}

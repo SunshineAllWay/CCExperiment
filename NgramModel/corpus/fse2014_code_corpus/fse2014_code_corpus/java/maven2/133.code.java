@@ -1,0 +1,41 @@
+package org.apache.maven.execution;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.monitor.event.EventDispatcher;
+import org.apache.maven.monitor.event.EventMonitor;
+import org.apache.maven.profiles.ProfileManager;
+import org.apache.maven.project.ProjectBuilderConfiguration;
+import org.apache.maven.settings.Settings;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+public interface MavenExecutionRequest
+{
+    ArtifactRepository getLocalRepository();
+    List getGoals();
+    void setSession( MavenSession session );
+    MavenSession getSession();
+    void addEventMonitor( EventMonitor monitor );
+    EventDispatcher getEventDispatcher();
+    Settings getSettings();
+    String getBaseDirectory();
+    void setRecursive( boolean recursive );
+    boolean isRecursive();
+    void setReactorActive( boolean reactorActive );
+    boolean isReactorActive();
+    void setResumeFrom( String resumeFrom );
+    String getResumeFrom();
+    void setSelectedProjects( List projects );
+    List getSelectedProjects();
+    void setMakeBehavior( String makeBehavior );
+    String getMakeBehavior();
+    void setPomFile( String pomFile );
+    String getPomFile();
+    void setFailureBehavior( String failureBehavior );
+    String getFailureBehavior();
+    ProfileManager getGlobalProfileManager();
+    Properties getExecutionProperties();
+    Properties getUserProperties();
+    Date getStartTime();
+    boolean isShowErrors();
+    ProjectBuilderConfiguration getProjectBuilderConfiguration();
+}

@@ -1,0 +1,4 @@
+package org.apache.solr.request;
+public class XMLResponseWriter extends org.apache.solr.response.XMLResponseWriter 
+{
+}

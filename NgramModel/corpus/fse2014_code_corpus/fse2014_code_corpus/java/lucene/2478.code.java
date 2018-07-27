@@ -1,0 +1,5 @@
+package org.apache.solr.search;
+public final class DocListAndSet {
+  public DocList docList;
+  public DocSet docSet;
+}

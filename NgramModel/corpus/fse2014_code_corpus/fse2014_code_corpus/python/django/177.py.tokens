@@ -1,0 +1,1 @@
+from __future__ import absolute_import from django . test import TestCase from . models import Parent class MutuallyReferentialTests ( TestCase ) : def test_mutually_referential ( self ) : q = Parent ( name = 'Elizabeth' ) q . save ( ) c = q . child_set . create ( name = 'Charles' ) e = q . child_set . create ( name = 'Edward' ) q . bestchild = c q . save ( ) q . delete ( )

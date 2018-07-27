@@ -1,0 +1,1 @@
+from django . conf import settings def media ( request ) : return { 'CMS_MEDIA_URL' : settings . CMS_MEDIA_URL }

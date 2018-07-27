@@ -1,0 +1,1 @@
+from django . conf . urls import patterns from django . contrib . databrowse import views urlpatterns = patterns ( '' , ( r'^([^/]+)/([^/]+)/fields/(\w+)/$' , views . choice_list ) , ( r'^([^/]+)/([^/]+)/fields/(\w+)/(.*)/$' , views . choice_detail ) , )

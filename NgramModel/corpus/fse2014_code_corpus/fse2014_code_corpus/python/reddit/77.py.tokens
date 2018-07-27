@@ -1,0 +1,1 @@
+from pylons import request , g from reddit_base import RedditController from r2 . lib . pages import AdminPage , AdminUsage from validator import * class UsageController ( RedditController ) : @ validate ( VAdmin ( ) ) def GET_index ( self ) : res = AdminPage ( content = AdminUsage ( ) , show_sidebar = False , title = 'usage' ) . render ( ) return res

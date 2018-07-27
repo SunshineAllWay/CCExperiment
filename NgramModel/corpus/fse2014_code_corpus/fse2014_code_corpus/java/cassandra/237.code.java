@@ -1,0 +1,14 @@
+package org.apache.cassandra.gms;
+public enum ApplicationState
+{
+    STATUS,
+    LOAD,
+    SCHEMA,
+    DC,
+    RACK,
+    X1,
+    X2,
+    X3,
+    X4,
+    X5,
+}

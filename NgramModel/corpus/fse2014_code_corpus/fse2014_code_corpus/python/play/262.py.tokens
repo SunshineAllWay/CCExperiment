@@ -1,0 +1,1 @@
+class ReadlineError ( Exception ) : pass class GetSetError ( ReadlineError ) : pass

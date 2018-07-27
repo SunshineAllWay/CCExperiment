@@ -1,0 +1,1 @@
+import re rewrites = ( ( "\A/_(.*)" , "/_$1" ) , ( "\A/static/(.*\.js)" , "/static/$1" ) , ( "\A(.*)(?<!button)(?<!buttonlite)(\.js)\Z" , "$1.embed" ) ) rewrites = tuple ( ( re . compile ( r [ 0 ] ) , r [ 1 ] ) for r in rewrites )

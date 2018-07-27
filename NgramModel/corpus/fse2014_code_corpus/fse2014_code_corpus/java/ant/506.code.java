@@ -1,0 +1,5 @@
+package org.apache.tools.ant.taskdefs.optional.net;
+import org.apache.tools.ant.BuildException;
+public interface FTPTaskMirror {
+    public void doFTP() throws BuildException;
+}

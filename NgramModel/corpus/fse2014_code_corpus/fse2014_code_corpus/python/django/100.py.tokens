@@ -1,0 +1,1 @@
+from django . test import TestCase class NoModelTests ( TestCase ) : pass

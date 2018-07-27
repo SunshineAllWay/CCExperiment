@@ -1,0 +1,6 @@
+package org.apache.solr.util.plugin;
+import org.apache.solr.common.ResourceLoader;
+public interface ResourceLoaderAware 
+{
+  void inform( ResourceLoader loader );
+}

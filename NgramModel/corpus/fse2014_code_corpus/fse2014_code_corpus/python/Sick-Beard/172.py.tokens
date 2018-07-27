@@ -1,0 +1,1 @@
+""" Configuration of Hachoir """ import os max_string_length = 40 max_byte_length = 14 max_bit_length = 256 unicode_stdout = True debug = False verbose = False quiet = False if os . name == "nt" : use_i18n = False else : use_i18n = True autofix = True check_padding_pattern = True

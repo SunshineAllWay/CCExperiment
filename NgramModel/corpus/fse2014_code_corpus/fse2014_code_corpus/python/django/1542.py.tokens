@@ -1,0 +1,1 @@
+from django import template from django . contrib . staticfiles . storage import staticfiles_storage register = template . Library ( ) @ register . simple_tag def static ( path ) : return staticfiles_storage . url ( path )

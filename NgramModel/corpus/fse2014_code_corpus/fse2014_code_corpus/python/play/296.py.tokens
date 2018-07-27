@@ -1,0 +1,1 @@
+try : import pyreadline . rlmain import readline , atexit import pyreadline . unicode_helper except ImportError : print "Module readline not available." else : import rlcompleter readline . parse_and_bind ( "tab: complete" ) readline . read_history_file ( ) atexit . register ( readline . write_history_file ) del readline , rlcompleter , atexit

@@ -1,0 +1,1 @@
+"""r2 This file loads the finished app from r2.config.middleware. """ def make_app ( * args , ** kwargs ) : from r2 . config . middleware import make_app as real_make_app return real_make_app ( * args , ** kwargs )

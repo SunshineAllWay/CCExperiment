@@ -1,0 +1,25 @@
+package org.plugin;
+import org.apache.maven.plugin.Mojo;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
+public class TestPlugin
+    implements Mojo
+{
+    private Log log;
+    private MavenProject project;
+    public void execute()
+        throws MojoExecutionException, MojoFailureException
+    {
+        throw new MojoExecutionException( "THIS SHOULD NEVER BE CALLED." );
+    }
+    public Log getLog()
+    {
+        return log;
+    }
+    public void setLog( Log log )
+    {
+        this.log = log;
+    }
+}

@@ -1,0 +1,1 @@
+""" Signals relating to comments. """ from django . dispatch import Signal comment_will_be_posted = Signal ( providing_args = [ "comment" , "request" ] ) comment_was_posted = Signal ( providing_args = [ "comment" , "request" ] ) comment_was_flagged = Signal ( providing_args = [ "comment" , "flag" , "created" , "request" ] )

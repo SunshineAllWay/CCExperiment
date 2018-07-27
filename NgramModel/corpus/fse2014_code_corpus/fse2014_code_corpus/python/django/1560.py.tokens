@@ -1,0 +1,1 @@
+from django . contrib . messages . api import get_messages def messages ( request ) : return { 'messages' : get_messages ( request ) }

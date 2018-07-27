@@ -1,0 +1,1 @@
+ep_regexes = [ ( 'standard_repeat' , ) , ( 'fov_repeat' , ) , ( 'standard' , ) , ( 'fov' , ) , ( 'scene_date_format' , ) , ( 'stupid' , ) , ( 'verbose' , ) , ( 'season_only' , ) , ( 'no_season_multi_ep' , ) , ( 'no_season_general' , ) , ( 'bare' , ) , ( 'no_season' , ) , ]

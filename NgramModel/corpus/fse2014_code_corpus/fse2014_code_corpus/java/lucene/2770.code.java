@@ -1,0 +1,59 @@
+package org.apache.solr.common.util;
+import java.io.ByteArrayInputStream;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import junit.framework.TestCase;
+public class DOMUtilTest extends TestCase {
+  private DocumentBuilder builder;
+  private static final XPathFactory xpathFactory = XPathFactory.newInstance();
+  public void setUp() throws Exception {
+    builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+  }
+  public void testAddToNamedListPrimitiveTypes() throws Exception {
+    NamedList<Object> namedList = new SimpleOrderedMap<Object>();
+    DOMUtil.addToNamedList( getNode( "<str name=\"String\">STRING</str>", "/str" ), namedList, null );
+    assertTypeAndValue( namedList, "String", "STRING" );
+    DOMUtil.addToNamedList( getNode( "<int name=\"Integer\">100</int>", "/int" ), namedList, null );
+    assertTypeAndValue( namedList, "Integer", Integer.valueOf( 100 ) );
+    DOMUtil.addToNamedList( getNode( "<long name=\"Long\">200</long>", "/long" ), namedList, null );
+    assertTypeAndValue( namedList, "Long", Long.valueOf( 200 ) );
+    DOMUtil.addToNamedList( getNode( "<float name=\"Float\">300</float>", "/float" ), namedList, null );
+    assertTypeAndValue( namedList, "Float", Float.valueOf( 300 ) );
+    DOMUtil.addToNamedList( getNode( "<double name=\"Double\">400</double>", "/double" ), namedList, null );
+    assertTypeAndValue( namedList, "Double", Double.valueOf( 400 ) );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">true</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", true );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">on</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", true );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">yes</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", true );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">false</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", false );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">off</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", false );
+    DOMUtil.addToNamedList( getNode( "<bool name=\"Boolean\">no</bool>", "/bool" ), namedList, null );
+    assertTypeAndValue( namedList, "Boolean", false );
+  }
+  private void assertTypeAndValue( NamedList<Object> namedList, String key, Object value ) throws Exception {
+    Object v = namedList.get( key );
+    assertNotNull( v );
+    assertEquals( key, v.getClass().getSimpleName() );
+    assertEquals( value, v );
+    namedList.remove( key );
+  }
+  public Node getNode( String xml, String path ) throws Exception {
+    return getNode( getDocument(xml), path );
+  }
+  public Node getNode( Document doc, String path ) throws Exception {
+    XPath xpath = xpathFactory.newXPath();
+    return (Node)xpath.evaluate(path, doc, XPathConstants.NODE);
+  }
+  public Document getDocument( String xml ) throws Exception {
+    return builder.parse( new ByteArrayInputStream( xml.getBytes() ) );
+  }
+}

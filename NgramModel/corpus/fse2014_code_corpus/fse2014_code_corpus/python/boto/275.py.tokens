@@ -1,0 +1,1 @@
+from boto . regioninfo import RegionInfo class SQSRegionInfo ( RegionInfo ) : def __init__ ( self , connection = None , name = None , endpoint = None ) : from boto . sqs . connection import SQSConnection RegionInfo . __init__ ( self , connection , name , endpoint , SQSConnection )

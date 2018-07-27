@@ -1,0 +1,1 @@
+""" This module houses the GEOS exceptions, specifically, GEOSException and GEOSGeometryIndexError. """ class GEOSException ( Exception ) : pass class GEOSIndexError ( GEOSException , KeyError ) : silent_variable_failure = True

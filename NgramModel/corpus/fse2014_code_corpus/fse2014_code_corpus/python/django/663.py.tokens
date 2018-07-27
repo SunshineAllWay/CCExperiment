@@ -1,0 +1,1 @@
+from django . conf . urls import patterns , url from django . template import Template , Context from django . http import HttpResponse def inner_view ( request ) : content = Template ( '{% load url from future %}' ) . render ( Context ( ) ) return HttpResponse ( content ) urlpatterns = patterns ( '' , url ( r'^second_test/$' , inner_view , name = 'inner' ) ,

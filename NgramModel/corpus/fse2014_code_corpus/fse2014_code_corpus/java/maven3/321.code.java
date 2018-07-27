@@ -1,0 +1,6 @@
+package org.apache.maven.configuration;
+import java.io.File;
+public interface BeanConfigurationPathTranslator
+{
+    File translatePath( File path );
+}
