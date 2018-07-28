@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class PLCacheBatchTest{
+    public static int top1 = 0;
     public static int top3 = 0;
     public static int top5 = 0;
     public static int top10 = 0;
     public static int count = 0;
 
+    public static double top1rate = 0.0;
     public static double top3rate = 0.0;
     public static double top5rate = 0.0;
     public static double top10rate = 0.0;
@@ -46,13 +48,16 @@ public class PLCacheBatchTest{
         count++;
         while (rank < candidatesList.size()) {
             if (candidatesList.get(rank).equals(answer)) {
-                if (rank <= 3) {
+                if (rank == 0) {
+                    top1++;
+                }
+                if (rank < 3) {
                     top3++;
                 }
-                if (rank <= 5) {
+                if (rank < 5) {
                     top5++;
                 }
-                if (rank <= 10) {
+                if (rank < 10) {
                     top10++;
                 }
                 MRR += 1.0 / (rank + 1);
@@ -136,7 +141,7 @@ public class PLCacheBatchTest{
 
         try {
             currentFile.createNewFile();
-            CacheRunApp app = new CacheRunApp(1, 3, 0, currentFile);
+            CacheRunApp app = new CacheRunApp(1, 3, 100, currentFile);
 
             for (int i = 0; i < files.length; i++) {
                 singleTestCacheApp(app, files[i], currentFile);
@@ -145,10 +150,14 @@ public class PLCacheBatchTest{
             e.printStackTrace();
         }
 
+        top1rate = top1 * 1.0 / count;
         top3rate = top3 * 1.0 / count;
         top5rate = top5 * 1.0 / count;
         top10rate = top10 * 1.0 / count;
         MRR /= count;
+
+        System.out.print("top1: ");
+        System.out.println(top1rate);
 
         System.out.print("top3: ");
         System.out.println(top3rate);

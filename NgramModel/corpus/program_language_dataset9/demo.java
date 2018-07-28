@@ -9,4 +9,8 @@ public class ClassDemo {
     public void scanf() {
     	
     }
+
+    public void printf() {
+    	int i;
+    }
 }  
