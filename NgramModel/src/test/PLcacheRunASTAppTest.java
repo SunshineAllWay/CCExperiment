@@ -17,6 +17,7 @@ public class PLcacheRunASTAppTest {
         NodeVisitor visitor = new NodeVisitor();
         for (int i = 0; i < n; i++) {
             MyMethodNode node1 = gen.methodNodeList.get(i);
+            node1.methodNode.accept(visitor);
             List<MyASTNode> myASTNodeList = node1.nodeList;
 
             for (int j = 0; j < myASTNodeList.size(); j++) {

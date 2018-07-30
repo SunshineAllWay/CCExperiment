@@ -11,7 +11,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 public class MethodNodeVisitor extends ASTVisitor {
 
 	List<MethodDeclaration> methodNodeList = new ArrayList<>();
-	List<ASTNode> astNodeList = new ArrayList<>();
 
 	public List<MethodDeclaration> getMethodDecs() {
 		return methodNodeList;
