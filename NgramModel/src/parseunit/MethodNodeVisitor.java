@@ -19,6 +19,7 @@ public class MethodNodeVisitor extends ASTVisitor {
 	@Override
 	public boolean visit(MethodDeclaration node) {
 		methodNodeList.add(node);
+
 		return true;
 	}
 }

@@ -23,9 +23,7 @@ public class PLcacheRunASTAppTest {
             for (int j = 0; j < myASTNodeList.size(); j++) {
                 MyASTNode node2 = myASTNodeList.get(j);
                 node2.astNode.accept(visitor);
-                //System.out.println(visitor.nodeList.size());
             }
-           // System.out.println(visitor.nodeList.size());
         }
 
         for (int i = 0; i < visitor.tokenList.size(); i++) {

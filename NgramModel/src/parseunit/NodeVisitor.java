@@ -13,9 +13,10 @@ public class NodeVisitor extends ASTVisitor {
 	public HashSet<ASTNode> nodeSet = new HashSet<>();
 	public List<String> tokenList = new ArrayList<>();
 
-	public void handleType(ASTNode node) {
+	public void handleType(Type node) {
 		if (node instanceof PrimitiveType) {
 			PrimitiveType pnode = (PrimitiveType) node;
+			nodeSet.add(pnode);
 			tokenList.add(pnode.getPrimitiveTypeCode().toString());
 		} else if (node instanceof ArrayType) {
 			ArrayType pnode = (ArrayType) node;
@@ -23,16 +24,40 @@ public class NodeVisitor extends ASTVisitor {
 			tokenList.add("[ ]");
 		} else if (node instanceof QualifiedType) {
 			QualifiedType pnode = (QualifiedType) node;
+			nodeSet.add(pnode);
 			tokenList.add(pnode.getName().getIdentifier());
 		} else if (node instanceof SimpleType) {
 			SimpleType pnode = (SimpleType) node;
+			nodeSet.add(pnode);
 			tokenList.add(pnode.getName().toString());
 		} else if (node instanceof UnionType) {
 			UnionType pnode = (UnionType) node;
+			nodeSet.add(pnode);
 			tokenList.add(pnode.toString());
 		} else if (node instanceof WildcardType) {
 			WildcardType pnode = (WildcardType) node;
+			nodeSet.add(pnode);
 			tokenList.add(pnode.toString());
+		}
+	}
+
+	public void handleExpression(Expression node) {
+		if (node instanceof SimpleName) {
+			SimpleName pnode = (SimpleName) node;
+			tokenList.add(pnode.getIdentifier());
+		} else if (node instanceof NumberLiteral) {
+			NumberLiteral pnode = (NumberLiteral) node;
+			tokenList.add(pnode.getToken());
+		} else if (node instanceof ArrayAccess) {
+			Expression array = ((ArrayAccess) node).getArray();
+			Expression index = ((ArrayAccess) node).getIndex();
+
+			handleExpression(array);
+			nodeSet.add(array);
+			tokenList.add("[");
+			handleExpression(index);
+			nodeSet.add(index);
+			tokenList.add("]");
 		}
 	}
 
@@ -47,7 +72,7 @@ public class NodeVisitor extends ASTVisitor {
 			tokenList.add(pnode.toString());
 		} else if (node instanceof SimpleName) {
 			SimpleName pnode = (SimpleName) node;
-			if (pnode.getParent() instanceof SimpleType) {
+			if (pnode.getParent() instanceof Type) {
 				return;
 			}
 			tokenList.add(pnode.getIdentifier());
@@ -61,10 +86,12 @@ public class NodeVisitor extends ASTVisitor {
 			TypeDeclaration pnode = (TypeDeclaration) node;
 			tokenList.add(pnode.getName().getIdentifier());
 		} else if (node instanceof Type) {
-			handleType(node);
+			handleType((Type)node);
 		} else if (node instanceof TypeParameter) {
 			TypeParameter pnode = (TypeParameter) node;
 			tokenList.add(pnode.getName().getIdentifier());
+		} else if (node instanceof Expression) {
+			handleExpression((Expression)node);
 		}
 	}
 

@@ -11,7 +11,7 @@ public class SpecialSeq extends Task implements TaskContainer {
     private Echo nestedEcho;
 
     public void addTask(Task nestedTask) {
-        nestedTasks.addElement(nestedTask);
+        nestedTasks.addElement(a[0]);
     }
 
     public void execute() throws BuildException {
