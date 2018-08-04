@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ASTNodeTypeFeature.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ASTNodeTypeFeature.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/feature/ASTNodeTypeFeature.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+            <state relative-caret-position="219">
+              <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#extractFeature#0;class#ASTNodeTypeFeature#0" />
@@ -65,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ASTExprFeature.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ASTExprFeature.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/feature/ASTExprFeature.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+            <state relative-caret-position="450">
+              <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#extractFeature#0;class#ASTExprFeature#0" />
@@ -404,7 +404,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="4" weight="0.24914089" />
@@ -416,10 +415,10 @@
       <window_info anchor="right" id="Maven Projects" order="8" side_tool="true" weight="0.32977098" />
       <window_info anchor="bottom" x="34" y="43" width="1332" height="698" id="Run" order="9" type="FLOATING" weight="0.4742268" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49923664" visible="true" weight="0.18900344" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49923664" visible="true" weight="0.42783505" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.32977098" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.32977098" />
       <window_info id="Learn" order="5" sideWeight="0.49913344" weight="0.32977098" />
       <window_info id="Structure" order="1" sideWeight="0.28249568" side_tool="true" weight="0.29923666" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
@@ -757,28 +756,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/feature/ASTExprFeature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#extractFeature#0;class#ASTExprFeature#0" />
-            <element signature="e#3949#3950#0" expanded="true" />
-            <element signature="e#3984#3985#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/feature/ASTNodeTypeFeature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        <state relative-caret-position="219">
+          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#extractFeature#0;class#ASTNodeTypeFeature#0" />
             <element signature="e#1843#1844#0" expanded="true" />
             <element signature="e#1878#1879#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/feature/ASTExprFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#extractFeature#0;class#ASTExprFeature#0" />
+            <element signature="e#3949#3950#0" expanded="true" />
+            <element signature="e#3984#3985#0" expanded="true" />
           </folding>
         </state>
       </provider>
