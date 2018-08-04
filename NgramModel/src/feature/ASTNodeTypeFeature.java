@@ -7,18 +7,22 @@ import org.eclipse.jdt.core.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class nodetype {
+public class ASTNodeTypeFeature {
     public MyMethodNode myMethodNode;
     public ArrayList<Integer> typeCntList;
-    public ArrayList<Integer> exprTypeCntList;
     public int topNodeCount;
+    double[] feature;
 
-    public nodetype(MyMethodNode pMyMethodNode) {
+    public ASTNodeTypeFeature(MyMethodNode pMyMethodNode) {
         this.myMethodNode = pMyMethodNode;
         topNodeCount = 0;
         typeCntList = new ArrayList<>();
-        exprTypeCntList = new ArrayList<>();
         extractFeature();
+        feature = new double [typeCntList.size()];
+
+        for (int i = 0; i < feature.length; i++) {
+            feature[i] = (topNodeCount == 0) ? 0 : typeCntList.get(i) * 1.0 / topNodeCount;
+        }
     }
 
     public void extractFeature() {
@@ -58,8 +62,9 @@ public class nodetype {
         typeCntList.add(varDecCnt);
         typeCntList.add(importDecCnt);
         typeCntList.add(typeCnt);
+    }
 
-        //http://help.eclipse.org/kepler/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fjdt%2Fcore%2Fdom%2FASTNode.html
-
+    public double[] getFeature() {
+        return this.feature;
     }
 }

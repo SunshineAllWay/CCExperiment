@@ -1,5 +1,6 @@
 package test;
 
+import feature.ASTNodeTypeFeature;
 import parseunit.ASTGenerator;
 import parseunit.MyASTNode;
 import parseunit.MyMethodNode;
@@ -19,7 +20,7 @@ public class PLcacheRunASTAppTest {
             MyMethodNode node1 = gen.methodNodeList.get(i);
             node1.methodNode.accept(visitor);
             List<MyASTNode> myASTNodeList = node1.nodeList;
-
+            ASTNodeTypeFeature feature = new ASTNodeTypeFeature(node1);
             for (int j = 0; j < myASTNodeList.size(); j++) {
                 MyASTNode node2 = myASTNodeList.get(j);
                 node2.astNode.accept(visitor);

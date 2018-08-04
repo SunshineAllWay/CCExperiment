@@ -29,8 +29,8 @@
       <file leaf-file-name="PLcacheRunASTAppTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+            <state relative-caret-position="225">
+              <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,7 +41,7 @@
       <file leaf-file-name="ASTGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/parseunit/ASTGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
+            <state relative-caret-position="25">
               <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -50,13 +50,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nodetype.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/feature/nodetype.java">
+      <file leaf-file-name="ASTNodeTypeFeature.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/feature/ASTNodeTypeFeature.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="59" column="33" lean-forward="true" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+            <state relative-caret-position="319">
+              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#extractFeature#0;class#ASTNodeTypeFeature#0" />
+                <element signature="e#1843#1844#0" expanded="true" />
+                <element signature="e#1878#1879#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASTExprFeature.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/feature/ASTExprFeature.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#extractFeature#0;class#ASTExprFeature#0" />
+                <element signature="e#3949#3950#0" expanded="true" />
+                <element signature="e#3984#3985#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,8 +130,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBExpression.java" />
-        <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBFieldAccess.java" />
         <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInfixExpression.java" />
         <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBInstanceofExpression.java" />
         <option value="$PROJECT_DIR$/src/parseunit/entity/astnode/expression/CBMethodInvocation.java" />
@@ -158,11 +174,13 @@
         <option value="$PROJECT_DIR$/src/test/PLcacheRunAppTest.java" />
         <option value="$PROJECT_DIR$/config/corpuspath.properties" />
         <option value="$PROJECT_DIR$/src/test/PLCacheBatchTest.java" />
-        <option value="$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java" />
         <option value="$PROJECT_DIR$/src/parseunit/MethodNodeVisitor.java" />
         <option value="$PROJECT_DIR$/src/parseunit/MyASTNode.java" />
         <option value="$PROJECT_DIR$/src/parseunit/NodeVisitor.java" />
         <option value="$PROJECT_DIR$/src/feature/nodetype.java" />
+        <option value="$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java" />
+        <option value="$PROJECT_DIR$/src/feature/ASTExprFeature.java" />
+        <option value="$PROJECT_DIR$/src/feature/ASTNodeTypeFeature.java" />
       </list>
     </option>
   </component>
@@ -173,16 +191,17 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="154" />
-    <option name="y" value="21" />
-    <option name="width" value="1382" />
-    <option name="height" value="746" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="683" />
+    <option name="height" value="728" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -265,7 +284,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Course" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
@@ -385,29 +403,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="615" y="19" width="1382" height="746" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="4" weight="0.24914089" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49923664" weight="0.3298969" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50076336" side_tool="true" weight="0.21477664" />
       <window_info anchor="right" id="Maven Projects" order="8" side_tool="true" weight="0.32977098" />
-      <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" x="34" y="43" width="1332" height="698" id="Run" order="9" type="FLOATING" weight="0.4742268" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49923664" visible="true" weight="0.0" />
+      <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49923664" visible="true" weight="0.18900344" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.0" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7175043" visible="true" weight="0.32977098" />
       <window_info id="Learn" order="5" sideWeight="0.49913344" weight="0.32977098" />
       <window_info id="Structure" order="1" sideWeight="0.28249568" side_tool="true" weight="0.29923666" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24961832" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.2243346" side_tool="true" weight="0.25267175" />
       <window_info id="Debug" order="8" sideWeight="0.4800693" weight="0.0" />
+      <window_info id="Favorites" order="6" sideWeight="0.2243346" side_tool="true" weight="0.25267175" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24961832" />
       <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.06412214" />
       <window_info anchor="bottom" id="Inspection" order="3" weight="0.4" />
@@ -415,7 +434,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.09965636" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49923664" weight="0.3298969" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -498,7 +516,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java</url>
-          <line>23</line>
+          <line>24</line>
           <properties />
           <option name="timeStamp" value="178" />
         </line-breakpoint>
@@ -567,7 +585,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBEnhancedForStatement.java" />
     <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBExpressionStatement.java" />
     <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBFiledDeclaration.java" />
     <entry file="file://$PROJECT_DIR$/src/parseunit/entity/astnode/statement/CBForStatement.java" />
@@ -696,16 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/parseunit/MyMethodNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -732,7 +739,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/parseunit/ASTGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
+        <state relative-caret-position="25">
           <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -740,12 +747,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/feature/nodetype.java">
+    <entry file="file://$PROJECT_DIR$/src/test/PLcacheRunASTAppTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="59" column="33" lean-forward="true" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+        <state relative-caret-position="225">
+          <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/feature/ASTExprFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#extractFeature#0;class#ASTExprFeature#0" />
+            <element signature="e#3949#3950#0" expanded="true" />
+            <element signature="e#3984#3985#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/feature/ASTNodeTypeFeature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#extractFeature#0;class#ASTNodeTypeFeature#0" />
+            <element signature="e#1843#1844#0" expanded="true" />
+            <element signature="e#1878#1879#0" expanded="true" />
           </folding>
         </state>
       </provider>
