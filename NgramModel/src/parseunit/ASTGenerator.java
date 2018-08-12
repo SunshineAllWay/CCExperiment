@@ -12,20 +12,17 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import parseunit.MethodNodeVisitor;
-import parseunit.MyMethodNode;
-import parseunit.MyASTNode;
 
 public class ASTGenerator {
 
-	public List<MyMethodNode> methodNodeList = new ArrayList<>();
+	public ArrayList<MyMethodNode> methodNodeList = new ArrayList<>();
 
 	public ASTGenerator(File f) {
 		// TODO Auto-generated constructor stub
 		ParseFile(f);
 	}
 
-	public List<MyMethodNode> getMethodNodeList() {
+	public ArrayList<MyMethodNode> getMethodNodeList() {
 		return methodNodeList;
 	}
 
