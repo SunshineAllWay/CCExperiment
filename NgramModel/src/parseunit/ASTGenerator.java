@@ -104,6 +104,7 @@ public class ASTGenerator {
 
 	// loop directory to get file list
 	public void ParseFile(File f) {
+		System.out.println(f.getAbsolutePath());
 		String filePath = f.getAbsolutePath();
 		if (f.isFile()) {
 			try {

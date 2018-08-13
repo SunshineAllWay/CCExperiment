@@ -121,9 +121,9 @@ public class NgramRunEngine implements CCRunEngine{
 			return 1.0 / getNgramArray()[0].getModel().size();
 		}
 
-		int capturedCount = gramArray[0].getModel().get(seq).get(null);
+		Double capturedCount = gramArray[0].getModel().get(seq).get(null);
 		int totalCount = 0;
-		Iterator<Map.Entry<Tokensequence, HashMap<String, Integer>>> it = gramArray[0].getModel().entrySet().iterator();
+		Iterator<Map.Entry<Tokensequence, HashMap<String, Double>>> it = gramArray[0].getModel().entrySet().iterator();
 		while(it.hasNext()) {
 			totalCount += it.next().getValue().get(null);
 		}
@@ -184,19 +184,19 @@ public class NgramRunEngine implements CCRunEngine{
 
 		//POLISH
         Tokensequence lastSeq = nseq.subTokenSequence(nseq.length() - 1, nseq.length());
-        HashMap<String, Integer> elemCntMap = gramArray[1].getModel().get(lastSeq);
+        HashMap<String, Double> elemCntMap = gramArray[1].getModel().get(lastSeq);
 
 		if (elemCntMap == null) {
 			return candidatesList;
 		}
 
 		//HashMap<String, Integer> elemCntMap = candiadates.get();
-        Iterator<Map.Entry<String, Integer>> it = elemCntMap.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> it = elemCntMap.entrySet().iterator();
 		HashMap<String, Double> elemProbMap = new HashMap<>();
 
 		//Need to polish, select the Tokencount with the maximal count in the set.
 		while(it.hasNext()) {
-            Map.Entry<String, Integer> entry = it.next();
+            Map.Entry<String, Double> entry = it.next();
             ArrayList<String> ls = (ArrayList<String>)nseq.getSequence().clone();
             ls.add(entry.getKey());
 			double prob = calculateProbability(new Tokensequence(ls));
@@ -237,7 +237,7 @@ public class NgramRunEngine implements CCRunEngine{
 			for (int i = 0; i < len; i++) {
 			    ArrayList<String> tokenseq = new ArrayList<>();
 			    tokenseq.add(trainingTokenList.get(i));
-			    HashMap<String, Integer> map = gramArray[0].getModel().get(new Tokensequence(tokenseq));
+			    HashMap<String, Double> map = gramArray[0].getModel().get(new Tokensequence(tokenseq));
 			    if (map == null) {
 			    	continue;
 				}
@@ -290,9 +290,9 @@ public class NgramRunEngine implements CCRunEngine{
      * @param i: model parameter plus 1, assume i is equal to the length of prefix token sequence
      * @return post token candidates and counts
      */
-	public HashMap<String, Integer> getPostInfoBybackingOff(Tokensequence tokenseq, int i) {
+	public HashMap<String, Double> getPostInfoBybackingOff(Tokensequence tokenseq, int i) {
 		if (i >= 0) {
-			HashMap<String, Integer> map = gramArray[i].getModel().get(tokenseq);
+			HashMap<String, Double> map = gramArray[i].getModel().get(tokenseq);
 			if (map != null) {
 				return map;
 			} else {

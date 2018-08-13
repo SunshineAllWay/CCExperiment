@@ -15,9 +15,9 @@ import static refineunit.SmoothingType.*;
 public class BasicNGram {
     public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
 	public int modelType;      //0: natural language model;   1: programming language model
-	private int seqNum;        //number of sequence
-	private HashMap<Tokensequence, HashMap<String, Integer>> seqCntModel;  //kernel model in n-gram
-    public HashSet<String> dic;     //dictionary of token elements
+	protected int seqNum;        //number of sequence
+	protected HashMap<Tokensequence, HashMap<String, Double>> seqCntModel;  //kernel model in n-gram
+    protected HashSet<String> dic;     //dictionary of token elements
 
 	/**
 	 * Construct an object of BasicNGram
@@ -64,20 +64,20 @@ public class BasicNGram {
 			Tokensequence tmpTokenSeq = tokenseqList.get(i);
 			Tokensequence tmpTokenInitSeq = new Tokensequence(tmpTokenSeq.getInitSequence());
 			String lastTokenElem = tmpTokenSeq.getLastToken();
-            HashMap<String, Integer> tokenCntMap;
+            HashMap<String, Double> tokenCntMap;
 
 			if (seqCntModel.containsKey(tmpTokenInitSeq)) {
                 tokenCntMap = seqCntModel.get(tmpTokenInitSeq);
                 if (tokenCntMap.containsKey(lastTokenElem)) {
-                    int cnt = tokenCntMap.get(lastTokenElem);
+                    double cnt = tokenCntMap.get(lastTokenElem).doubleValue();
                     cnt++;
                     tokenCntMap.put(lastTokenElem, cnt);
                 } else {
-                    tokenCntMap.put(lastTokenElem, 1);
+                    tokenCntMap.put(lastTokenElem, 1.0);
                 }
             } else {
                 tokenCntMap = new HashMap<>();
-                tokenCntMap.put(lastTokenElem, 1);
+                tokenCntMap.put(lastTokenElem, 1.0);
                 seqCntModel.put(tmpTokenInitSeq, tokenCntMap);
                 seqNum++;
             }
@@ -120,7 +120,7 @@ public class BasicNGram {
      * @param tokenseq token sequence
      * @return candidates corresponding to token sequence
      */
-	public Optional<HashMap<String, Integer>> getBasicNGramCandidates(Tokensequence tokenseq) {
+	public Optional<HashMap<String, Double>> getBasicNGramCandidates(Tokensequence tokenseq) {
 		if (seqCntModel.containsKey(tokenseq)) {
 		    return Optional.of(seqCntModel.get(tokenseq));
         } else {
@@ -136,18 +136,18 @@ public class BasicNGram {
      */
 	public double getRelativeProbability(Tokensequence nseq, Token t) {
 	    //TODO: Need to polish
-		Optional<HashMap<String, Integer>> elemCollection = getBasicNGramCandidates(nseq);
+		Optional<HashMap<String, Double>> elemCollection = getBasicNGramCandidates(nseq);
 		if (!elemCollection.isPresent()) {
 			return (1.0 / dic.size());
 		}
 
-		HashMap<String, Integer> elemCntMap = elemCollection.get();
-		Iterator<Map.Entry<String, Integer>> it = elemCntMap.entrySet().iterator();
+		HashMap<String, Double> elemCntMap = elemCollection.get();
+		Iterator<Map.Entry<String, Double>> it = elemCntMap.entrySet().iterator();
 		int totalCnt = 0;
 		int captureCnt = 0;
 
 		while(it.hasNext()) {
-			Map.Entry<String, Integer> entry = it.next();
+			Map.Entry<String, Double> entry = it.next();
 			totalCnt += entry.getValue();
 			if (entry.getKey().equals(t.mTokenElem)) {
 				captureCnt += entry.getValue();
@@ -181,7 +181,7 @@ public class BasicNGram {
 	 * get the map from token sequence to the set of tokencount
 	 * @return seqCntModel
 	 */
-	public HashMap<Tokensequence, HashMap<String, Integer>> getModel() {
+	public HashMap<Tokensequence, HashMap<String, Double>> getModel() {
 		//get the model
 		return this.seqCntModel;
 	}
@@ -199,14 +199,14 @@ public class BasicNGram {
 	 * @param prefix given prefix
 	 * @return the number of sequence with the given prefix
 	 */
-	public int getSeqWithSpecificPrefix(Tokensequence prefix) {
-		HashMap<String, Integer> cntmap = seqCntModel.get(prefix);
+	public double getSeqWithSpecificPrefix(Tokensequence prefix) {
+		HashMap<String, Double> cntmap = seqCntModel.get(prefix);
 		if (cntmap == null) {
 			return 0;
 		}
 
-		Iterator<Map.Entry<String, Integer>> it = cntmap.entrySet().iterator();
-		int cnt = 0;
+		Iterator<Map.Entry<String, Double>> it = cntmap.entrySet().iterator();
+		double cnt = 0.0;
 		while(it.hasNext()) {
 			cnt += it.next().getValue();
 		}

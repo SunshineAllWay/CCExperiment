@@ -15,7 +15,7 @@ public class CacheRunApp implements CCRunApp{
 
     public CacheRunApp(int type, int maxN, double gamma, File curFile) {
         runEngine = new CacheRunEngine(type, maxN, gamma, curFile);
-        runEngine.preAction();
+        //runEngine.preAction();
     }
 
     public ArrayList<String> completePostToken(Tokensequence nseq) {

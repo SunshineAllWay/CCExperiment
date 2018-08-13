@@ -42,7 +42,7 @@ public class CacheRunEngine implements CCRunEngine{
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
-            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma);
+            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma, cacheFileList, curFile);
         }
 
         cacheFileList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class CacheRunEngine implements CCRunEngine{
         cacheTokenStream = new ArrayList<>();
 
         for (int i = 0; i < maxN; i++) {
-            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma);
+            cacheModelArray[i] =  new CacheModel(i + 1, type, gamma, cacheFileList, curFile);
         }
 
         cacheFileList = new ArrayList<>();
@@ -117,7 +117,7 @@ public class CacheRunEngine implements CCRunEngine{
         ArrayList<String> miniTailStream = new ArrayList<>();
         miniTailStream.addAll(tailStream.subList(prefixLength - 1, prefixLength));
         Tokensequence lastSeq = new Tokensequence(miniTailStream);
-        HashMap<String, Integer> elemCntMap = new HashMap<>();
+        HashMap<String, Double> elemCntMap = new HashMap<>();
 
         if (cacheModelArray[1].getNgramModel().getModel().get(lastSeq) != null) {
             elemCntMap.putAll(cacheModelArray[1].getNgramModel().getModel().get(lastSeq));
@@ -131,13 +131,12 @@ public class CacheRunEngine implements CCRunEngine{
         }
 
         //HashMap<String, Integer> elemCntMap = candiadates.get();
-        Iterator<Map.Entry<String, Integer>> it = elemCntMap.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> it = elemCntMap.entrySet().iterator();
         double maxProb = 0.0;
-
 
         HashMap<String, Double> elemProbMap = new HashMap<>();
         while(it.hasNext()) {
-            Map.Entry<String, Integer> entry = it.next();
+            Map.Entry<String, Double> entry = it.next();
             ArrayList<String> ls = (ArrayList<String>)nseq.getSequence().clone();
             ls.add(entry.getKey());
             double prob = calculateProbability(new Tokensequence(ls));
@@ -196,9 +195,9 @@ public class CacheRunEngine implements CCRunEngine{
             return 1.0 / getNgramArray()[0].getModel().size();
         }
 
-        int capturedCount = getNgramArray()[0].getModel().get(seq).get(null);
+        double capturedCount = getNgramArray()[0].getModel().get(seq).get(null).doubleValue();
         int totalCount = 0;
-        Iterator<Map.Entry<Tokensequence, HashMap<String, Integer>>> it = getNgramArray()[0].getModel().entrySet().iterator();
+        Iterator<Map.Entry<Tokensequence, HashMap<String, Double>>> it = getNgramArray()[0].getModel().entrySet().iterator();
         while(it.hasNext()) {
             totalCount += it.next().getValue().get(null);
         }

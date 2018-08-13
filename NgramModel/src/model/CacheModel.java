@@ -3,6 +3,7 @@ package model;
 import tokenunit.Token;
 import tokenunit.Tokensequence;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,12 +24,12 @@ public class CacheModel {
      * @param modelType the type of model, type = 0 when the model process natural language, type = 1 for PL
      * @param gamma concentration parameter which is between 0 and infinity
      */
-    public CacheModel(int n, int modelType, double gamma) {
+    public CacheModel(int n, int modelType, double gamma, ArrayList<File> cacheList, File curFile) {
         this.n = n;
         this.modelType = modelType;
         this.gamma = gamma;
         this.ngramModel = new BasicNGram(n, modelType);
-        this.ncacheModel = new CacheNGram(n, modelType);
+        this.ncacheModel = new CacheNGram(n, modelType, cacheList, curFile);
     }
 
     /**
@@ -51,7 +52,8 @@ public class CacheModel {
      * update cache n-gram model with token stream in cache files
      */
     public void updateCacheComponent() {
-        ncacheModel.preAction(cacheTokenStream);
+        //ncacheModel.preAction(cacheTokenStream);
+        ncacheModel.preAction();
     }
 
     /**
@@ -63,9 +65,9 @@ public class CacheModel {
     public double getRelativeProbability(Tokensequence nseq, Token t) {
         double p1 = ngramModel.getRelativeProbability(nseq, t);
         double p2 = ncacheModel.getRelativeProbability(nseq, t);
-        int h = ncacheModel.getSeqWithSpecificPrefix(nseq);
+        double h = ncacheModel.getSeqWithSpecificPrefix(nseq);
 
-        if (h == 0) {
+        if (Math.abs(h) < 0.00000001) {
             return p1;
         }
 
