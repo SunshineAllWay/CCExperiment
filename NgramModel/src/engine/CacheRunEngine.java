@@ -41,12 +41,12 @@ public class CacheRunEngine implements CCRunEngine{
         corpusTokenStream = corpusImporter.importTrainingCorpusFromBase();
         cacheTokenStream = new ArrayList<>();
 
+        cacheFileList = new ArrayList<>();
+        curFile = pCurFile;
+
         for (int i = 0; i < maxN; i++) {
             cacheModelArray[i] =  new CacheModel(i + 1, type, gamma, cacheFileList, curFile);
         }
-
-        cacheFileList = new ArrayList<>();
-        curFile = pCurFile;
     }
 
     /**

@@ -14,9 +14,18 @@ public class MethodContextParser {
 
     public void parse() {
         //TODO
-        String[] contextArray = node.toString().split(" ");
-        for (int i = 0; i < contextArray.length; i++) {
-            context.add(contextArray[i]);
+        String str = node.toString();
+        int len = str.length();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < len; i++) {
+            char ch = str.charAt(i);
+            if (ch != '\r' && ch != '.' && ch != '\t' && ch != ' ' && ch != ',' && ch != '(' && ch != ')' && ch != '{' && ch != '}' && ch != ';' && ch != '[' && ch != ']' && ch != '\n' && ch != '.') {
+                sb.append(ch);
+            } else {
+                context.add(sb.toString());
+                sb = new StringBuilder();
+            }
         }
     }
 }

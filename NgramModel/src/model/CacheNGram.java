@@ -31,8 +31,6 @@ public class CacheNGram extends BasicNGram{
         this.curFile = pCurFile;
         nodeList = new ArrayList<>();
         curNode = null;
-
-
 	}
 
 	/**
