@@ -1,0 +1,1 @@
+ public List<ICompletionProposal> computeCompletionProposals ContentAssistInvocationContext context  IProgressMonitor monitor }  JavaContentAssistInvocationContext ctx =  JavaContentAssistInvocationContext} context int masterOffset = ctx getInvocationOffset } -1 CompletionProposalCollector collector = new CompletionProposalCollector ctx getCompilationUnit

@@ -67,6 +67,77 @@ public class PLCacheBatchTest{
         }
     }
 
+
+    public static void copyFileContentRemove(File editFile, File tmpFile) {
+        try {
+            FileReader reader = new FileReader(editFile);
+            BufferedReader br = new BufferedReader(reader);
+            String str1 = null;
+            String str2 = null;
+            FileWriter writer = new FileWriter(tmpFile);
+            writer.write("");
+            writer.flush();
+            writer.close();
+
+            str1 = br.readLine();
+            while(str1 != null) {
+                str2 = br.readLine();
+                if (str2 == null) {
+                    for (int i = 0; i < str1.length(); i++) {
+                        if (i == str1.length() - 1 && str1.charAt(i) == '}') {
+                            break;
+                        } else {
+                            writer = new FileWriter(tmpFile, true);
+                            writer.write(str1.charAt(i));
+                            writer.flush();
+                            writer.close();
+                        }
+                    }
+                    break;
+                } else {
+                    writer = new FileWriter(tmpFile, true);
+                    writer.write(str1);
+                    writer.flush();
+                    writer.close();
+                    str1 = str2;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copyFileContentAppend(File editFile, File tmpFile) {
+        try {
+            FileReader reader = new FileReader(tmpFile);
+            BufferedReader br = new BufferedReader(reader);
+
+            FileWriter writer = new FileWriter(editFile);
+            writer.write("");
+            writer.flush();
+            writer.close();
+
+            String str = null;
+            while((str = br.readLine()) != null) {
+                writer = new FileWriter(editFile, true);
+                writer.write(str);
+                writer.flush();
+                writer.close();
+            }
+
+            writer = new FileWriter(editFile, true);
+            writer.write("}");
+            writer.flush();
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void singleTestCacheApp(CacheRunApp app, File sourceFile, File currentFile) {
         try {
             FileReader reader = new FileReader(sourceFile);
@@ -78,10 +149,14 @@ public class PLCacheBatchTest{
                 filterSpecificCharacter(str.trim());
 
                 for (int i = 0; i < tokenList.size() - 1; i++) {
-                    writer = new FileWriter(currentFile, true);
+                    File tmpFile = new File("tmpFile.java");
+
+                    copyFileContentRemove(currentFile, tmpFile);
+                    writer = new FileWriter(tmpFile, true);
                     writer.write(" " + tokenList.get(i));
                     writer.flush();
                     writer.close();
+                    copyFileContentAppend(currentFile, tmpFile);
 
                     if (completeIndexSet.contains(new Integer(i - 1))) {
                         ArrayList<String> candidiateList = app.completePostToken();
@@ -132,7 +207,7 @@ public class PLCacheBatchTest{
 
 
     public static void main(String[] args) {
-        File testDir = new File("corpus\\program_language_dataset6");
+        File testDir = new File("corpus\\program_language_dataset8");
         File[] files = testDir.listFiles();
         File currentFile = new File("corpus\\program_language_dataset7\\tmp.txt");
         if (currentFile.exists()) {

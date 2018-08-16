@@ -39,7 +39,7 @@ public class CacheNGram extends BasicNGram{
 	public void preAction() {
 		ASTGenerator gen = new ASTGenerator(curFile);
 		ArrayList<MyMethodNode> ls = gen.methodNodeList;
-		if (ls.size() == 0) {
+ 		if (ls.size() == 0) {
 			return;
 		}
 
