@@ -60,7 +60,7 @@ class MLNGPlaceholderActions(PlaceholderNoAction):
 
     def copy(self, target_placeholder, source_language, fieldname, model, target_language, **kwargs):
         trgt = model.objects.get(**{fieldname: target_placeholder})
-        src = model.objects.get(master=trgt.master, language_code=source_language)
+        src = model.objects.get(main=trgt.main, language_code=source_language)
 
         source_placeholder = getattr(src, fieldname, None)
         if not source_placeholder:
@@ -75,7 +75,7 @@ class MLNGPlaceholderActions(PlaceholderNoAction):
     def get_copy_languages(self, placeholder, model, fieldname, **kwargs):
         manager = model.objects
         src = manager.get(**{fieldname: placeholder})
-        q = Q(master=src.master)
+        q = Q(main=src.main)
         q &= Q(**{'%s__cmsplugin__isnull' % fieldname: False})
         q &= ~Q(pk=src.pk)
         

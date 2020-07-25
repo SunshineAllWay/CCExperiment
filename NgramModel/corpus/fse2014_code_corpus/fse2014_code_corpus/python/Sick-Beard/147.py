@@ -409,11 +409,11 @@ class RepositoryEndpoint(BaseEndpoint):
 
 class CommitEndpoint(BaseEndpoint):
 
-    def forBranch(self, user, repo, branch='master'):
+    def forBranch(self, user, repo, branch='main'):
         """Get the commits for the given branch."""
         return self._parsed('/'.join(['commits', 'list', user, repo, branch]))
 
-    def forFile(self, user, repo, path, branch='master'):
+    def forFile(self, user, repo, path, branch='main'):
         """Get the commits for the given file within the given branch."""
         return self._parsed('/'.join(['commits', 'list', user, repo, branch, path]))
 

@@ -437,7 +437,7 @@ def user_query(kind, user_id, sort, time):
     return make_results(q)
 
 def get_all_comments():
-    """the master /comments page"""
+    """the main /comments page"""
     q = Comment._query(sort = desc('_date'))
     return make_results(q)
 

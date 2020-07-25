@@ -48,9 +48,9 @@ class PluginsTestBaseCase(CMSTestCase):
         self.super_user.set_password("test")
         self.super_user.save()
 
-        self.slave = User(username="slave", is_staff=True, is_active=True, is_superuser=False)
-        self.slave.set_password("slave")
-        self.slave.save()
+        self.subordinate = User(username="subordinate", is_staff=True, is_active=True, is_superuser=False)
+        self.subordinate.set_password("subordinate")
+        self.subordinate.save()
 
 
         self.FIRST_LANG = settings.LANGUAGES[0][0]
@@ -454,9 +454,9 @@ class PluginManyToManyTestCase(PluginsTestBaseCase):
         self.super_user.set_password("test")
         self.super_user.save()
 
-        self.slave = User(username="slave", is_staff=True, is_active=True, is_superuser=False)
-        self.slave.set_password("slave")
-        self.slave.save()
+        self.subordinate = User(username="subordinate", is_staff=True, is_active=True, is_superuser=False)
+        self.subordinate.set_password("subordinate")
+        self.subordinate.save()
         
         self._login_context = self.login_user_context(self.super_user)
         self._login_context.__enter__()

@@ -63,7 +63,7 @@ class AppServiceMonitor(Templated):
     cache_key_small = "service_datalogger_db_summary_"
 
     """
-    Master controller class for service monitoring.
+    Main controller class for service monitoring.
     This class has three purposes:
 
       * Fetches Hostlogger instances from the cache for generating
@@ -319,19 +319,19 @@ class Database(object):
         
 class HostLogger(object):
 
-    def __init__(self, host, master):
+    def __init__(self, host, main):
         self.host = host
         self.load = DataLogger()
         self.services = {}
-        db_info = master.is_db_machine(host)
-        is_queue = master.is_queue(host)
+        db_info = main.is_db_machine(host)
+        is_queue = main.is_queue(host)
 
         self.ini_db_names = db_info.keys()
         self.db_names = set(name for name, ip in db_info.itervalues())
         self.db_ips   = set(ip   for name, ip in db_info.itervalues())
 
         self.database = Database() if self.db_names else None
-        self.queue    = AMQueueP(master._queue_length_max) if is_queue else None
+        self.queue    = AMQueueP(main._queue_length_max) if is_queue else None
 
         self.ncpu = 0
         try:

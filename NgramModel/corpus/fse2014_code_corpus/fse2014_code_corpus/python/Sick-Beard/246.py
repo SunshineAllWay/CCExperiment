@@ -270,9 +270,9 @@ class PlaylistItem(FieldSet):
 
 
 class Playlist(FieldSet):
-    is_master_pl_name={
+    is_main_pl_name={
         0:"Regular playlist",
-        1:"Master playlist"
+        1:"Main playlist"
     }
 
     is_podcast_name={
@@ -324,7 +324,7 @@ class Playlist(FieldSet):
         yield UInt32(self, "entry_length", "Entry Length")
         yield UInt32(self, "data_object_child_count", "Number of Child Data Objects")
         yield UInt32(self, "playlist_count", "Number of Playlist Items")
-        yield Enum(UInt8(self, "type", "Normal or master playlist?"), self.is_master_pl_name)
+        yield Enum(UInt8(self, "type", "Normal or main playlist?"), self.is_main_pl_name)
         yield UInt8(self, "XXX1", "XXX1")
         yield UInt8(self, "XXX2", "XXX2")
         yield UInt8(self, "XXX3", "XXX3")

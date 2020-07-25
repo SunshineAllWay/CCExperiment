@@ -136,7 +136,7 @@ def openssh_connect(
     If *env* (dict) is given, that will be used for the shell env when opening
     the SSH connection.
     If *socket* (a file path) is given, this will be passed to the SSH command
-    as -S<socket>.  If the socket does not exist, ssh's Master mode switch will
+    as -S<socket>.  If the socket does not exist, ssh's Main mode switch will
     be set (-M) automatically.  This allows sessions to be duplicated
     automatically.
     If *sshfp* resolves to True, SSHFP (DNS-based host verification) support
@@ -238,7 +238,7 @@ def openssh_connect(
             env['PATH'] = os.environ['PATH']
             command = which("ssh")
     if socket:
-        # Only set Master mode if we don't have a socket for this session.
+        # Only set Main mode if we don't have a socket for this session.
         # This allows us to duplicate a session without having to code
         # anything special to pre-recognize this condition in gateone.py or
         # gateone.js.  It makes everything automagical :)
@@ -506,7 +506,7 @@ if __name__ == "__main__":
     parser.add_option("-S",
         dest="socket",
         default=None,
-        help=_("Path to the control socket for connection sharing (see master "
+        help=_("Path to the control socket for connection sharing (see main "
               "mode and 'man ssh')."),
         metavar="'<filepath>'"
     )
