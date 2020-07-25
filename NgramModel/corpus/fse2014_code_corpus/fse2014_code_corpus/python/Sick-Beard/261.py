@@ -1,5 +1,5 @@
 """
-Master Boot Record.
+Main Boot Record.
 
 
 """
@@ -136,7 +136,7 @@ class PartitionHeader(FieldSet):
     def createFields(self):
         yield UInt8(self, "bootable", "Bootable flag (true if equals to 0x80)")
         if self["bootable"].value not in (0x00, 0x80):
-            self.warning("Stream doesn't look like master boot record (partition bootable error)!")
+            self.warning("Stream doesn't look like main boot record (partition bootable error)!")
         yield UInt8(self, "start_head", "Starting head number of the partition")
         yield Bits(self, "start_sector", 6, "Starting sector number of the partition")
         yield CylinderNumber(self, "start_cylinder", "Starting cylinder number of the partition")
@@ -161,7 +161,7 @@ class PartitionHeader(FieldSet):
         return desc
 
 
-class MasterBootRecord(FieldSet):
+class MainBootRecord(FieldSet):
     static_size = 512*8
 
     def createFields(self):
@@ -179,7 +179,7 @@ class MasterBootRecord(FieldSet):
 
 class Partition(FieldSet):
     def createFields(self):
-        mbr = MasterBootRecord(self, "mbr")
+        mbr = MainBootRecord(self, "mbr")
         yield mbr
 
         # No error if we only want to analyse a backup of a mbr
@@ -213,7 +213,7 @@ class MSDos_HardDrive(Parser, Partition):
     PARSER_TAGS = {
         "id": "msdos_harddrive",
         "category": "file_system",
-        "description": "MS-DOS hard drive with Master Boot Record (MBR)",
+        "description": "MS-DOS hard drive with Main Boot Record (MBR)",
         "min_size": 512*8,
         "file_ext": ("",),
 #        "magic": ((MAGIC, 510*8),),

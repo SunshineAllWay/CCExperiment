@@ -314,7 +314,7 @@ class GitUpdateManager(UpdateManager):
 
         # if we're up to date then don't set this
         if self._num_commits_behind == 35:
-            message = "or else you're ahead of master"
+            message = "or else you're ahead of main"
 
         elif self._num_commits_behind > 0:
             message = "you're "+str(self._num_commits_behind)+' commits behind'

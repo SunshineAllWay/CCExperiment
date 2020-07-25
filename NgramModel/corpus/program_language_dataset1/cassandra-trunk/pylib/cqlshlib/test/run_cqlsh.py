@@ -43,13 +43,13 @@ DEFAULT_CQLSH_TERM = 'xterm'
 
 cqlshlog = basecase.cqlshlog
 
-def set_controlling_pty(master, slave):
+def set_controlling_pty(main, subordinate):
     os.setsid()
-    os.close(master)
+    os.close(main)
     for i in range(3):
-        os.dup2(slave, i)
-    if slave > 2:
-        os.close(slave)
+        os.dup2(subordinate, i)
+    if subordinate > 2:
+        os.close(subordinate)
     os.close(os.open(os.ttyname(1), os.O_RDWR))
 
 @contextlib.contextmanager
@@ -138,14 +138,14 @@ class ProcRunner:
         cqlshlog.info("Spawning %r subprocess with args: %r and env: %r"
                       % (self.exe_path, self.args, self.env))
         if self.realtty:
-            masterfd, slavefd = pty.openpty()
-            preexec = (lambda: set_controlling_pty(masterfd, slavefd))
+            mainfd, subordinatefd = pty.openpty()
+            preexec = (lambda: set_controlling_pty(mainfd, subordinatefd))
             self.proc = subprocess.Popen((self.exe_path,) + tuple(self.args),
                                          env=self.env, preexec_fn=preexec,
                                          stdin=stdin, stdout=stdout, stderr=stderr,
                                          close_fds=False)
-            os.close(slavefd)
-            self.childpty = masterfd
+            os.close(subordinatefd)
+            self.childpty = mainfd
             self.send = self.send_tty
             self.read = self.read_tty
         else:

@@ -53,19 +53,19 @@ class db_manager:
         self._things = {}
         self._relations = {}
         self._engines = {}
-        self.avoid_master_reads = {}
+        self.avoid_main_reads = {}
         self.dead = {}
 
-    def add_thing(self, name, thing_dbs, avoid_master = False, **kw):
+    def add_thing(self, name, thing_dbs, avoid_main = False, **kw):
         """thing_dbs is a list of database engines. the first in the
-        list is assumed to be the master, the rest are slaves."""
+        list is assumed to be the main, the rest are subordinates."""
         self._things[name] = thing_dbs
-        self.avoid_master_reads[name] = avoid_master
+        self.avoid_main_reads[name] = avoid_main
 
     def add_relation(self, name, type1, type2, relation_dbs,
-                     avoid_master = False, **kw):
+                     avoid_main = False, **kw):
         self._relations[name] = (type1, type2, relation_dbs)
-        self.avoid_master_reads[name] = avoid_master
+        self.avoid_main_reads[name] = avoid_main
 
     def setup_db(self, db_name, g_override=None, **params):
         engine = get_engine(**params)
@@ -74,7 +74,7 @@ class db_manager:
 
     def things_iter(self):
         for name, engines in self._things.iteritems():
-            # ensure we ALWAYS return the actual master as the first,
+            # ensure we ALWAYS return the actual main as the first,
             # regardless of if we think it's dead or not.
             yield name, [engines[0]] + [e for e in engines[1:] if e not in self.dead]
 

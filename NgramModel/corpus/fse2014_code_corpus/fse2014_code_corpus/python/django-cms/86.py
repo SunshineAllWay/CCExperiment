@@ -24,29 +24,29 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
     
     Users:
         1. `super`: superuser
-        2. `master`: user with permissions to all applications
-        3. `slave`: user assigned to page `slave-home`
+        2. `main`: user with permissions to all applications
+        3. `subordinate`: user assigned to page `subordinate-home`
     
     Pages:
         1. `home`:
             - published page
-            - master can do anything on its subpages, but not on home!
+            - main can do anything on its subpages, but not on home!
             
-        2. `master`:
+        2. `main`:
             - published page
             - crated by super
-            - `master` can do anything on it and its descendants
+            - `main` can do anything on it and its descendants
             - subpages:
         
-        3.       `slave-home`:
+        3.       `subordinate-home`:
                     - not published
-                    - assigned slave user which can add/change/delete/
+                    - assigned subordinate user which can add/change/delete/
                       move/publish/moderate this page and its descendants
-                    - `master` user want to moderate this page and all descendants
+                    - `main` user want to moderate this page and all descendants
                     
         4. `pageA`:
             - created by super
-            - master can add/change/delete on it and descendants 
+            - main can add/change/delete on it and descendants 
     """
     settings_overrides = {
         'CMS_PERMISSION': True,
@@ -69,48 +69,48 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
             self._home_page = create_page("home", "nav_playground.html", "en",
                                          created_by=self.user_super)
         
-            # master page & master user
+            # main page & main user
             
-            self._master_page = create_page("master", "nav_playground.html", "en")
+            self._main_page = create_page("main", "nav_playground.html", "en")
             
-            # create master user
-            master = User(username="master", email="master@django-cms.org", is_staff=True, is_active=True)
-            master.set_password('master')
-            master.save()
-            master.user_permissions.add(Permission.objects.get(codename='add_text'))
-            master.user_permissions.add(Permission.objects.get(codename='delete_text'))
-            master.user_permissions.add(Permission.objects.get(codename='change_text'))
+            # create main user
+            main = User(username="main", email="main@django-cms.org", is_staff=True, is_active=True)
+            main.set_password('main')
+            main.save()
+            main.user_permissions.add(Permission.objects.get(codename='add_text'))
+            main.user_permissions.add(Permission.objects.get(codename='delete_text'))
+            main.user_permissions.add(Permission.objects.get(codename='change_text'))
             
-            self.user_master = create_page_user(self.user_super, master, grant_all=True)
+            self.user_main = create_page_user(self.user_super, main, grant_all=True)
             # create non global, non staff user
             self.user_non_global = User(username="nonglobal", is_active=True)
             self.user_non_global.set_password("nonglobal")
             self.user_non_global.save()
             
-            # assign master user under home page
-            assign_user_to_page(self.home_page, self.user_master,
+            # assign main user under home page
+            assign_user_to_page(self.home_page, self.user_main,
                                 grant_on=ACCESS_DESCENDANTS, grant_all=True)
             
-            # and to master page
-            assign_user_to_page(self.master_page, self.user_master,
+            # and to main page
+            assign_user_to_page(self.main_page, self.user_main,
                                 grant_on=ACCESS_PAGE_AND_DESCENDANTS, grant_all=True)
             
-            # slave page & slave user
+            # subordinate page & subordinate user
             
-            self._slave_page = create_page("slave-home", "nav_playground.html", "en",
-                              parent=self.master_page, created_by=self.user_super)
+            self._subordinate_page = create_page("subordinate-home", "nav_playground.html", "en",
+                              parent=self.main_page, created_by=self.user_super)
         
-            slave = User(username='slave', email='slave@django-cms.org', is_staff=True)
-            slave.set_password('slave')
-            slave.save()
-            slave.user_permissions.add(Permission.objects.get(codename='add_text'))
-            slave.user_permissions.add(Permission.objects.get(codename='delete_text'))
-            slave.user_permissions.add(Permission.objects.get(codename='change_text'))
+            subordinate = User(username='subordinate', email='subordinate@django-cms.org', is_staff=True)
+            subordinate.set_password('subordinate')
+            subordinate.save()
+            subordinate.user_permissions.add(Permission.objects.get(codename='add_text'))
+            subordinate.user_permissions.add(Permission.objects.get(codename='delete_text'))
+            subordinate.user_permissions.add(Permission.objects.get(codename='change_text'))
             
-            self.user_slave = create_page_user(self.user_super, slave,  can_add_page=True,
+            self.user_subordinate = create_page_user(self.user_super, subordinate,  can_add_page=True,
                                         can_change_page=True, can_delete_page=True)
             
-            assign_user_to_page(self.slave_page, self.user_slave, grant_all=True)
+            assign_user_to_page(self.subordinate_page, self.user_subordinate, grant_all=True)
     
             # create page_b
             page_b = create_page("pageB", "nav_playground.html", "en", created_by=self.user_super)
@@ -118,34 +118,34 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
             normal = User(username='normal', email='normal@django-cms.org', is_active=True)
             normal.set_password('normal')
             normal.save()
-            self.user_normal = create_page_user(self.user_master, normal)
+            self.user_normal = create_page_user(self.user_main, normal)
             # it's allowed for the normal user to view the page
             assign_user_to_page(page_b, self.user_normal, can_view=True)
             self.user_normal = self.reload(self.user_normal)
-            # create page_a - sample page from master
+            # create page_a - sample page from main
             
             page_a = create_page("pageA", "nav_playground.html", "en",
                                  created_by=self.user_super)
-            assign_user_to_page(page_a, self.user_master, 
+            assign_user_to_page(page_a, self.user_main, 
                 can_add=True, can_change=True, can_delete=True, can_publish=True, 
                 can_move_page=True, can_moderate=True)
 
             # publish after creating all drafts
             publish_page(self.home_page, self.user_super)
             
-            publish_page(self.master_page, self.user_super)
+            publish_page(self.main_page, self.user_super)
             
             self.page_b = publish_page(page_b, self.user_super)
-            # logg in as master, and request moderation for slave page and descendants
-            self.request_moderation(self.slave_page, 7)
+            # logg in as main, and request moderation for subordinate page and descendants
+            self.request_moderation(self.subordinate_page, 7)
     
     @property
-    def master_page(self):
-        return self.reload(self._master_page)
+    def main_page(self):
+        return self.reload(self._main_page)
     
     @property
-    def slave_page(self):
-        return self.reload(self._slave_page)
+    def subordinate_page(self):
+        return self.reload(self._subordinate_page)
     
     @property
     def home_page(self):
@@ -174,23 +174,23 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
             response = self.client.get(URL_CMS_PAGE_ADD)
             self.assertEqual(response.status_code, 200)
     
-    def test_master_can_add_page_to_root(self):
-        with self.login_user_context(self.user_master):
+    def test_main_can_add_page_to_root(self):
+        with self.login_user_context(self.user_main):
             response = self.client.get(URL_CMS_PAGE_ADD)
             self.assertEqual(response.status_code, 403)
         
-    def test_slave_can_add_page_to_root(self):
-        with self.login_user_context(self.user_slave):
+    def test_subordinate_can_add_page_to_root(self):
+        with self.login_user_context(self.user_subordinate):
             response = self.client.get(URL_CMS_PAGE_ADD)
             self.assertEqual(response.status_code, 403)
     
-    def test_moderation_on_slave_home(self):
-        self.assertEqual(self.slave_page.get_moderator_queryset().count(), 1)
+    def test_moderation_on_subordinate_home(self):
+        self.assertEqual(self.subordinate_page.get_moderator_queryset().count(), 1)
     
-    def test_slave_can_add_page_under_slave_home(self):
-        with self.login_user_context(self.user_slave):
+    def test_subordinate_can_add_page_under_subordinate_home(self):
+        with self.login_user_context(self.user_subordinate):
             # move to admin.py?
-            # url = URL_CMS_PAGE_ADD + "?target=%d&position=last-child" % slave_page.pk
+            # url = URL_CMS_PAGE_ADD + "?target=%d&position=last-child" % subordinate_page.pk
             
             # can he even access it over get?
             # response = self.client.get(url)
@@ -198,8 +198,8 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
             
             # add page
             page = create_page("page", "nav_playground.html", "en",
-                               parent=self.slave_page, created_by=self.user_slave)
-            # adds user_slave as page moderator for this page
+                               parent=self.subordinate_page, created_by=self.user_subordinate)
+            # adds user_subordinate as page moderator for this page
             # public model shouldn't be available yet, because of the moderation
             # removed test cases since Title object does not inherit from Publisher anymore
             #self.assertObjectExist(Title.objects, slug=page_data['slug'])
@@ -212,45 +212,45 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
             # must not have public object yet
             self.assertFalse(page.publisher_public)
     
-            self.assertTrue(has_generic_permission(page.pk, self.user_slave, "publish", 1))
+            self.assertTrue(has_generic_permission(page.pk, self.user_subordinate, "publish", 1))
     
-            # publish as slave, published as user_master before 
-            publish_page(page, self.user_slave)
+            # publish as subordinate, published as user_main before 
+            publish_page(page, self.user_subordinate)
             
-            # user_slave is moderator for this page
-            # approve / publish as user_slave
-            # user master should be able to approve aswell
-            page = approve_page(page, self.user_slave)
+            # user_subordinate is moderator for this page
+            # approve / publish as user_subordinate
+            # user main should be able to approve aswell
+            page = approve_page(page, self.user_subordinate)
 
-    def test_page_added_by_slave_can_be_published_approved_by_user_master(self):
+    def test_page_added_by_subordinate_can_be_published_approved_by_user_main(self):
         # add page
         page = create_page("page", "nav_playground.html", "en",
-                           parent=self.slave_page, created_by=self.user_slave)
-        # same as test_slave_can_add_page_under_slave_home        
+                           parent=self.subordinate_page, created_by=self.user_subordinate)
+        # same as test_subordinate_can_add_page_under_subordinate_home        
         self.assertEqual(page.get_moderator_queryset().count(), 1)
         self.assertEqual(page.moderator_state, Page.MODERATOR_CHANGED)
         
         # must not have public object yet
         self.assertFalse(page.publisher_public)
         
-        self.assertTrue(has_generic_permission(page.pk, self.user_master, "publish", page.site.pk))
-        # should be True user_master should have publish permissions for childred aswell
+        self.assertTrue(has_generic_permission(page.pk, self.user_main, "publish", page.site.pk))
+        # should be True user_main should have publish permissions for childred aswell
         # don't test for published since publishing must be approved
-        publish_page(page, self.user_master)
+        publish_page(page, self.user_main)
         
-        # user_master is moderator for top level page / but can't approve descendants?
-        # approve / publish as user_master
-        # user master should be able to approve descendants
-        page = approve_page(page, self.user_master)    
+        # user_main is moderator for top level page / but can't approve descendants?
+        # approve / publish as user_main
+        # user main should be able to approve descendants
+        page = approve_page(page, self.user_main)    
         
     def test_super_can_add_plugin(self):
-        self._add_plugin(self.user_super, page=self.slave_page)
+        self._add_plugin(self.user_super, page=self.subordinate_page)
     
-    def test_master_can_add_plugin(self):
-        self._add_plugin(self.user_master, page=self.slave_page)
+    def test_main_can_add_plugin(self):
+        self._add_plugin(self.user_main, page=self.subordinate_page)
     
-    def test_slave_can_add_plugin(self):
-        self._add_plugin(self.user_slave, page=self.slave_page)
+    def test_subordinate_can_add_plugin(self):
+        self._add_plugin(self.user_subordinate, page=self.subordinate_page)
     
     def test_same_order(self):
         # create 4 pages
@@ -264,20 +264,20 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         # approve last 2 pages in reverse order
         for slug in reversed(slugs[2:]):
             page = self.assertObjectExist(Page.objects.drafts(), title_set__slug=slug)
-            page = publish_page(page, self.user_master, True)
+            page = publish_page(page, self.user_main, True)
             self.check_published_page_attributes(page)
     
     def test_create_copy_publish(self):
         # create new page to copy
         page = create_page("page", "nav_playground.html", "en",
-                           parent=self.slave_page)
+                           parent=self.subordinate_page)
         
         # copy it under home page...
         # TODO: Use page.copy_page here
-        with self.login_user_context(self.user_master):
+        with self.login_user_context(self.user_main):
             copied_page = self.copy_page(page, self.home_page)
         
-        page = publish_page(copied_page, self.user_master, True)
+        page = publish_page(copied_page, self.user_main, True)
         self.check_published_page_attributes(page)
     
     
@@ -286,20 +286,20 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         page = create_page("page", "nav_playground.html", "en",
                            parent=self.home_page)
         
-        page = publish_page(page, self.user_master, True)
+        page = publish_page(page, self.user_main, True)
         
-        # copy it under master page...
+        # copy it under main page...
         # TODO: Use page.copy_page here
-        with self.login_user_context(self.user_master):
-            copied_page = self.copy_page(page, self.master_page)
+        with self.login_user_context(self.user_main):
+            copied_page = self.copy_page(page, self.main_page)
         
         self.check_published_page_attributes(page)
-        copied_page = publish_page(copied_page, self.user_master, True)
+        copied_page = publish_page(copied_page, self.user_main, True)
         self.check_published_page_attributes(copied_page)
         
         
     def test_subtree_needs_approvement(self):
-        # create page under slave_page
+        # create page under subordinate_page
         page = create_page("parent", "nav_playground.html", "en",
                            parent=self.home_page)
         self.assertFalse(page.publisher_public)
@@ -309,7 +309,7 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         self.assertFalse(subpage.publisher_public)
         
         # publish both of them in reverse order 
-        subpage = publish_page(subpage, self.user_master, True) 
+        subpage = publish_page(subpage, self.user_main, True) 
         
         # subpage should not be published, because parent is not published 
         # yet, should be marked as `publish when parent`
@@ -319,7 +319,7 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         self.assertEqual(subpage.moderator_state, Page.MODERATOR_APPROVED_WAITING_FOR_PARENTS)
         
         # publish page (parent of subage), so subpage must be published also
-        page = publish_page(page, self.user_master, True)
+        page = publish_page(page, self.user_main, True)
         self.assertNotEqual(page.publisher_public, None)
         
         # reload subpage, it was probably changed
@@ -380,25 +380,25 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
     
     
     def test_moderator_flags(self):
-        """Add page under slave_home and check its flag
+        """Add page under subordinate_home and check its flag
         """
         page = create_page("page", "nav_playground.html", "en",
-                           parent=self.slave_page)
+                           parent=self.subordinate_page)
         
         # moderator_state must be changed
         self.assertEqual(page.moderator_state, Page.MODERATOR_CHANGED)
         
         # check publish box
-        page = publish_page(page, self.user_slave)
+        page = publish_page(page, self.user_subordinate)
         
         # page should request approvement now
         self.assertEqual(page.moderator_state, Page.MODERATOR_NEED_APPROVEMENT)
         
-        # approve it by master
+        # approve it by main
 
         # approve this page - but it doesn't get published yet, because 
-        # slave home is not published
-        page = approve_page(page, self.user_master)
+        # subordinate home is not published
+        page = approve_page(page, self.user_main)
         
         # public page must not exist because of parent
         self.assertFalse(page.publisher_public)
@@ -406,17 +406,17 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         # waiting for parents
         self.assertEqual(page.moderator_state, Page.MODERATOR_APPROVED_WAITING_FOR_PARENTS)
         
-        # publish slave page
-        slave_page = publish_page(self.slave_page, self.user_master)
+        # publish subordinate page
+        subordinate_page = publish_page(self.subordinate_page, self.user_main)
         
         self.assertFalse(page.publisher_public)
-        self.assertFalse(slave_page.publisher_public)
+        self.assertFalse(subordinate_page.publisher_public)
         
         # they must be approved first
-        slave_page = approve_page(slave_page, self.user_master)
+        subordinate_page = approve_page(subordinate_page, self.user_main)
         
-        # master is approved
-        self.assertEqual(slave_page.moderator_state, Page.MODERATOR_APPROVED)
+        # main is approved
+        self.assertEqual(subordinate_page.moderator_state, Page.MODERATOR_APPROVED)
         
         # reload page
         page = self.reload_page(page)
@@ -435,8 +435,8 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         self.assertEqual(CMSPlugin.objects.all().count(), 2)
 
     def test_remove_plugin_page_under_moderation(self):
-        # login as slave and create page
-        page = create_page("page", "nav_playground.html", "en", parent=self.slave_page)
+        # login as subordinate and create page
+        page = create_page("page", "nav_playground.html", "en", parent=self.subordinate_page)
         self.assertEqual(page.get_moderator_queryset().count(), 1)
         
         # add plugin
@@ -447,7 +447,7 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
 
         # publish page
         page = self.reload(page)
-        page = publish_page(page, self.user_slave)
+        page = publish_page(page, self.user_subordinate)
         
         # only the draft plugin should exist
         self.assertEqual(CMSPlugin.objects.all().count(), 1)
@@ -455,18 +455,18 @@ class PermissionModeratorTests(SettingsOverrideTestCase):
         # page should require approval
         self.assertEqual(page.moderator_state, Page.MODERATOR_NEED_APPROVEMENT)
         
-        # master approves and publishes the page
-        # first approve slave-home
-        slave_page = self.reload(self.slave_page)
-        publish_page(slave_page, self.user_master, approve=True)
+        # main approves and publishes the page
+        # first approve subordinate-home
+        subordinate_page = self.reload(self.subordinate_page)
+        publish_page(subordinate_page, self.user_main, approve=True)
         page = self.reload(page)
-        page = publish_page(page, self.user_master, approve=True)
+        page = publish_page(page, self.user_main, approve=True)
         
         # draft and public plugins should now exist
         self.assertEqual(CMSPlugin.objects.all().count(), 2)
         
-        # login as slave and delete the plugin - should require moderation
-        with self.login_user_context(self.user_slave):
+        # login as subordinate and delete the plugin - should require moderation
+        with self.login_user_context(self.user_subordinate):
             plugin_data = {
                 'plugin_id': plugin.pk
             }
@@ -611,29 +611,29 @@ class PatricksMoveTest(SettingsOverrideTestCase):
     
     Users:
         1. `super`: superuser
-        2. `master`: user with permissions to all applications
-        3. `slave`: user assigned to page `slave-home`
+        2. `main`: user with permissions to all applications
+        3. `subordinate`: user assigned to page `subordinate-home`
     
     Pages:
         1. `home`:
             - published page
-            - master can do anything on its subpages, but not on home!
+            - main can do anything on its subpages, but not on home!
             
-        2. `master`:
+        2. `main`:
             - published page
             - crated by super
-            - `master` can do anything on it and its descendants
+            - `main` can do anything on it and its descendants
             - subpages:
         
-        3.       `slave-home`:
+        3.       `subordinate-home`:
                     - not published
-                    - assigned slave user which can add/change/delete/
+                    - assigned subordinate user which can add/change/delete/
                       move/publish/moderate this page and its descendants
-                    - `master` user want to moderate this page and all descendants
+                    - `main` user want to moderate this page and all descendants
                     
         4. `pageA`:
             - created by super
-            - master can add/change/delete on it and descendants 
+            - main can add/change/delete on it and descendants 
     """
     settings_overrides = {
         'CMS_PERMISSION': True,
@@ -651,51 +651,51 @@ class PatricksMoveTest(SettingsOverrideTestCase):
             self._home_page = create_page("home", "nav_playground.html", "en",
                                          created_by=self.user_super)
             
-            # master page & master user
+            # main page & main user
             
-            self._master_page = create_page("master", "nav_playground.html", "en")
+            self._main_page = create_page("main", "nav_playground.html", "en")
     
-            # create master user
-            master = User.objects.create(username="master", email="master@django-cms.org", password="master")
-            self.user_master = create_page_user(self.user_super, master, grant_all=True)
+            # create main user
+            main = User.objects.create(username="main", email="main@django-cms.org", password="main")
+            self.user_main = create_page_user(self.user_super, main, grant_all=True)
             
-            # assign master user under home page
-            assign_user_to_page(self.home_page, self.user_master,
+            # assign main user under home page
+            assign_user_to_page(self.home_page, self.user_main,
                                 grant_on=ACCESS_DESCENDANTS, grant_all=True)
             
-            # and to master page
-            assign_user_to_page(self.master_page, self.user_master, grant_all=True)
+            # and to main page
+            assign_user_to_page(self.main_page, self.user_main, grant_all=True)
             
-            # slave page & slave user
+            # subordinate page & subordinate user
             
-            self._slave_page = create_page("slave-home", "nav_playground.html", "en",
-                              parent=self.master_page, created_by=self.user_super)
-            slave = User(username='slave', email='slave@django-cms.org', is_staff=True, is_active=True)
-            slave.set_password('slave')
-            slave.save()
-            self.user_slave = create_page_user(self.user_super, slave,  can_add_page=True,
+            self._subordinate_page = create_page("subordinate-home", "nav_playground.html", "en",
+                              parent=self.main_page, created_by=self.user_super)
+            subordinate = User(username='subordinate', email='subordinate@django-cms.org', is_staff=True, is_active=True)
+            subordinate.set_password('subordinate')
+            subordinate.save()
+            self.user_subordinate = create_page_user(self.user_super, subordinate,  can_add_page=True,
                                         can_change_page=True, can_delete_page=True)
             
-            assign_user_to_page(self.slave_page, self.user_slave, grant_all=True)
+            assign_user_to_page(self.subordinate_page, self.user_subordinate, grant_all=True)
             
-            # create page_a - sample page from master
+            # create page_a - sample page from main
             
             page_a = create_page("pageA", "nav_playground.html", "en",
                                  created_by=self.user_super)
-            assign_user_to_page(page_a, self.user_master, 
+            assign_user_to_page(page_a, self.user_main, 
                 can_add=True, can_change=True, can_delete=True, can_publish=True, 
                 can_move_page=True, can_moderate=True)
             
             # publish after creating all drafts
             publish_page(self.home_page, self.user_super)
-            publish_page(self.master_page, self.user_super)
-            # logg in as master, and request moderation for slave page and descendants
-            self.request_moderation(self.slave_page, 7)
+            publish_page(self.main_page, self.user_super)
+            # logg in as main, and request moderation for subordinate page and descendants
+            self.request_moderation(self.subordinate_page, 7)
         
-        with self.login_user_context(self.user_slave):
+        with self.login_user_context(self.user_subordinate):
         
             # all of them are under moderation... 
-            self._pa = create_page("pa", "nav_playground.html", "en", parent=self.slave_page)
+            self._pa = create_page("pa", "nav_playground.html", "en", parent=self.subordinate_page)
             self._pb = create_page("pb", "nav_playground.html", "en", parent=self.pa, position="right")
             self._pc = create_page("pc", "nav_playground.html", "en", parent=self.pb, position="right")
             
@@ -708,26 +708,26 @@ class PatricksMoveTest(SettingsOverrideTestCase):
             
             self.assertFalse(self.pg.publisher_public)
             
-            # login as master for approval
-            publish_page(self.slave_page, self.user_master, approve=True)
+            # login as main for approval
+            publish_page(self.subordinate_page, self.user_main, approve=True)
             
             # publish and approve them all
-            publish_page(self.pa, self.user_master, approve=True)
-            publish_page(self.pb, self.user_master, approve=True)
-            publish_page(self.pc, self.user_master, approve=True)
-            publish_page(self.pd, self.user_master, approve=True)
-            publish_page(self.pe, self.user_master, approve=True)
-            publish_page(self.pf, self.user_master, approve=True)
-            publish_page(self.pg, self.user_master, approve=True)
-            publish_page(self.ph, self.user_master, approve=True)
+            publish_page(self.pa, self.user_main, approve=True)
+            publish_page(self.pb, self.user_main, approve=True)
+            publish_page(self.pc, self.user_main, approve=True)
+            publish_page(self.pd, self.user_main, approve=True)
+            publish_page(self.pe, self.user_main, approve=True)
+            publish_page(self.pf, self.user_main, approve=True)
+            publish_page(self.pg, self.user_main, approve=True)
+            publish_page(self.ph, self.user_main, approve=True)
         
     @property
-    def master_page(self):
-        return self.reload(self._master_page)
+    def main_page(self):
+        return self.reload(self._main_page)
     
     @property
-    def slave_page(self):
-        return self.reload(self._slave_page)
+    def subordinate_page(self):
+        return self.reload(self._subordinate_page)
     
     @property
     def home_page(self):
@@ -770,9 +770,9 @@ class PatricksMoveTest(SettingsOverrideTestCase):
         
         Tests permmod when moving trees of pages.
 
-        1. build following tree (master node is approved and published)
+        1. build following tree (main node is approved and published)
         
-                 slave-home
+                 subordinate-home
                 /    |    \
                A     B     C
                    /  \     
@@ -784,7 +784,7 @@ class PatricksMoveTest(SettingsOverrideTestCase):
             1. move G under C
             2. move E under G
             
-                 slave-home
+                 subordinate-home
                 /    |    \
                A     B     C
                    /        \
@@ -802,8 +802,8 @@ class PatricksMoveTest(SettingsOverrideTestCase):
         """
         # TODO: this takes 5 seconds to run on my MBP. That's TOO LONG!
         
-        # perform movings under slave...
-        user_master = User.objects.get(username='master')
+        # perform movings under subordinate...
+        user_main = User.objects.get(username='main')
         self.move_page(self.pg, self.pc)
         # We have to reload pe when using mptt >= 0.4.2, 
         # so that mptt realized that pg is no longer a child of pe
@@ -812,11 +812,11 @@ class PatricksMoveTest(SettingsOverrideTestCase):
         # check urls - they should stay them same, there wasn't approved yet
         self.assertEqual(
             self.pg.publisher_public.get_absolute_url(), 
-            u'%smaster/slave-home/pb/pe/pg/' % self.get_pages_root()
+            u'%smain/subordinate-home/pb/pe/pg/' % self.get_pages_root()
         )
         self.assertEqual(
             self.ph.publisher_public.get_absolute_url(),
-            u'%smaster/slave-home/pb/pe/ph/' % self.get_pages_root()
+            u'%smain/subordinate-home/pb/pe/ph/' % self.get_pages_root()
         )
         
         # pg & pe should require approval
@@ -824,11 +824,11 @@ class PatricksMoveTest(SettingsOverrideTestCase):
         self.assertEqual(self.pe.requires_approvement(), True)
         self.assertEqual(self.ph.requires_approvement(), False)
         
-        # login as master, and approve moves
-        approve_page(self.pg, user_master)
-        approve_page(self.pe, user_master)
-        approve_page(self.ph, user_master)
-        approve_page(self.pf, user_master)
+        # login as main, and approve moves
+        approve_page(self.pg, user_main)
+        approve_page(self.pe, user_main)
+        approve_page(self.ph, user_main)
+        approve_page(self.pf, user_main)
         
         # public parent check after move
         self.assertEqual(self.pg.publisher_public.parent.pk, self.pc.publisher_public_id)
@@ -838,11 +838,11 @@ class PatricksMoveTest(SettingsOverrideTestCase):
         # check if urls are correct after move
         self.assertEqual(
             self.pg.publisher_public.get_absolute_url(),
-            u'%smaster/slave-home/pc/pg/' % self.get_pages_root()
+            u'%smain/subordinate-home/pc/pg/' % self.get_pages_root()
         )
         self.assertEqual(
             self.ph.publisher_public.get_absolute_url(),
-            u'%smaster/slave-home/pc/pg/pe/ph/' % self.get_pages_root()
+            u'%smain/subordinate-home/pc/pg/pe/ph/' % self.get_pages_root()
         )
 
 

@@ -346,7 +346,7 @@ class ZipFile(Parser):
         u"application/vnd.oasis.opendocument.presentation": "odp",
         u"application/vnd.oasis.opendocument.spreadsheet": "ods",
         u"application/vnd.oasis.opendocument.text": "odt",
-        u"application/vnd.oasis.opendocument.text-master": "odm",
+        u"application/vnd.oasis.opendocument.text-main": "odm",
 
         # OpenDocument (template)
         u"application/vnd.oasis.opendocument.graphics-template": "otg",

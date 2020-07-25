@@ -211,7 +211,7 @@ class RepoTest(BaseCase):
         bl = self._gh('http://github.com/api/v2/xml/repos/show/schacon/ruby-git/branches',
                       'data/repos.branches.xml').repos.branches('schacon', 'ruby-git')
         self.assertEquals(4, len(bl))
-        self.assertEquals('ee90922f3da3f67ef19853a0759c1d09860fe3b3', bl['master'])
+        self.assertEquals('ee90922f3da3f67ef19853a0759c1d09860fe3b3', bl['main'])
 
     def testGetOneRepo(self):
         """Fetch an individual repository."""

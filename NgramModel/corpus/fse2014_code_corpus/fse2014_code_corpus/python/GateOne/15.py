@@ -36,20 +36,20 @@ OPEN_SUBCHANNELS = {}
 SUBCHANNEL_TIMEOUT = timedelta(minutes=5) # How long to wait before auto-closing
 READY_STRING = "GATEONE_SSH_EXEC_CMD_CHANNEL_READY"
 READY_MATCH = re.compile("^%s$" % READY_STRING, re.MULTILINE)
-# TODO: make execute_command() a user-configurable option...  So it will automatically run whatever command(s) the user likes whenever they connect to a given server.  Differentiate between when they connect and when they start up a master or slave channel.
+# TODO: make execute_command() a user-configurable option...  So it will automatically run whatever command(s) the user likes whenever they connect to a given server.  Differentiate between when they connect and when they start up a main or subordinate channel.
 # TODO: Make it so that equivalent KnownHostsHandler functionality works over the WebSocket.
 
 # Exceptions
 class SSHMultiplexingException(Exception):
     """
     Called when there's a failure trying to open a sub-shell via OpenSSH's
-    Master mode multiplexing capability.
+    Main mode multiplexing capability.
     """
     pass
 
 class SSHExecutionException(Exception):
     """
-    Called when there's an error trying to execute a command in the slave.
+    Called when there's an error trying to execute a command in the subordinate.
     """
     pass
 
@@ -79,8 +79,8 @@ def get_ssh_dir(tws):
 def open_sub_channel(term, tws):
     """
     Opens a sub-channel of communication by executing a new shell on the SSH
-    server using OpenSSH's Master mode capability (it spawns a new slave) and
-    returns the resulting Multiplex instance.  If a slave has already been
+    server using OpenSSH's Main mode capability (it spawns a new subordinate) and
+    returns the resulting Multiplex instance.  If a subordinate has already been
     opened for this purpose it will re-use the existing channel.
     """
     logging.debug("open_sub_channel() term: %s" % term)
@@ -88,7 +88,7 @@ def open_sub_channel(term, tws):
     if term in OPEN_SUBCHANNELS and OPEN_SUBCHANNELS[term].isalive():
         # Use existing sub-channel (much faster this way)
         return OPEN_SUBCHANNELS[term]
-    # NOTE: When connecting a slave via ssh you can't tell it to execute a
+    # NOTE: When connecting a subordinate via ssh you can't tell it to execute a
     # command like you normally can (e.g. 'ssh user@host <some command>').  This
     # is why we're using the termio.Multiplex.expect() functionality below...
     session = tws.session
@@ -110,7 +110,7 @@ def open_sub_channel(term, tws):
     # ...but I could have just used 'foo' :)
     if not socket_path:
         raise SSHMultiplexingException(_(
-            "SSH Plugin: Unable to open slave sub-channel."))
+            "SSH Plugin: Unable to open subordinate sub-channel."))
     users_ssh_dir = get_ssh_dir(tws)
     ssh_config_path = os.path.join(users_ssh_dir, 'config')
     if not os.path.exists(ssh_config_path):
@@ -222,7 +222,7 @@ def got_error(m_instance, match=None, cmd=None, tws=None):
 def execute_command(term, cmd, callback=None, tws=None):
     """
     Execute the given command (*cmd*) on the given *term* using the existing
-    SSH tunnel (taking advantage of Master mode) and call *callback* with the
+    SSH tunnel (taking advantage of Main mode) and call *callback* with the
     output of said command and the current Multiplex instance as arguments like
     so::
 

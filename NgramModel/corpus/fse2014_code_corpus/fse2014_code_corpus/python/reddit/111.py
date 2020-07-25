@@ -88,13 +88,13 @@ class HardCacheBackend(object):
             self.mapping[category] = [ engines_by_enginename[e]
                                        for e in enginenames]
 
-    def engine_by_category(self, category, type="master"):
+    def engine_by_category(self, category, type="main"):
         if category not in self.mapping:
             category = '*'
         engines = self.mapping[category]
-        if type == 'master':
+        if type == 'main':
             return engines[0]
-        elif type == 'readslave':
+        elif type == 'readsubordinate':
             return random.choice(engines[1:])
         else:
             raise ValueError("invalid type %s" % type)
@@ -148,7 +148,7 @@ class HardCacheBackend(object):
 
         prof = self.profile_start('set', category)
 
-        engine = self.engine_by_category(category, "master")
+        engine = self.engine_by_category(category, "main")
 
         engine.insert().execute(
             category=category,
@@ -169,7 +169,7 @@ class HardCacheBackend(object):
 
         prof = self.profile_start('add', category)
 
-        engine = self.engine_by_category(category, "master")
+        engine = self.engine_by_category(category, "main")
 
         try:
             rp = engine.insert().execute(
@@ -193,7 +193,7 @@ class HardCacheBackend(object):
 
         prof = self.profile_start('incr', category)
 
-        engine = self.engine_by_category(category, "master")
+        engine = self.engine_by_category(category, "main")
 
         rp = engine.update(sa.and_(engine.c.category==category,
                                    engine.c.ids==ids,
@@ -224,9 +224,9 @@ class HardCacheBackend(object):
 
     def get(self, category, ids, force_write_table=False):
         if force_write_table:
-            type = "master"
+            type = "main"
         else:
-            type = "readslave"
+            type = "readsubordinate"
 
         engine = self.engine_by_category(category, type)
 
@@ -252,7 +252,7 @@ class HardCacheBackend(object):
     def get_multi(self, category, idses):
         prof = self.profile_start('get_multi', category)
 
-        engine = self.engine_by_category(category, "readslave")
+        engine = self.engine_by_category(category, "readsubordinate")
 
         s = sa.select([engine.c.ids,
                        engine.c.value,
@@ -276,7 +276,7 @@ class HardCacheBackend(object):
 
     def delete(self, category, ids):
         prof = self.profile_start('delete', category)
-        engine = self.engine_by_category(category, "master")
+        engine = self.engine_by_category(category, "main")
         engine.delete(
             sa.and_(engine.c.category==category,
                     engine.c.ids==ids)).execute()
@@ -284,7 +284,7 @@ class HardCacheBackend(object):
 
     def ids_by_category(self, category, limit=1000):
         prof = self.profile_start('ids_by_category', category)
-        engine = self.engine_by_category(category, "readslave")
+        engine = self.engine_by_category(category, "readsubordinate")
         s = sa.select([engine.c.ids],
                       sa.and_(engine.c.category==category,
                               engine.c.expiration > datetime.now(TZ)),
@@ -314,7 +314,7 @@ class HardCacheBackend(object):
 
     def delete_if_expired(self, category, ids, expiration="now"):
         prof = self.profile_start('delete_if_expired', category)
-        engine = self.engine_by_category(category, "master")
+        engine = self.engine_by_category(category, "main")
         expiration_clause = self.clause_from_expiration(engine, expiration)
         engine.delete(sa.and_(engine.c.category==category,
                               engine.c.ids==ids,
@@ -325,12 +325,12 @@ class HardCacheBackend(object):
 def delete_expired(expiration="now", limit=5000):
     hcb = HardCacheBackend(g)
 
-    masters = set()
+    mains = set()
 
     for engines in hcb.mapping.values():
-        masters.add(engines[0])
+        mains.add(engines[0])
 
-    for engine in masters:
+    for engine in mains:
         expiration_clause = hcb.clause_from_expiration(engine, expiration)
 
         # Get all the expired keys

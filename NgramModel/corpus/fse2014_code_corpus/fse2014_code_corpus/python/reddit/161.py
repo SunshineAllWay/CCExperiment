@@ -219,7 +219,7 @@ def build_thing_tables():
 
         thing = storage(type_id = type_id,
                         name = name,
-                        avoid_master_reads = dbm.avoid_master_reads.get(name),
+                        avoid_main_reads = dbm.avoid_main_reads.get(name),
                         tables = tables)
 
         types_id[type_id] = thing
@@ -265,7 +265,7 @@ def build_rel_tables():
         rel = storage(type_id = type_id,
                       type1_id = type1_id,
                       type2_id = type2_id,
-                      avoid_master_reads = dbm.avoid_master_reads.get(name),
+                      avoid_main_reads = dbm.avoid_main_reads.get(name),
                       name = name,
                       tables = tables)
 
@@ -314,7 +314,7 @@ def add_request_info(select):
     return select
 
 
-def get_table(kind, action, tables, avoid_master_reads = False):
+def get_table(kind, action, tables, avoid_main_reads = False):
     if action == 'write':
         #if this is a write, store the kind in the c.use_write_db dict
         #so that all future requests use the write db
@@ -328,7 +328,7 @@ def get_table(kind, action, tables, avoid_master_reads = False):
         if c.use_write_db and c.use_write_db.has_key(kind):
             return get_write_table(tables)
         else:
-            if avoid_master_reads and len(tables) > 1:
+            if avoid_main_reads and len(tables) > 1:
                 return dbm.get_read_table(tables[1:])
             return dbm.get_read_table(tables)
 
@@ -336,12 +336,12 @@ def get_table(kind, action, tables, avoid_master_reads = False):
 def get_thing_table(type_id, action = 'read' ):
     return get_table('t' + str(type_id), action,
                      types_id[type_id].tables,
-                     avoid_master_reads = types_id[type_id].avoid_master_reads)
+                     avoid_main_reads = types_id[type_id].avoid_main_reads)
 
 def get_rel_table(rel_type_id, action = 'read'):
     return get_table('r' + str(rel_type_id), action,
                      rel_types_id[rel_type_id].tables,
-                     avoid_master_reads = rel_types_id[rel_type_id].avoid_master_reads)
+                     avoid_main_reads = rel_types_id[rel_type_id].avoid_main_reads)
 
 
 #TODO does the type actually exist?
